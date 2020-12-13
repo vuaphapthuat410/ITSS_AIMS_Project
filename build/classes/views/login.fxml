@@ -15,7 +15,7 @@
          <font>
             <Font size="15.0" />
          </font></Button>
-      <TextField fx:id="tfUname" layoutX="185.0" layoutY="150.0" prefHeight="31.0" prefWidth="360.0" promptText="account_name" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="100.0">
+      <TextField fx:id="tfUname" layoutX="185.0" layoutY="150.0" prefHeight="31.0" prefWidth="360.0" promptText="username" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font size="15.0" />
          </font></TextField>
@@ -27,7 +27,7 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <CheckBox fx:id="cbConfirm" layoutX="190.0" layoutY="232.0" mnemonicParsing="false" text="Remember my password" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="180.0" />
+      <CheckBox fx:id="cdRemember" layoutX="190.0" layoutY="232.0" mnemonicParsing="false" text="Remember my password" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="180.0" />
       <Button fx:id="btCancel" alignment="TOP_CENTER" layoutX="330.0" layoutY="250.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#exit" prefHeight="31.0" prefWidth="220.0" text="Cancel" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="210.0">
          <font>
             <Font size="15.0" />
@@ -39,7 +39,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="66.0" layoutY="364.0" text="Don't have a App account?  " AnchorPane.leftAnchor="65.99999999999997" AnchorPane.topAnchor="325.0">
+      <Label layoutX="66.0" layoutY="364.0" text="      Don't have an account?  " AnchorPane.leftAnchor="65.99999999999997" AnchorPane.topAnchor="325.0">
          <font>
             <Font size="15.0" />
          </font>

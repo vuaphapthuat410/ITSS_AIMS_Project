@@ -19,6 +19,7 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 
 import models.User;
+import utils.SignupUtils;
 
 /**
  * FXML Controller class
@@ -54,7 +55,57 @@ public class SignupController implements Initializable {
 
     @FXML
     private void submit(ActionEvent event) {
-        if(!pfPasswd.getText().equals(pfRePasswd.getText())) {
+        if(!SignupUtils.isValidUname(tfUname.getText())) {
+            Alert statusAlert = new Alert(Alert.AlertType.ERROR);
+            statusAlert.setTitle("Error");
+
+            statusAlert.setHeaderText("Signup status");
+            statusAlert.setContentText("invalid username.");
+
+            statusAlert.showAndWait();
+        }
+        
+        else if(!SignupUtils.isValidEmail(tfEmail.getText())) {
+            Alert statusAlert = new Alert(Alert.AlertType.ERROR);
+            statusAlert.setTitle("Error");
+
+            statusAlert.setHeaderText("Signup status");
+            statusAlert.setContentText("Invalid email.");
+
+            statusAlert.showAndWait();
+        }
+        
+        else if(!SignupUtils.isValidPhone(tfPhoneNum.getText())) {
+            Alert statusAlert = new Alert(Alert.AlertType.ERROR);
+            statusAlert.setTitle("Error");
+
+            statusAlert.setHeaderText("Signup status");
+            statusAlert.setContentText("Invalid phone number.");
+
+            statusAlert.showAndWait();
+        }
+        
+        else if(!SignupUtils.isValidEmail(tfEmail.getText())) {
+            Alert statusAlert = new Alert(Alert.AlertType.ERROR);
+            statusAlert.setTitle("Error");
+
+            statusAlert.setHeaderText("Signup status");
+            statusAlert.setContentText("Invalid email.");
+
+            statusAlert.showAndWait();
+        }
+        
+        else if(!SignupUtils.isValidPasswd(pfPasswd.getText())) {
+            Alert statusAlert = new Alert(Alert.AlertType.ERROR);
+            statusAlert.setTitle("Error");
+
+            statusAlert.setHeaderText("Signup status");
+            statusAlert.setContentText("Please enter password.");
+
+            statusAlert.showAndWait();
+        }
+            
+        else if(!pfPasswd.getText().equals(pfRePasswd.getText())) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
@@ -63,11 +114,25 @@ public class SignupController implements Initializable {
 
             statusAlert.showAndWait();
         }
-        
-        // TO DO: create user in DB
-        
-        // TO DO: back to login pane if true
-        //this.back(event);
+        else {
+            // TO DO: create user in DB
+            // ..... Code here...........
+
+
+
+            //.......--------------...............
+
+            Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
+            statusAlert.setTitle("Sign up sucessfully");
+
+            statusAlert.setHeaderText("Signup status");
+            statusAlert.setContentText("Your account has been created. Redirecting to login screen ..... ");
+
+            statusAlert.showAndWait();
+
+            // Redirect to login screen
+            this.back(event);
+        }
     }
 
     @FXML

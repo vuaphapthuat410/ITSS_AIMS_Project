@@ -12,7 +12,14 @@ package models;
 public class User {
     private String uname;
     private String passwd;
+    
+    public User() {
+    }
 
+    public User(String uname) {
+        this.uname = uname;
+    }
+    
     public User(String uname, String passwd) {
         this.uname = uname;
         this.passwd = passwd;
@@ -21,5 +28,8 @@ public class User {
     public boolean authorize(String uname, String passwd) {
         return this.uname.equals(uname) && this.passwd.equals(passwd);
     }
-    
+
+    public String getUname() {
+        return uname;
+    }
 }
