@@ -12,6 +12,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+import models.test;
+
 /**
  *
  * @author vuaphapthuat410
@@ -21,7 +24,7 @@ public class Aims extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {   
-                System.out.print("Hello ");
+                test.doTest();
                 Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
                 stage.setTitle("AIMS PROJECT");
                 Scene scene = new Scene(root);
