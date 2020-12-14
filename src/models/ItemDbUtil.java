@@ -5,10 +5,16 @@
  */
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Vinh
  */
 public class ItemDbUtil {
-    
+    public static List<Item> getItemList{
+        ArrayList<Item> item = new ArrayList<>();
+        return item;
+    }
 }

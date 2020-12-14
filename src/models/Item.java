@@ -16,4 +16,7 @@ class Item {
     private int price;
     private int unit_sale;
     private String category;
+    
+    
+    
 }
