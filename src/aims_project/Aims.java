@@ -20,7 +20,8 @@ public class Aims extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        try {
+        try {   
+                System.out.print("Hello ");
                 Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
                 stage.setTitle("AIMS PROJECT");
                 Scene scene = new Scene(root);
