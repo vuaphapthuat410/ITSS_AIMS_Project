@@ -26,7 +26,7 @@
          <content>
             <VBox maxHeight="1500.0" minHeight="650.0">
                <children>
-                  <Button mnemonicParsing="false" prefWidth="200.0" text="Home" VBox.vgrow="NEVER">
+                  <Button fx:id="btHome" mnemonicParsing="false" onAction="#toHome" prefWidth="200.0" text="Home" VBox.vgrow="NEVER">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -170,7 +170,7 @@
             <Label layoutX="876.0" layoutY="27.0" text="Bell" AnchorPane.rightAnchor="390.0" />
             <ImageView fx:id="avatar" fitHeight="50.0" fitWidth="50.0" layoutX="924.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="310.0">
                <image>
-                  <Image url="@../../../../../../1858108.jpg" />
+                  <Image url="@../data/avatar.png" />
                </image>
             </ImageView>
             <Label fx:id="lbUname" layoutX="987.0" layoutY="21.0" text="Customer Vuong" AnchorPane.rightAnchor="160.0">

@@ -27,6 +27,9 @@ import javafx.stage.Stage;
 
 import models.User;
 import data.UserInfo;
+import java.sql.ResultSet;
+import connectors.UserDB;
+import java.sql.SQLException;
 
 /**
  * FXML Controller class
@@ -59,9 +62,10 @@ public class LoginController implements Initializable {
     }    
 
     @FXML
-    private void submit(ActionEvent event) {
-        // TODO change this to authorise user in DB using user.authorize(), now just for testing
-        if(tfUname.getText().equals("vuaphapthuat410") && pfPasswd.getText().equals("manhto99")) {
+    private void submit(ActionEvent event) throws ClassNotFoundException, SQLException {
+        // TODO change this to authorize user in DB using user.authorize(), now just for testing
+        Integer loginstatus = UserDB.getLoginUser(tfUname.getText(), pfPasswd.getText());
+        if(loginstatus != 0) {
             Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
             statusAlert.setTitle("Success");
 
@@ -78,9 +82,9 @@ public class LoginController implements Initializable {
             try {
                 Parent homepage;
                 // TO DO : change this
-                if(false)
+                if(loginstatus == 2)     // admin
                     homepage = FXMLLoader.load(getClass().getClassLoader().getResource("views/adminHome.fxml"));
-                else 
+                else  // 1 means user 
                     homepage = FXMLLoader.load(getClass().getClassLoader().getResource("views/userHome.fxml"));
                 //  
                 Stage primaryStage = new Stage();

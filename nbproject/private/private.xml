@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/run/media/vuaphapthuat410/HDD/BKcourses/Software%20Development%20(ITSS)/Project/AIMS_Project/src/aims_project/Aims.java</file>
+            <file>file:/run/media/vuaphapthuat410/HDD/BKcourses/Software%20Development%20(ITSS)/Project/AIMS_Project/src/connectors/ItemDB.java</file>
             <file>file:/run/media/vuaphapthuat410/HDD/BKcourses/Software%20Development%20(ITSS)/Project/AIMS_Project/src/controllers/UserHomeController.java</file>
-            <file>file:/run/media/vuaphapthuat410/HDD/BKcourses/Software%20Development%20(ITSS)/Project/AIMS_Project/src/controllers/LoginController.java</file>
+            <file>file:/run/media/vuaphapthuat410/HDD/BKcourses/Software%20Development%20(ITSS)/Project/AIMS_Project/src/connectors/UserDB.java</file>
+            <file>file:/run/media/vuaphapthuat410/HDD/BKcourses/Software%20Development%20(ITSS)/Project/AIMS_Project/src/controllers/AdminHomeController.java</file>
+            <file>file:/run/media/vuaphapthuat410/HDD/BKcourses/Software%20Development%20(ITSS)/Project/AIMS_Project/src/connectors/ConnDB.java</file>
+            <file>file:/run/media/vuaphapthuat410/HDD/BKcourses/Software%20Development%20(ITSS)/Project/AIMS_Project/src/models/User.java</file>
             <file>file:/run/media/vuaphapthuat410/HDD/BKcourses/Software%20Development%20(ITSS)/Project/AIMS_Project/src/views/userHome.fxml</file>
-            <file>file:/run/media/vuaphapthuat410/HDD/BKcourses/Software%20Development%20(ITSS)/Project/AIMS_Project/src/controllers/SignupController.java</file>
         </group>
     </open-files>
 </project-private>
