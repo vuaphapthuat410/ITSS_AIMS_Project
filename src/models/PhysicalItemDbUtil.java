@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhysicalItemDbUtil {
-    public static List<PhysicalItem> getPhysicalItemList() throws ClassNotFoundException, SQLException {
+    public static List<PhysicalGood> getPhysicalItemList() throws ClassNotFoundException, SQLException {
         String url = "jdbc:mysql://localhost:3306/aims";
         String userName = "root";
         String password = "";
 
 
-        ArrayList<PhysicalItem> physicalItem = new ArrayList<>();
+        ArrayList<PhysicalGood> physicalItem = new ArrayList<>();
 
 
 
@@ -39,8 +39,8 @@ public class PhysicalItemDbUtil {
                 int unit_sale = rs.getInt(5);
                 String category = rs.getString(6);
 
-                PhysicalItem p = new PhysicalItem(id, title, value, price, unit_sale, category);
-                physicalItem.add(p);
+//                PhysicalGood p = new PhysicalGood(id, title, value, price, unit_sale, category);
+//                physicalItem.add(p);
             }
         } catch (Exception e) {
             System.out.print("Cant connect");

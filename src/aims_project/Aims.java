@@ -15,7 +15,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-import models.PhysicalItem;
+import models.Book;
+import models.BookDbUtil;
+import models.PhysicalGood;
 import models.PhysicalItemDbUtil;
 
 /**
@@ -27,8 +29,8 @@ public class Aims extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {   
-                List<PhysicalItem> itemList = PhysicalItemDbUtil.getPhysicalItemList();
-                System.out.print("Title: " + itemList.get(0).getTitle() + "\n");
+                List<Book> bookList = BookDbUtil.getBookList();
+                System.out.print("Title: " + bookList.get(0).getTitle() + "\n");
 
                 Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
                 stage.setTitle("AIMS PROJECT");
