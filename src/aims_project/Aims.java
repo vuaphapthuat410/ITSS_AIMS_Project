@@ -6,6 +6,8 @@
 package aims_project;
 
 import java.io.IOException;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +15,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-import models.test;
+import models.Item;
+import models.ItemDbUtil;
 
 /**
  *
@@ -24,7 +27,9 @@ public class Aims extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {   
-                test.doTest();
+                List<Item> itemList = ItemDbUtil.getItemList();
+                System.out.print(itemList.get(0).getTitle());
+
                 Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
                 stage.setTitle("AIMS PROJECT");
                 Scene scene = new Scene(root);
