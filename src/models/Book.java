@@ -21,6 +21,18 @@ public class Book extends PhysicalGood {
         this.genre = genre;
     }
 
+    //no id
+    public Book(String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension, int weight, String author, String cover, String publisher, String publication_date, int page, String language, String genre) {
+        super(title, value, price, unit_sale, category, barcode, description, quantity, date, dimension, weight);
+        this.author = author;
+        this.cover = cover;
+        this.publisher = publisher;
+        this.publication_date = publication_date;
+        this.page = page;
+        this.language = language;
+        this.genre = genre;
+    }
+
     public String getAuthor() {
         return author;
     }

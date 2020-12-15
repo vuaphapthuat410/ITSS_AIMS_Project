@@ -3,6 +3,7 @@ package connectors;
 import com.mysql.jdbc.PreparedStatement;
 import models.Book;
 import models.Item;
+import models.PhysicalGood;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -77,32 +78,30 @@ public class BookDbUtil {
 
         return book;
     }
-    public static boolean addItem(Item book) throws ClassNotFoundException, SQLException {
+    public static boolean addItem(Book book) throws ClassNotFoundException, SQLException {
 
-        String itemQuery = "INSERT INTO `item` (`id`, `title`, `value`, `price`, `unit_sale`, `category`) VALUES (NULL, ?, ?, ?, ?, ?);";
-        String physicalGoodQuery = "INSERT INTO `item` (`id`, `title`, `value`, `price`, `unit_sale`, `category`) VALUES (NULL, ?, ?, ?, ?, ?);";
+
+        String query = "INSERT INTO `book` (`item_id`, `author`, `cover`, `publisher`, `publication_date`, `page`, `language`, `genre`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        // insert to Item and PhysicalGood
+        int id = AddItemHelper.insertToItemAndPhysicalGood(book);
 
         try{
             Connection connection = ConnDB.getMySQLConnection();
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(itemQuery,
-                                                                                        Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, book.getTitle());
-            statement.setString(2, Integer.toString(book.getValue()));
-            statement.setString(3, Integer.toString(book.getPrice()));
-            statement.setString(4, Integer.toString(book.getUnit_sale()));
-            statement.setString(5, book.getCategory());
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
 
+
+            //insert to PhysicalGood
+            statement.setString(1, Integer.toString(id));
+            statement.setString(2, book.getAuthor());
+            statement.setString(3, book.getCover());
+            statement.setString(4, book.getPublisher());
+            statement.setString(5, book.getPublication_date());
+            statement.setString(6, Integer.toString(book.getPage()));
+            statement.setString(7, book.getLanguage());
+            statement.setString(8, book.getGenre());
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("A new item was inserted successfully!");
-                ResultSet generatedKeys = statement.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    int id = generatedKeys.getInt(1);
-                    System.out.println("created item's id: " + id);
-                }
-                else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
-                }
+                return true;
             }
 
 
