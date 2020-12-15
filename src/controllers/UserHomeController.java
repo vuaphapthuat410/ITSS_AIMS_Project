@@ -57,11 +57,26 @@ public class UserHomeController implements Initializable {
     @FXML
     private ImageView avatar;
     @FXML
-    private StackPane mainview;
+    private StackPane mainview;   
+    @FXML
+    private Button btHome;
     
     private ScrollPane orderPane = null;
     private ScrollPane cartPane = null;
-    private ScrollPane recommendPane = null;      
+    private ScrollPane recommendPane = null;   
+    @FXML
+    private Label lbAlbum;
+    @FXML
+    private Label lbFilm;
+    @FXML
+    private Label lbBook;
+    @FXML
+    private Label lbLP;
+    @FXML
+    private Label lbCD;
+    @FXML
+    private Label lbDVD;
+    
     /**
      * Initializes the controller class.
      */
@@ -97,13 +112,18 @@ public class UserHomeController implements Initializable {
             mainview.getChildren().add(cartPane);
         }
     }
-
+    
+    @FXML
+    private void toHome(ActionEvent event) {
+        recommendPane.toFront();
+    }
+    
     @FXML
     private void logOut(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/login.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("Signup Form");
+            stage.setTitle("Login Screen");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.NONE);
             stage.show();
@@ -114,6 +134,34 @@ public class UserHomeController implements Initializable {
         catch (IOException e) {
             e.printStackTrace();
         } 
+    }
+
+    @FXML
+    private void toEbook(MouseEvent event) {
+    }
+
+    @FXML
+    private void toAlbum(MouseEvent event) {
+    }
+
+    @FXML
+    private void toFilm(MouseEvent event) {
+    }
+
+    @FXML
+    private void toBook(MouseEvent event) {
+    }
+
+    @FXML
+    private void toLP(MouseEvent event) {
+    }
+
+    @FXML
+    private void toCD(MouseEvent event) {
+    }
+
+    @FXML
+    private void toDVD(MouseEvent event) {
     }
     
 }

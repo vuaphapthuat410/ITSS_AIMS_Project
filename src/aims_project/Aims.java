@@ -5,20 +5,16 @@
  */
 package aims_project;
 
-import java.io.IOException;
-import java.util.List;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-
 import models.Book;
 import models.BookDbUtil;
-import models.PhysicalGood;
-import models.PhysicalItemDbUtil;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  *

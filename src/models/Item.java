@@ -7,6 +7,7 @@ package models;
 
 /**
  *
+<<<<<<< HEAD
  * @author Vinh
  */
 public class Item {
@@ -73,4 +74,5 @@ public class Item {
     public void setCategory(String category) {
         this.category = category;
     }
+
 }

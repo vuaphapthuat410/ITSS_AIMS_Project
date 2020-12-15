@@ -1,5 +1,6 @@
 package models;
 
+
 public class Book extends PhysicalGood {
     private String author;
     private String cover;
