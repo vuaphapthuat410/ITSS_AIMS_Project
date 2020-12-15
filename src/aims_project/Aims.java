@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import models.Book;
 import connectors.BookDbUtil;
 import models.CD;
+import models.test;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,11 +27,8 @@ public class Aims extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        try {   
-                List<Book> bookList = BookDbUtil.getAllBook();
-                System.out.print("Title: " + bookList.get(0).getTitle() + "\n");
-                List<CD> cdList = CDDbUtil.getAllCD();
-                System.out.print("Title: " + cdList.get(0).getTitle() + "\n");
+        try {
+                test.doTest();
 
                 Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
                 stage.setTitle("AIMS PROJECT");
