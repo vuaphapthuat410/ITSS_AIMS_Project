@@ -5,6 +5,7 @@
  */
 package aims_project;
 
+import connectors.CDDbUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Book;
 import connectors.BookDbUtil;
+import models.CD;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +29,8 @@ public class Aims extends Application {
         try {   
                 List<Book> bookList = BookDbUtil.getAllBook();
                 System.out.print("Title: " + bookList.get(0).getTitle() + "\n");
+                List<CD> cdList = CDDbUtil.getAllCD();
+                System.out.print("Title: " + cdList.get(0).getTitle() + "\n");
 
                 Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
                 stage.setTitle("AIMS PROJECT");
