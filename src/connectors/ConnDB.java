@@ -17,10 +17,9 @@ public class ConnDB {
     // Retrieve login info
     public static Connection getMySQLConnection() throws SQLException, ClassNotFoundException {
         String hostName = "localhost";
-
         String dbName = "aims";
         String userName = "root";
-        String password = "password";
+        String password = "";
 
         return getMySQLConnection(hostName, dbName, userName, password);
     }

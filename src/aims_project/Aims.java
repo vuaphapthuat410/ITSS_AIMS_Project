@@ -11,7 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Book;
-import models.BookDbUtil;
+import connectors.BookDbUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +25,7 @@ public class Aims extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {   
-                List<Book> bookList = BookDbUtil.getBookList();
+                List<Book> bookList = BookDbUtil.getAllBook();
                 System.out.print("Title: " + bookList.get(0).getTitle() + "\n");
 
                 Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
