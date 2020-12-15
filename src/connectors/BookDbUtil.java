@@ -1,6 +1,8 @@
 package connectors;
 
+import com.mysql.jdbc.PreparedStatement;
 import models.Book;
+import models.Item;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDbUtil {
-    public static List<Book> getAllBook() throws ClassNotFoundException, SQLException {
+    public static List<Book> getAllItem() throws ClassNotFoundException, SQLException {
 
         String query = "SELECT `book`.*, `physical_good`.*, `item`.* FROM `book` LEFT JOIN `physical_good` ON `book`.`item_id` = `physical_good`.`item_id` LEFT JOIN `item` ON `physical_good`.`item_id` = `item`.`id`;";
         ArrayList<Book> book = new ArrayList<>();
@@ -74,5 +76,44 @@ public class BookDbUtil {
         }
 
         return book;
+    }
+    public static boolean addItem(Item book) throws ClassNotFoundException, SQLException {
+
+        String itemQuery = "INSERT INTO `item` (`id`, `title`, `value`, `price`, `unit_sale`, `category`) VALUES (NULL, ?, ?, ?, ?, ?);";
+        String physicalGoodQuery = "INSERT INTO `item` (`id`, `title`, `value`, `price`, `unit_sale`, `category`) VALUES (NULL, ?, ?, ?, ?, ?);";
+
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(itemQuery,
+                                                                                        Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, book.getTitle());
+            statement.setString(2, Integer.toString(book.getValue()));
+            statement.setString(3, Integer.toString(book.getPrice()));
+            statement.setString(4, Integer.toString(book.getUnit_sale()));
+            statement.setString(5, book.getCategory());
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new item was inserted successfully!");
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1);
+                    System.out.println("created item's id: " + id);
+                }
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+
+
+
+
+
+        } catch (Exception e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

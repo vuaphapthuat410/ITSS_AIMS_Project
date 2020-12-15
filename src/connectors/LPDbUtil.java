@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LPDbUtil {
-    public static List<LP> getAllLP() throws ClassNotFoundException, SQLException {
+    public static List<LP> getAllItem() throws ClassNotFoundException, SQLException {
 
         String query = "SELECT `lp`.*, `physical_good`.*, `item`.* FROM `lp` LEFT JOIN `physical_good` ON `lp`.`item_id` = `physical_good`.`item_id` LEFT JOIN `item` ON `physical_good`.`item_id` = `item`.`id`;";
         ArrayList<LP> lp = new ArrayList<>();

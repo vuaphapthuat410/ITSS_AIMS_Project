@@ -19,13 +19,19 @@ import java.util.List;
  */
 public class test {
     public static void doTest() throws SQLException, ClassNotFoundException {
-        List<Book> bookList = BookDbUtil.getAllBook();
+        List<Book> bookList = BookDbUtil.getAllItem();
         System.out.print("Book Title: " + bookList.get(0).getTitle() + "\n");
-        List<CD> cdList = CDDbUtil.getAllCD();
+        List<CD> cdList = CDDbUtil.getAllItem();
         System.out.print("CD Title: " + cdList.get(0).getTitle() + "\n");
-        List<DVD> dvdList = DVDDbUtil.getAllDVD();
+        List<DVD> dvdList = DVDDbUtil.getAllItem();
         System.out.print("DVD Title: " + dvdList.get(0).getTitle() + "\n");
-        List<LP> lpList = LPDbUtil.getAllLP();
+        List<LP> lpList = LPDbUtil.getAllItem();
         System.out.print("LP Title: " + lpList.get(0).getTitle() + "\n");
+
+//        PhysicalGood item = new PhysicalGood("test1", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50);
+//        boolean result = BookDbUtil.addItem(item);
+
+        Item item = new Item("test1", 120, 123, 0, "test");
+        boolean result = BookDbUtil.addItem(item);
     }
 }

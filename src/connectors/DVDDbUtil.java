@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DVDDbUtil {
-    public static List<DVD> getAllDVD() throws ClassNotFoundException, SQLException {
+    public static List<DVD> getAllItem() throws ClassNotFoundException, SQLException {
 
         String query = "SELECT `dvd`.*, `physical_good`.*, `item`.* FROM `dvd` LEFT JOIN `physical_good` ON `dvd`.`item_id` = `physical_good`.`item_id` LEFT JOIN `item` ON `physical_good`.`item_id` = `item`.`id`;";
         ArrayList<DVD> dvd = new ArrayList<>();

@@ -19,6 +19,16 @@ public class PhysicalGood extends Item {
         this.weight = weight;
     }
 
+    public PhysicalGood(String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension, int weight) {
+        super(title, value, price, unit_sale, category);
+        this.barcode = barcode;
+        this.description = description;
+        this.quantity = quantity;
+        this.date = date;
+        this.dimension = dimension;
+        this.weight = weight;
+    }
+
     public String getBarcode() {
         return barcode;
     }
