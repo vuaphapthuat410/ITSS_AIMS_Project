@@ -32,6 +32,7 @@ public class test {
         Book item = new Book("test3", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
         boolean result = BookDbUtil.addItem(item);
         item.setTitle("update test");
+        item.setAuthor("Mario Puzo");
         result = BookDbUtil.updateItem(item);
 
 //         add cd
