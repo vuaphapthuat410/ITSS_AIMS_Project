@@ -1,6 +1,7 @@
 package connectors;
 
 import com.mysql.jdbc.PreparedStatement;
+import connectors.helper.AddItemHelper;
 import models.DVD;
 
 import java.sql.Connection;
