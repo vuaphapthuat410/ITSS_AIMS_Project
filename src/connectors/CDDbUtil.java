@@ -1,5 +1,7 @@
 package connectors;
 
+import com.mysql.jdbc.PreparedStatement;
+import models.Book;
 import models.CD;
 
 import java.sql.Connection;
@@ -68,5 +70,41 @@ public class CDDbUtil {
         }
 
         return cd;
+    }
+
+
+    public static boolean addItem(CD cd) throws ClassNotFoundException, SQLException {
+
+
+        String query = "INSERT INTO `cd` (`item_id`, `artist`, `record_label`, `publication_date`, `genre`) VALUES (?, ?, ?, ?, ?);";
+        // insert to Item and PhysicalGood
+        int id = AddItemHelper.insertToItemAndPhysicalGood(cd);
+
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+
+
+            //insert to PhysicalGood
+            statement.setString(1, Integer.toString(id));
+            statement.setString(2, cd.getArtist());
+            statement.setString(3, cd.getRecord_label());
+            statement.setString(4, cd.getPublication_date());
+            statement.setString(5, cd.getGenre());
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+
+
+
+
+        } catch (Exception e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }
