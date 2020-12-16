@@ -3,7 +3,9 @@ package connectors;
 //import com.mysql.jdbc.PreparedStatement;
 import java.sql.PreparedStatement;
 import connectors.helper.AddItemHelper;
+import connectors.helper.UpdateItemHelper;
 import models.CD;
+import models.DVD;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -110,6 +112,41 @@ public class CDDbUtil {
             e.printStackTrace();
         }
 
+        return false;
+    }
+
+    public static boolean updateItem(CD item) throws ClassNotFoundException, SQLException{
+
+
+        String query = "UPDATE `cd` SET `artist` = ?, `record_label` = ?, `publication_date` = ?, `genre` = ? WHERE `cd`.`item_id` = ?";
+        // insert to Item and PhysicalGood
+        boolean result = UpdateItemHelper.updateItemAndPhysicalGood(item);
+        if (!result){
+            return false;
+        }
+
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+
+
+            //insert to PhysicalGood
+            statement.setString(1, item.getArtist());
+            statement.setString(2, item.getRecord_label());
+            statement.setString(3, item.getPublication_date());
+            statement.setString(4, item.getGenre());
+            statement.setString(5, Integer.toString(item.getId()));
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+
+        } catch (Exception e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
         return false;
     }
 }
