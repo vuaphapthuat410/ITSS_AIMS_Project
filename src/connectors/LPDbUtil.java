@@ -1,15 +1,15 @@
 package connectors;
 
-import com.mysql.jdbc.PreparedStatement;
-import models.Book;
-import models.LP;
-
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import models.Book;
+import models.LP;
 
 public class LPDbUtil {
     public static List<LP> getAllItem() throws ClassNotFoundException, SQLException {

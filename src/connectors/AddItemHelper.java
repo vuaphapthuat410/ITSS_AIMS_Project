@@ -1,12 +1,12 @@
 package connectors;
 
-import com.mysql.jdbc.PreparedStatement;
-import models.PhysicalGood;
-
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import models.PhysicalGood;
 
 public class AddItemHelper {
     public static int insertToItemAndPhysicalGood(PhysicalGood book){
