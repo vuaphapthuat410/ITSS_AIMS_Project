@@ -1,4 +1,9 @@
-package connectors;
+package connectors.helper;
+
+//import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
+import connectors.ConnDB;
+import models.PhysicalGood;
 
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -61,6 +66,7 @@ public class AddItemHelper {
             e.printStackTrace();
         }
 
+        book.setId(id);
         return id;
     }
 

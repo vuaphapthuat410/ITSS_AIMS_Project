@@ -1,6 +1,12 @@
 package connectors;
 
+//import com.mysql.jdbc.PreparedStatement;
 import java.sql.PreparedStatement;
+import connectors.helper.AddItemHelper;
+import connectors.helper.UpdateItemHelper;
+import models.Book;
+
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -118,6 +124,44 @@ public class BookDbUtil {
             e.printStackTrace();
         }
 
+        return false;
+    }
+
+    public static boolean updateItem(Book item) throws ClassNotFoundException, SQLException{
+
+
+        String query = "UPDATE `book` SET `author` = ?, `cover` = ?, `publisher` = ?, `publication_date` = ?, `page` = ?, `language` = ?, `genre` = ? WHERE `book`.`item_id` = ?";
+        // insert to Item and PhysicalGood
+        boolean result = UpdateItemHelper.updateItemAndPhysicalGood(item);
+        if (!result){
+            return false;
+        }
+
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+
+
+            //insert to PhysicalGood
+            statement.setString(1, item.getAuthor());
+            statement.setString(2, item.getCover());
+            statement.setString(3, item.getPublisher());
+            statement.setString(4, item.getPublication_date());
+            statement.setString(5, Integer.toString(item.getPage()));
+            statement.setString(6, item.getLanguage());
+            statement.setString(7, item.getGenre());
+            statement.setString(8, Integer.toString(item.getId()));
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+
+        } catch (Exception e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
         return false;
     }
 }
