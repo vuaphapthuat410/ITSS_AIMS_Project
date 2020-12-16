@@ -20,25 +20,16 @@ public class UpdateItemHelper {
 
             //Insert to Item
             statement.setString(1, item.getTitle());
-            System.out.println(item.getTitle());
             statement.setString(2, Integer.toString(item.getValue()));
-            System.out.println(item.getValue());
             statement.setString(3, Integer.toString(item.getPrice()));
-            System.out.println(item.getPrice());
             statement.setString(4, Integer.toString(item.getUnit_sale()));
-            System.out.println(item.getUnit_sale());
             statement.setString(5, item.getCategory());
-            System.out.println(item.getCategory());
             statement.setString(6, Integer.toString(item.getId()));
-            System.out.println(item.getId());
-            System.out.println(statement);
 
 
             int rowsInserted = statement.executeUpdate();
 
-            if (rowsInserted > 0) {
-                System.out.println("A new item was updated successfully!");
-            } else {
+            if (rowsInserted == 0){
                 return false;
             }
 
@@ -55,9 +46,7 @@ public class UpdateItemHelper {
             statement.setString(9, Integer.toString(item.getId()));
 
             rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("A new item was updated successfully!");
-            } else {
+            if (rowsInserted == 0){
                 return false;
             }
 
