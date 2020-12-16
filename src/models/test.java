@@ -31,6 +31,9 @@ public class test {
 //         add book
         Book item = new Book("test1", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
         boolean result = BookDbUtil.addItem(item);
+        item.setTitle("update test");
+        System.out.println(item.getTitle());
+        result = BookDbUtil.updateItem(item);
 
 //         add cd
 //        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
@@ -44,9 +47,11 @@ public class test {
 //        LP item = new LP("test-lp", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "Mozard", "Springer", "2020-12-09", "classical");
 //        boolean result = LPDbUtil.addItem(item);
 //          check result
-//        if (result){
-//            System.out.println("Add success");
-//        }
+        if (result){
+            System.out.println("Operation success");
+        } else {
+            System.out.println("Operation fail");
+        }
 //        PhysicalGood item = new PhysicalGood("test1", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50);
 //        boolean result = BookDbUtil.addItem(item);
 

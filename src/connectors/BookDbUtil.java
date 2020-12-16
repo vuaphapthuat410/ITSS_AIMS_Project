@@ -1,7 +1,9 @@
 package connectors;
 
-import com.mysql.jdbc.PreparedStatement;
+//import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 import connectors.helper.AddItemHelper;
+import connectors.helper.UpdateItemHelper;
 import models.Book;
 
 
@@ -118,5 +120,10 @@ public class BookDbUtil {
         }
 
         return false;
+    }
+
+    public static boolean updateItem(Book book) throws ClassNotFoundException, SQLException{
+        boolean result = UpdateItemHelper.updateItemAndPhysicalGood(book);
+        return result;
     }
 }

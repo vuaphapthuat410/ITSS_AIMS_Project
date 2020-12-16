@@ -1,6 +1,7 @@
 package connectors.helper;
 
-import com.mysql.jdbc.PreparedStatement;
+//import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 import connectors.ConnDB;
 import models.PhysicalGood;
 
