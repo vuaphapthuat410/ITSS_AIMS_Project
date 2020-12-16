@@ -1,5 +1,7 @@
 package connectors;
 
+import com.mysql.jdbc.PreparedStatement;
+import models.Book;
 import models.LP;
 
 import java.sql.Connection;
@@ -68,5 +70,41 @@ public class LPDbUtil {
         }
 
         return lp;
+    }
+
+
+    public static boolean addItem(LP lp) throws ClassNotFoundException, SQLException {
+
+
+        String query = "INSERT INTO `lp` (`item_id`, `artist`, `record_label`, `publication_date`, `genre`) VALUES (?, ?, ?, ?, ?);";
+        // insert to Item and PhysicalGood
+        int id = AddItemHelper.insertToItemAndPhysicalGood(lp);
+
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+
+
+            //insert to PhysicalGood
+            statement.setString(1, Integer.toString(id));
+            statement.setString(2, lp.getArtist());
+            statement.setString(3, lp.getRecord_label());
+            statement.setString(4, lp.getPublication_date());
+            statement.setString(5, lp.getGenre());
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+
+
+
+
+        } catch (Exception e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

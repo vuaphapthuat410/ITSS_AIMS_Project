@@ -14,6 +14,14 @@ public class LP extends PhysicalGood{
         this.genre = genre;
     }
 
+    public LP(String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension, int weight, String artist, String record_label, String publication_date, String genre) {
+        super(title, value, price, unit_sale, category, barcode, description, quantity, date, dimension, weight);
+        this.artist = artist;
+        this.record_label = record_label;
+        this.publication_date = publication_date;
+        this.genre = genre;
+    }
+
     public String getArtist() {
         return artist;
     }
