@@ -11,7 +11,7 @@ import models.PhysicalGood;
 public class AddItemHelper {
     public static int insertToItemAndPhysicalGood(PhysicalGood book){
         String itemQuery = "INSERT INTO `item` (`id`, `title`, `value`, `price`, `unit_sale`, `category`) VALUES (NULL, ?, ?, ?, ?, ?);";
-        String physicalGoodQuery = "INSERT INTO `physical_good` (`item_id`, `barcode`, `description`, `quantity`, `date`, `dimension`, `weight`) VALUES (?, ? ,? ,? ,? ,? ,? );";
+        String physicalGoodQuery = "INSERT INTO `physical_good` (`item_id`, `barcode`, `description`, `quantity`, `date`, `dimension_x`, `dimension_y`, `dimension_z`, `weight`) VALUES (?, ?, ?, ? ,? ,? ,? ,? ,? );";
         int id = 0;
 
         try{
@@ -46,8 +46,10 @@ public class AddItemHelper {
             statement.setString(3, book.getDescription());
             statement.setString(4, Integer.toString(book.getQuantity()));
             statement.setString(5, book.getDate());
-            statement.setString(6, Integer.toString(book.getDimension()));
-            statement.setString(7, Integer.toString(book.getWeight()));
+            statement.setString(6, Integer.toString(book.getDimension_x()));
+            statement.setString(7, Integer.toString(book.getDimension_y()));
+            statement.setString(8, Integer.toString(book.getDimension_z()));
+            statement.setString(9, Integer.toString(book.getWeight()));
             rowsInserted = statement.executeUpdate();
 
 

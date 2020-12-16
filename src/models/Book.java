@@ -10,8 +10,8 @@ public class Book extends PhysicalGood {
     private String language;
     private String genre;
 
-    public Book(int id, String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension, int weight, String author, String cover, String publisher, String publication_date, int page, String language, String genre) {
-        super(id, title, value, price, unit_sale, category, barcode, description, quantity, date, dimension, weight);
+    public Book(int id, String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension_x, int dimension_y, int dimension_z, int weight, String author, String cover, String publisher, String publication_date, int page, String language, String genre) {
+        super(id, title, value, price, unit_sale, category, barcode, description, quantity, date, dimension_x, dimension_y, dimension_z, weight);
         this.author = author;
         this.cover = cover;
         this.publisher = publisher;
@@ -21,9 +21,8 @@ public class Book extends PhysicalGood {
         this.genre = genre;
     }
 
-    //no id
-    public Book(String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension, int weight, String author, String cover, String publisher, String publication_date, int page, String language, String genre) {
-        super(title, value, price, unit_sale, category, barcode, description, quantity, date, dimension, weight);
+    public Book(String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension_x, int dimension_y, int dimension_z, int weight, String author, String cover, String publisher, String publication_date, int page, String language, String genre) {
+        super(title, value, price, unit_sale, category, barcode, description, quantity, date, dimension_x, dimension_y, dimension_z, weight);
         this.author = author;
         this.cover = cover;
         this.publisher = publisher;
@@ -32,6 +31,7 @@ public class Book extends PhysicalGood {
         this.language = language;
         this.genre = genre;
     }
+
 
     public String getAuthor() {
         return author;

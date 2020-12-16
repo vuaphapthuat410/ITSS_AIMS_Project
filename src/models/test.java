@@ -29,8 +29,8 @@ public class test {
         System.out.print("LP Title: " + lpList.get(0).getTitle() + "\n");
 
 //         add book
-//        Book item = new Book("test1", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
-//        boolean result = BookDbUtil.addItem(item);
+        Book item = new Book("test1", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
+        boolean result = BookDbUtil.addItem(item);
 
 //         add cd
 //        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
@@ -41,12 +41,12 @@ public class test {
 //        boolean result = DVDDbUtil.addItem(item);
 
 //        add lp
-        LP item = new LP("test-lp", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "Mozard", "Springer", "2020-12-09", "classical");
-        boolean result = LPDbUtil.addItem(item);
+//        LP item = new LP("test-lp", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "Mozard", "Springer", "2020-12-09", "classical");
+//        boolean result = LPDbUtil.addItem(item);
 //          check result
-        if (result){
-            System.out.println("Add success");
-        }
+//        if (result){
+//            System.out.println("Add success");
+//        }
 //        PhysicalGood item = new PhysicalGood("test1", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50);
 //        boolean result = BookDbUtil.addItem(item);
 
