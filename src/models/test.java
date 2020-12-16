@@ -29,19 +29,21 @@ public class test {
         System.out.print("LP Title: " + lpList.get(0).getTitle() + "\n");
 
 //         add book
-        Book item = new Book("test3", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
-        boolean result = BookDbUtil.addItem(item);
-        item.setTitle("update test");
-        item.setAuthor("Mario Puzo");
-        result = BookDbUtil.updateItem(item);
+//        Book item = new Book("test3", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
+//        boolean result = BookDbUtil.addItem(item);
+//        item.setTitle("update test");
+//        item.setAuthor("Mario Puzo");
+//        result = BookDbUtil.updateItem(item);
 
 //         add cd
 //        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
 //        boolean result = CDDbUtil.addItem(item);
 
 //        add dvd
-//        DVD item = new DVD("test-dvd", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "anime", "me", 5000, "disney", "English", "English", "2020-12-09", "test");
-//        boolean result = DVDDbUtil.addItem(item);
+        DVD item = new DVD("test-dvd", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "anime", "me", 5000, "disney", "English", "English", "2020-12-09", "test");
+        boolean result = DVDDbUtil.addItem(item);
+        item.setLanguage("Vietnamese");
+        result = DVDDbUtil.updateItem(item);
 
 //        add lp
 //        LP item = new LP("test-lp", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "Mozard", "Springer", "2020-12-09", "classical");

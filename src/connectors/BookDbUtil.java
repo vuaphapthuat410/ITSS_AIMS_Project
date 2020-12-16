@@ -122,12 +122,12 @@ public class BookDbUtil {
         return false;
     }
 
-    public static boolean updateItem(Book book) throws ClassNotFoundException, SQLException{
+    public static boolean updateItem(Book item) throws ClassNotFoundException, SQLException{
 
 
         String query = "UPDATE `book` SET `author` = ?, `cover` = ?, `publisher` = ?, `publication_date` = ?, `page` = ?, `language` = ?, `genre` = ? WHERE `book`.`item_id` = ?";
         // insert to Item and PhysicalGood
-        boolean result = UpdateItemHelper.updateItemAndPhysicalGood(book);
+        boolean result = UpdateItemHelper.updateItemAndPhysicalGood(item);
         if (!result){
             return false;
         }
@@ -138,14 +138,14 @@ public class BookDbUtil {
 
 
             //insert to PhysicalGood
-            statement.setString(1, book.getAuthor());
-            statement.setString(2, book.getCover());
-            statement.setString(3, book.getPublisher());
-            statement.setString(4, book.getPublication_date());
-            statement.setString(5, Integer.toString(book.getPage()));
-            statement.setString(6, book.getLanguage());
-            statement.setString(7, book.getGenre());
-            statement.setString(8, Integer.toString(book.getId()));
+            statement.setString(1, item.getAuthor());
+            statement.setString(2, item.getCover());
+            statement.setString(3, item.getPublisher());
+            statement.setString(4, item.getPublication_date());
+            statement.setString(5, Integer.toString(item.getPage()));
+            statement.setString(6, item.getLanguage());
+            statement.setString(7, item.getGenre());
+            statement.setString(8, Integer.toString(item.getId()));
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
