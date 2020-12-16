@@ -63,6 +63,7 @@ public class AddItemHelper {
             e.printStackTrace();
         }
 
+        book.setId(id);
         return id;
     }
 

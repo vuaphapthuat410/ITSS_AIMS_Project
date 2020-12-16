@@ -29,7 +29,7 @@ public class test {
         System.out.print("LP Title: " + lpList.get(0).getTitle() + "\n");
 
 //         add book
-        Book item = new Book("test1", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
+        Book item = new Book("test3", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
         boolean result = BookDbUtil.addItem(item);
         item.setTitle("update test");
         System.out.println(item.getTitle());
