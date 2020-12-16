@@ -1,5 +1,6 @@
 package connectors;
 
+import com.mysql.jdbc.PreparedStatement;
 import models.Book;
 import models.DVD;
 
@@ -78,4 +79,44 @@ public class DVDDbUtil {
 
         return dvd;
     }
+
+    public static boolean addItem(DVD dvd) throws ClassNotFoundException, SQLException {
+
+
+        String query = "INSERT INTO `dvd` (`item_id`, `type`, `director`, `runtime`, `studio`, `language`, `subtitle`, `publication_date`, `genre`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        // insert to Item and PhysicalGood
+        int id = AddItemHelper.insertToItemAndPhysicalGood(dvd);
+
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+
+
+            //insert to PhysicalGood
+            statement.setString(1, Integer.toString(id));
+            statement.setString(2, dvd.getType());
+            statement.setString(3, dvd.getDirector());
+            statement.setString(4, Integer.toString(dvd.getRuntime()));
+            statement.setString(5, dvd.getStudio());
+            statement.setString(6, dvd.getLanguage());
+            statement.setString(7, dvd.getSubtitle());
+            statement.setString(8, dvd.getPublication_date());
+            statement.setString(9, dvd.getGenre());
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+
+
+
+
+        } catch (Exception e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }

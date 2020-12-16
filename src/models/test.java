@@ -24,7 +24,7 @@ public class test {
         List<CD> cdList = CDDbUtil.getAllItem();
         System.out.print("CD Title: " + cdList.get(0).getTitle() + "\n");
         List<DVD> dvdList = DVDDbUtil.getAllItem();
-        System.out.print("DVD Title: " + dvdList.get(0).getTitle() + "\n");
+        System.out.print("DVD Title: " + dvdList.get(2).getTitle() + "\n");
         List<LP> lpList = LPDbUtil.getAllItem();
         System.out.print("LP Title: " + lpList.get(0).getTitle() + "\n");
 
@@ -33,8 +33,12 @@ public class test {
 //        boolean result = BookDbUtil.addItem(item);
 
 //         add cd
-        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
-        boolean result = CDDbUtil.addItem(item);
+//        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
+//        boolean result = CDDbUtil.addItem(item);
+
+//        add dvd
+        DVD item = new DVD("test-dvd", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "anime", "me", 5000, "disney", "English", "English", "2020-12-09", "test");
+        boolean result = DVDDbUtil.addItem(item);
 
 //        PhysicalGood item = new PhysicalGood("test1", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50);
 //        boolean result = BookDbUtil.addItem(item);
