@@ -7,53 +7,80 @@ package models;
 
 /**
  *
- * @author vuaphapthuat410
+<<<<<<< HEAD
+ * @author Vinh
  */
-public abstract class Item {
-    protected String itemId;
-    protected String title;
-    protected Integer value;
-    protected Integer price;
-    protected Integer unitSale;
+public class Item {
+    private int id;
+    private String title;
+    private int value;
+    private int price;
+    private int unit_sale;
+    private String category;
 
-    public Item(String itemId, String title, Integer value, Integer price, Integer unitSale) {
-        this.itemId = itemId;
+    public Item(int id, String title, int value, int price, int unit_sale, String category) {
+        this.id = id;
         this.title = title;
         this.value = value;
         this.price = price;
-        this.unitSale = unitSale;
+        this.unit_sale = unit_sale;
+        this.category = category;
+    }
+
+    public Item(String title, int value, int price, int unit_sale, String category) {
+        this.title = title;
+        this.value = value;
+        this.price = price;
+        this.unit_sale = unit_sale;
+        this.category = category;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    protected void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public Integer getValue() {
+    public int getValue() {
         return value;
     }
 
-    protected void setValue(Integer value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    protected void setPrice(Integer price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public Integer getUnitSale() {
-        return unitSale;
+    public int getUnit_sale() {
+        return unit_sale;
     }
 
-    protected void setUnitSale(Integer unitSale) {
-        this.unitSale = unitSale;
+    public void setUnit_sale(int unit_sale) {
+        this.unit_sale = unit_sale;
     }
-    
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
 }
