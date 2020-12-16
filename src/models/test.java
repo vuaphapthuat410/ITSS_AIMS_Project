@@ -35,11 +35,11 @@ public class test {
 //        item.setAuthor("Mario Puzo");
 //        result = BookDbUtil.updateItem(item);
 
-//         add cd
-        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123,  "2020-02-22", 123,123, 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
-        boolean result = CDDbUtil.addItem(item);
-        item.setArtist("Beethoven");
-        result = CDDbUtil.updateItem(item);
+////         add cd
+//        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123,  "2020-02-22", 123,123, 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
+//        boolean result = CDDbUtil.addItem(item);
+//        item.setArtist("Beethoven");
+//        result = CDDbUtil.updateItem(item);
 
 //        add dvd
 //        DVD item = new DVD("test-dvd", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "anime", "me", 5000, "disney", "English", "English", "2020-12-09", "test");
@@ -48,8 +48,12 @@ public class test {
 //        result = DVDDbUtil.updateItem(item);
 
 //        add lp
-//        LP item = new LP("test-lp", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 50, "Mozard", "Springer", "2020-12-09", "classical");
-//        boolean result = LPDbUtil.addItem(item);
+        LP item = new LP("test-lp", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "Mozard", "Springer", "2020-12-09", "classical");
+        boolean result = LPDbUtil.addItem(item);
+        item.setArtist("Beethoven");
+        item.setTitle("LP title update");
+        item.setDimension_x(1000);
+        result = LPDbUtil.updateItem(item);
 //          check result
         if (result){
             System.out.println("Operation success");
