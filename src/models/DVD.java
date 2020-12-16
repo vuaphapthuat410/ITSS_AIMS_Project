@@ -10,8 +10,8 @@ public class DVD extends PhysicalGood{
     private String publication_date;
     private String genre;
 
-    public DVD(int id, String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension, int weight, String type, String director, int runtime, String studio, String language, String subtitle, String publication_date, String genre) {
-        super(id, title, value, price, unit_sale, category, barcode, description, quantity, date, dimension, weight);
+    public DVD(int id, String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension_x, int dimension_y, int dimension_z, int weight, String type, String director, int runtime, String studio, String language, String subtitle, String publication_date, String genre) {
+        super(id, title, value, price, unit_sale, category, barcode, description, quantity, date, dimension_x, dimension_y, dimension_z, weight);
         this.type = type;
         this.director = director;
         this.runtime = runtime;
@@ -22,8 +22,8 @@ public class DVD extends PhysicalGood{
         this.genre = genre;
     }
 
-    public DVD(String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension, int weight, String type, String director, int runtime, String studio, String language, String subtitle, String publication_date, String genre) {
-        super(title, value, price, unit_sale, category, barcode, description, quantity, date, dimension, weight);
+    public DVD(String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension_x, int dimension_y, int dimension_z, int weight, String type, String director, int runtime, String studio, String language, String subtitle, String publication_date, String genre) {
+        super(title, value, price, unit_sale, category, barcode, description, quantity, date, dimension_x, dimension_y, dimension_z, weight);
         this.type = type;
         this.director = director;
         this.runtime = runtime;

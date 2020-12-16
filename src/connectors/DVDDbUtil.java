@@ -36,13 +36,15 @@ public class DVDDbUtil {
                 String description = rs.getString(12);
                 int quantity = rs.getInt(13);
                 String date = rs.getString(14);
-                int dimension = rs.getInt(15);
-                int weight = rs.getInt(16);
-                String title = rs.getString(18);
-                int value = rs.getInt(19);
-                int price = rs.getInt(20);
-                int unit_sale = rs.getInt(21);
-                String category = rs.getString(22);
+                int dimension_x = rs.getInt(15);
+                int dimension_y = rs.getInt(16);
+                int dimension_z = rs.getInt(17);
+                int weight = rs.getInt(18);
+                String title = rs.getString(20);
+                int value = rs.getInt(21);
+                int price = rs.getInt(22);
+                int unit_sale = rs.getInt(23);
+                String category = rs.getString(24);
 
 
 
@@ -58,7 +60,9 @@ public class DVDDbUtil {
                         description,
                         quantity,
                         date,
-                        dimension,
+                        dimension_x,
+                        dimension_y,
+                        dimension_z,
                         weight,
                         type,
                         director,

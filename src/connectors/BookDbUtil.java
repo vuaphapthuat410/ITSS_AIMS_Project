@@ -36,13 +36,15 @@ public class BookDbUtil {
                 String description = rs.getString(11);
                 int quantity = rs.getInt(12);
                 String date = rs.getString(13);
-                int dimension = rs.getInt(14);
-                int weight = rs.getInt(15);
-                String title = rs.getString(17);
-                int value = rs.getInt(18);
-                int price = rs.getInt(19);
-                int unit_sale = rs.getInt(20);
-                String category = rs.getString(21);
+                int dimension_x = rs.getInt(14);
+                int dimension_y = rs.getInt(15);
+                int dimension_z = rs.getInt(16);
+                int weight = rs.getInt(17);
+                String title = rs.getString(19);
+                int value = rs.getInt(20);
+                int price = rs.getInt(21);
+                int unit_sale = rs.getInt(22);
+                String category = rs.getString(23);
 
 
 
@@ -58,7 +60,9 @@ public class BookDbUtil {
                         description,
                         quantity,
                         date,
-                        dimension,
+                        dimension_x,
+                        dimension_y,
+                        dimension_z,
                         weight,
                         author,
                         cover,

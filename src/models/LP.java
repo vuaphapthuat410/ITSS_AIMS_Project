@@ -6,16 +6,16 @@ public class LP extends PhysicalGood{
     private String publication_date;
     private String genre;
 
-    public LP(int id, String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension, int weight, String artist, String record_label, String publication_date, String genre) {
-        super(id, title, value, price, unit_sale, category, barcode, description, quantity, date, dimension, weight);
+    public LP(int id, String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension_x, int dimension_y, int dimension_z, int weight, String artist, String record_label, String publication_date, String genre) {
+        super(id, title, value, price, unit_sale, category, barcode, description, quantity, date, dimension_x, dimension_y, dimension_z, weight);
         this.artist = artist;
         this.record_label = record_label;
         this.publication_date = publication_date;
         this.genre = genre;
     }
 
-    public LP(String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension, int weight, String artist, String record_label, String publication_date, String genre) {
-        super(title, value, price, unit_sale, category, barcode, description, quantity, date, dimension, weight);
+    public LP(String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension_x, int dimension_y, int dimension_z, int weight, String artist, String record_label, String publication_date, String genre) {
+        super(title, value, price, unit_sale, category, barcode, description, quantity, date, dimension_x, dimension_y, dimension_z, weight);
         this.artist = artist;
         this.record_label = record_label;
         this.publication_date = publication_date;
