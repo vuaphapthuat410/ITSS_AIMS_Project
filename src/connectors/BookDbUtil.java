@@ -2,8 +2,7 @@ package connectors;
 
 import com.mysql.jdbc.PreparedStatement;
 import models.Book;
-import models.Item;
-import models.PhysicalGood;
+
 
 import java.sql.Connection;
 import java.sql.ResultSet;

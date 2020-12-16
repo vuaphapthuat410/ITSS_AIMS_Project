@@ -1,7 +1,6 @@
 package connectors;
 
 import com.mysql.jdbc.PreparedStatement;
-import models.Book;
 import models.CD;
 
 import java.sql.Connection;
