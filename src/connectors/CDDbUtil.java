@@ -33,13 +33,15 @@ public class CDDbUtil {
                 String description = rs.getString(8);
                 int quantity = rs.getInt(9);
                 String date = rs.getString(10);
-                int dimension = rs.getInt(11);
-                int weight = rs.getInt(12);
-                String title = rs.getString(14);
-                int value = rs.getInt(15);
-                int price = rs.getInt(16);
-                int unit_sale = rs.getInt(17);
-                String category = rs.getString(18);
+                int dimension_x = rs.getInt(11);
+                int dimension_y = rs.getInt(12);
+                int dimension_z = rs.getInt(13);
+                int weight = rs.getInt(14);
+                String title = rs.getString(16);
+                int value = rs.getInt(17);
+                int price = rs.getInt(18);
+                int unit_sale = rs.getInt(19);
+                String category = rs.getString(20);
 
 
 
@@ -55,7 +57,9 @@ public class CDDbUtil {
                         description,
                         quantity,
                         date,
-                        dimension,
+                        dimension_x,
+                        dimension_y,
+                        dimension_z,
                         weight,
                         artists,
                         record_label,
