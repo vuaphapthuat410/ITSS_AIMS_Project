@@ -1,13 +1,18 @@
 package connectors.helper;
 
 import connectors.ConnDB;
+import connectors.LogDbUtil;
+import models.Log;
 import models.PhysicalGood;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DeleteItemHelper {
-    public static void deleteItemAndPhysicalGood (int id) {
+    public static void deleteItemAndPhysicalGood (int id) throws SQLException, ClassNotFoundException {
         String itemQuery = "DELETE FROM `item` WHERE `item`.`id` = ?";
         String physicalGoodQuery = "DELETE FROM `physical_good` WHERE `physical_good`.`item_id` = ?";
         try {
@@ -29,6 +34,11 @@ public class DeleteItemHelper {
             e.printStackTrace();
         }
 
+        //create log
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        Log log = new Log(id, "delete", dtf.format(now));
+        LogDbUtil.addLog((log));
 
     }
 }

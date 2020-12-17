@@ -27,15 +27,14 @@ public class test {
         List<Log> logList = LogDbUtil.getAllLog();
         System.out.print("Log: " + logList.get(1).getOperation() + "\n");
 
-//        Log log = new Log(3, "add", "2020-10-10");
-//        boolean result = LogDbUtil.addLog((log));
+
 
 //         add book
-        Book item = new Book("One Piece", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
-        boolean result = BookDbUtil.addItem(item);
-        item.setTitle("Bleach");
-        item.setAuthor("Mario Puzo");
-        result = BookDbUtil.updateItem(item);
+//        Book item = new Book("One Piece", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
+//        boolean result = BookDbUtil.addItem(item);
+//        item.setTitle("Bleach");
+//        item.setAuthor("Mario Puzo");
+//        result = BookDbUtil.updateItem(item);
 
 ////         add cd
 //        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123,  "2020-02-22", 123,123, 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
@@ -58,7 +57,7 @@ public class test {
 //        result = LPDbUtil.updateItem(item);
 //          check result
         //test delete
-//        LPDbUtil.deleteItem(21);
+        BookDbUtil.deleteItem(53);
 //        if (result){
 //            System.out.println("Operation success");
 //        } else {
