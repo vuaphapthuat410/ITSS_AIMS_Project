@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 import models.PhysicalGood;
 
 public class AddItemHelper {
-    public static int insertToItemAndPhysicalGood(PhysicalGood book) throws SQLException, ClassNotFoundException {
+    public static int insertToItemAndPhysicalGood(PhysicalGood item) throws SQLException, ClassNotFoundException {
         String itemQuery = "INSERT INTO `item` (`id`, `title`, `value`, `price`, `unit_sale`, `category`) VALUES (NULL, ?, ?, ?, ?, ?);";
         String physicalGoodQuery = "INSERT INTO `physical_good` (`item_id`, `barcode`, `description`, `quantity`, `date`, `dimension_x`, `dimension_y`, `dimension_z`, `weight`) VALUES (?, ?, ?, ? ,? ,? ,? ,? ,? );";
         int id = 0;
@@ -29,11 +29,11 @@ public class AddItemHelper {
                     Statement.RETURN_GENERATED_KEYS);
 
             //Insert to Item
-            statement.setString(1, book.getTitle());
-            statement.setString(2, Integer.toString(book.getValue()));
-            statement.setString(3, Integer.toString(book.getPrice()));
-            statement.setString(4, Integer.toString(book.getUnit_sale()));
-            statement.setString(5, book.getCategory());
+            statement.setString(1, item.getTitle());
+            statement.setString(2, Integer.toString(item.getValue()));
+            statement.setString(3, Integer.toString(item.getPrice()));
+            statement.setString(4, Integer.toString(item.getUnit_sale()));
+            statement.setString(5, item.getCategory());
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -51,14 +51,14 @@ public class AddItemHelper {
             //insert to PhysicalGood
             statement = (PreparedStatement) connection.prepareStatement(physicalGoodQuery);
             statement.setString(1, Integer.toString(id));
-            statement.setString(2, book.getBarcode());
-            statement.setString(3, book.getDescription());
-            statement.setString(4, Integer.toString(book.getQuantity()));
-            statement.setString(5, book.getDate());
-            statement.setString(6, Integer.toString(book.getDimension_x()));
-            statement.setString(7, Integer.toString(book.getDimension_y()));
-            statement.setString(8, Integer.toString(book.getDimension_z()));
-            statement.setString(9, Integer.toString(book.getWeight()));
+            statement.setString(2, item.getBarcode());
+            statement.setString(3, item.getDescription());
+            statement.setString(4, Integer.toString(item.getQuantity()));
+            statement.setString(5, item.getDate());
+            statement.setString(6, Integer.toString(item.getDimension_x()));
+            statement.setString(7, Integer.toString(item.getDimension_y()));
+            statement.setString(8, Integer.toString(item.getDimension_z()));
+            statement.setString(9, Integer.toString(item.getWeight()));
             rowsInserted = statement.executeUpdate();
 
 
@@ -71,7 +71,7 @@ public class AddItemHelper {
         }
 
         //set new id
-        book.setId(id);
+        item.setId(id);
 
         //create log
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
