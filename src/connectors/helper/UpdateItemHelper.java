@@ -2,15 +2,19 @@ package connectors.helper;
 
 import java.sql.PreparedStatement;
 import connectors.ConnDB;
+import connectors.LogDbUtil;
+import models.Log;
 import models.PhysicalGood;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class UpdateItemHelper {
-    public static boolean updateItemAndPhysicalGood(PhysicalGood item){
+    public static boolean updateItemAndPhysicalGood(PhysicalGood item) throws SQLException, ClassNotFoundException {
         String itemQuery = "UPDATE `item` SET `title` = ?, `value` = ?, `price` = ?, `unit_sale` = ?, `category` = ? WHERE `item`.`id` = ?;";
         String physicalGoodQuery = "UPDATE `physical_good` SET  `barcode` = ?, `description` = ?, `quantity` = ?, `date` = ?, `dimension_x` = ?, `dimension_y` = ?, `dimension_z` = ?, `weight` = ? WHERE `physical_good`.`item_id` = ?;";
 
@@ -55,6 +59,13 @@ public class UpdateItemHelper {
             System.out.print("Cant connect");
             e.printStackTrace();
         }
+
+        //create log
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        Log log = new Log(item.getId(), "update", dtf.format(now));
+        LogDbUtil.addLog((log));
+
         return true;
     }
 }

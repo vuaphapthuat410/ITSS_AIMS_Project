@@ -3,6 +3,7 @@ package connectors;
 //import com.mysql.jdbc.PreparedStatement;
 import java.sql.PreparedStatement;
 import connectors.helper.AddItemHelper;
+import connectors.helper.DeleteItemHelper;
 import connectors.helper.UpdateItemHelper;
 import models.Book;
 
@@ -15,9 +16,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Book;
-import models.Item;
-import models.PhysicalGood;
 
 public class BookDbUtil {
     public static List<Book> getAllItem() throws ClassNotFoundException, SQLException {
@@ -116,9 +114,6 @@ public class BookDbUtil {
             }
 
 
-
-
-
         } catch (Exception e) {
             System.out.print("Cant connect");
             e.printStackTrace();
@@ -163,5 +158,26 @@ public class BookDbUtil {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static void deleteItem(int id) throws SQLException, ClassNotFoundException {
+
+        String query = "DELETE FROM `book` WHERE `book`.`item_id` = ?";
+
+        DeleteItemHelper.deleteItemAndPhysicalGood(id);
+
+        try {
+
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setString(1, Integer.toString(id));
+            int rowsDeleted = statement.executeUpdate();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
