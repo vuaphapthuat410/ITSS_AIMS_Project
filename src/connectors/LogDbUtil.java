@@ -1,12 +1,11 @@
 package connectors;
 
+import connectors.helper.AddItemHelper;
 import models.Book;
+import models.CD;
 import models.Log;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +41,34 @@ public class LogDbUtil {
         }
 
         return log;
+    }
+
+    public static boolean addLog(Log log) throws ClassNotFoundException, SQLException {
+
+
+        String query = "INSERT INTO `log` (`id`, `item_id`, `operation`, `time`) VALUES (NULL, ?, ?, ?);";
+        // insert to Item and PhysicalGood
+
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+
+
+            //insert to PhysicalGood
+            statement.setString(1, Integer.toString(log.getItem_id()));
+            statement.setString(2, log.getOperation());
+            statement.setString(3, log.getTime());
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+
+        } catch (Exception e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

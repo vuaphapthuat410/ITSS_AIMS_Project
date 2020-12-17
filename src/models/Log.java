@@ -13,6 +13,12 @@ public class Log {
         this.time = time;
     }
 
+    public Log(int item_id, String operation, String time) {
+        this.item_id = item_id;
+        this.operation = operation;
+        this.time = time;
+    }
+
     public int getId() {
         return id;
     }

@@ -3,6 +3,8 @@ package connectors.helper;
 //import com.mysql.jdbc.PreparedStatement;
 import java.sql.PreparedStatement;
 import connectors.ConnDB;
+import connectors.LogDbUtil;
+import models.Log;
 import models.PhysicalGood;
 
 import java.sql.PreparedStatement;
@@ -10,11 +12,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import models.PhysicalGood;
 
 public class AddItemHelper {
-    public static int insertToItemAndPhysicalGood(PhysicalGood book){
+    public static int insertToItemAndPhysicalGood(PhysicalGood book) throws SQLException, ClassNotFoundException {
         String itemQuery = "INSERT INTO `item` (`id`, `title`, `value`, `price`, `unit_sale`, `category`) VALUES (NULL, ?, ?, ?, ?, ?);";
         String physicalGoodQuery = "INSERT INTO `physical_good` (`item_id`, `barcode`, `description`, `quantity`, `date`, `dimension_x`, `dimension_y`, `dimension_z`, `weight`) VALUES (?, ?, ?, ? ,? ,? ,? ,? ,? );";
         int id = 0;
@@ -66,7 +70,15 @@ public class AddItemHelper {
             e.printStackTrace();
         }
 
+        //set new id
         book.setId(id);
+
+        //create log
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        Log log = new Log(id, "add", dtf.format(now));
+        LogDbUtil.addLog((log));
+
         return id;
     }
 
