@@ -5,10 +5,7 @@
  */
 package models;
 
-import connectors.BookDbUtil;
-import connectors.CDDbUtil;
-import connectors.DVDDbUtil;
-import connectors.LPDbUtil;
+import connectors.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -27,6 +24,8 @@ public class test {
         System.out.print("DVD Title: " + dvdList.get(2).getTitle() + "\n");
         List<LP> lpList = LPDbUtil.getAllItem();
         System.out.print("LP Title: " + lpList.get(0).getTitle() + "\n");
+        List<Log> logList = LogDbUtil.getAllLog();
+        System.out.print("Log: " + logList.get(1).getOperation() + "\n");
 
 //         add book
 //        Book item = new Book("test3", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction");
@@ -56,7 +55,7 @@ public class test {
 //        result = LPDbUtil.updateItem(item);
 //          check result
         //test delete
-        LPDbUtil.deleteItem(21);
+//        LPDbUtil.deleteItem(21);
 //        if (result){
 //            System.out.println("Operation success");
 //        } else {
