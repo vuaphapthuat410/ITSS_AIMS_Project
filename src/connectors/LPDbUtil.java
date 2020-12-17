@@ -13,8 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Book;
-import models.LP;
+
 
 public class LPDbUtil {
     public static List<LP> getAllItem() throws ClassNotFoundException, SQLException {

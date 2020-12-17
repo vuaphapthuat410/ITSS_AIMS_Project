@@ -15,9 +15,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Book;
-import models.Item;
-import models.PhysicalGood;
 
 public class BookDbUtil {
     public static List<Book> getAllItem() throws ClassNotFoundException, SQLException {

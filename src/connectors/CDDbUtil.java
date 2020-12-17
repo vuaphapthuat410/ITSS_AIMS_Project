@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import connectors.helper.AddItemHelper;
 import connectors.helper.UpdateItemHelper;
 import models.CD;
-import models.DVD;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,8 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Book;
-import models.CD;
+
 
 public class CDDbUtil {
     public static List<CD> getAllItem() throws ClassNotFoundException, SQLException {
