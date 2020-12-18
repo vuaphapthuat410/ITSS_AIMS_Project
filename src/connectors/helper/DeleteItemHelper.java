@@ -24,11 +24,6 @@ public class DeleteItemHelper {
             int rowsDeleted = statement.executeUpdate();
 
 
-            statement = (PreparedStatement) connection.prepareStatement(physicalGoodQuery);
-
-            statement.setString(1, Integer.toString(id));
-            rowsDeleted = statement.executeUpdate();
-
 
         } catch (Exception e) {
             e.printStackTrace();

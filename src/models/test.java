@@ -57,7 +57,7 @@ public class test {
 //        result = LPDbUtil.updateItem(item);
 //          check result
         //test delete
-        BookDbUtil.deleteItem(53);
+        BookDbUtil.deleteItem(55);
 //        if (result){
 //            System.out.println("Operation success");
 //        } else {

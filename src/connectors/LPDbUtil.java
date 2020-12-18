@@ -154,22 +154,7 @@ public class LPDbUtil {
 
     public static void deleteItem(int id) throws SQLException, ClassNotFoundException {
 
-        String query = "DELETE FROM `lp` WHERE `lp`.`item_id` = ?";
-
         DeleteItemHelper.deleteItemAndPhysicalGood(id);
-
-        try {
-
-            Connection connection = ConnDB.getMySQLConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            statement.setString(1, Integer.toString(id));
-            int rowsDeleted = statement.executeUpdate();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
 }
