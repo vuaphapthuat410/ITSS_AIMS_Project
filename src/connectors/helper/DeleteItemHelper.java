@@ -12,9 +12,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DeleteItemHelper {
-    public static void deleteItemAndPhysicalGood (int id) throws SQLException, ClassNotFoundException {
+    public static void deleteItem (int id) throws SQLException, ClassNotFoundException {
         String itemQuery = "DELETE FROM `item` WHERE `item`.`id` = ?";
-        String physicalGoodQuery = "DELETE FROM `physical_good` WHERE `physical_good`.`item_id` = ?";
         try {
 
             Connection connection = ConnDB.getMySQLConnection();
@@ -23,11 +22,6 @@ public class DeleteItemHelper {
             statement.setString(1, Integer.toString(id));
             int rowsDeleted = statement.executeUpdate();
 
-
-            statement = (PreparedStatement) connection.prepareStatement(physicalGoodQuery);
-
-            statement.setString(1, Integer.toString(id));
-            rowsDeleted = statement.executeUpdate();
 
 
         } catch (Exception e) {
