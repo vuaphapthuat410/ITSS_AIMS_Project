@@ -6,6 +6,7 @@ import connectors.helper.AddItemHelper;
 import connectors.helper.DeleteItemHelper;
 import connectors.helper.UpdateItemHelper;
 import models.LP;
+import models.Track;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -46,7 +47,7 @@ public class LPDbUtil {
                 int price = rs.getInt(18);
                 int unit_sale = rs.getInt(19);
                 String category = rs.getString(20);
-
+                ArrayList<Track> track_list = TrackDbUtil.getAllTrack(id);
 
 
 
@@ -68,7 +69,8 @@ public class LPDbUtil {
                         artist,
                         record_label,
                         publication_date,
-                        genre
+                        genre,
+                        track_list
                 );
 
                 lp.add(b);
@@ -82,12 +84,12 @@ public class LPDbUtil {
     }
 
 
-    public static boolean addItem(LP lp) throws ClassNotFoundException, SQLException {
+    public static boolean addItem(LP item) throws ClassNotFoundException, SQLException {
 
 
         String query = "INSERT INTO `lp` (`item_id`, `artist`, `record_label`, `publication_date`, `genre`) VALUES (?, ?, ?, ?, ?);";
         // insert to Item and PhysicalGood
-        int id = AddItemHelper.insertToItemAndPhysicalGood(lp);
+        int id = AddItemHelper.insertToItemAndPhysicalGood(item);
 
         try{
             Connection connection = ConnDB.getMySQLConnection();
@@ -96,25 +98,23 @@ public class LPDbUtil {
 
             //insert to PhysicalGood
             statement.setString(1, Integer.toString(id));
-            statement.setString(2, lp.getArtist());
-            statement.setString(3, lp.getRecord_label());
-            statement.setString(4, lp.getPublication_date());
-            statement.setString(5, lp.getGenre());
+            statement.setString(2, item.getArtist());
+            statement.setString(3, item.getRecord_label());
+            statement.setString(4, item.getPublication_date());
+            statement.setString(5, item.getGenre());
             int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                return true;
+            if (rowsInserted == 0) {
+                return false;
             }
 
-
-
-
+            TrackDbUtil.addTrackList(item.getId(), item.getTrack_list());
 
         } catch (Exception e) {
             System.out.print("Cant connect");
             e.printStackTrace();
         }
 
-        return false;
+        return true;
     }
 
     public static boolean updateItem(LP item) throws ClassNotFoundException, SQLException{
@@ -140,16 +140,17 @@ public class LPDbUtil {
             statement.setString(5, Integer.toString(item.getId()));
 
             int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                return true;
+            if (rowsInserted == 0) {
+                return false;
             }
+            TrackDbUtil.updateTrackList(item.getId() ,item.getTrack_list());
 
 
         } catch (Exception e) {
             System.out.print("Cant connect");
             e.printStackTrace();
         }
-        return false;
+        return true;
     }
 
     public static void deleteItem(int id) throws SQLException, ClassNotFoundException {

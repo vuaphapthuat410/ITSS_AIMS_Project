@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TrackDbUtil {
 
-    public static List<Track> getAllLog(int id) throws ClassNotFoundException, SQLException {
+    public static ArrayList<Track> getAllTrack(int id) throws ClassNotFoundException, SQLException {
 
         String query = "SELECT * FROM `track` WHERE `track`.`item_id` = ?";
         ArrayList<Track> track = new ArrayList<>();
@@ -21,9 +21,9 @@ public class TrackDbUtil {
             ResultSet rs = statement.executeQuery();
 
             while(rs.next()){
-                int item_id = rs.getInt(1);
-                String name = rs.getString(2);
-                int duration = rs.getInt(3);
+                int item_id = rs.getInt(2);
+                String name = rs.getString(3);
+                int duration = rs.getInt(4);
 
 
                 Track b = new Track(

@@ -23,7 +23,10 @@ public class test {
         List<DVD> dvdList = DVDDbUtil.getAllItem();
         System.out.print("DVD Title: " + dvdList.get(2).getTitle() + "\n");
         List<LP> lpList = LPDbUtil.getAllItem();
-        System.out.print("LP Title: " + lpList.get(0).getTitle() + "\n");
+        System.out.print("LP Title: " + lpList.get(lpList.size()-1).getTitle() + "\n");
+        System.out.print("First track: " + lpList.get(lpList.size()-1).getTrack_list().get(0).getName() + "\n");
+        System.out.print("CD Title: " + cdList.get(cdList.size()-1).getTitle() + "\n");
+        System.out.print("First track: " + cdList.get(cdList.size()-1).getTrack_list().get(0).getName() + "\n");
 
 
 
@@ -43,18 +46,19 @@ public class test {
 //        result = CDDbUtil.updateItem(item);
 
         //test add track
-        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123,  "2020-02-22", 123,123, 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
-        Track track1 = new Track("test", 123);
-        Track track2 = new Track("test1", 123);
-        item.addTrack(track1);
-        item.addTrack(track2);
-        CDDbUtil.addItem(item);
-        item.removeTrackList();
-        Track track3 = new Track("update1", 123);
-        Track track4 = new Track("update2", 123);
-        item.addTrack(track3);
-        item.addTrack(track4);
-        CDDbUtil.updateItem(item);
+//        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123,  "2020-02-22", 123,123, 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
+//        LP item = new LP("test-lp", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "Mozard", "Springer", "2020-12-09", "classical");
+//        Track track1 = new Track("test", 123);
+//        Track track2 = new Track("test1", 123);
+//        item.addTrack(track1);
+//        item.addTrack(track2);
+//        LPDbUtil.addItem(item);
+//        item.removeTrackList();
+//        Track track3 = new Track("update1", 123);
+//        Track track4 = new Track("update2", 123);
+//        item.addTrack(track3);
+//        item.addTrack(track4);
+//        LPDbUtil.updateItem(item);
 //        TrackDbUtil.addTrackList(item.getTrack_list());
 //        System.out.println(item.getTrack_list().get(0).getName());
 
