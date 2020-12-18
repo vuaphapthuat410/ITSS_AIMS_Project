@@ -24,8 +24,8 @@ public class test {
         System.out.print("DVD Title: " + dvdList.get(2).getTitle() + "\n");
         List<LP> lpList = LPDbUtil.getAllItem();
         System.out.print("LP Title: " + lpList.get(0).getTitle() + "\n");
-        List<Log> logList = LogDbUtil.getAllLog();
-        System.out.print("Log: " + logList.get(1).getOperation() + "\n");
+
+
 
 
 
@@ -57,7 +57,7 @@ public class test {
 //        result = LPDbUtil.updateItem(item);
 //          check result
         //test delete
-        BookDbUtil.deleteItem(55);
+//        BookDbUtil.deleteItem(55);
 //        if (result){
 //            System.out.println("Operation success");
 //        } else {
@@ -68,5 +68,23 @@ public class test {
 
 //        Item item = new Item("test1", 120, 123, 0, "test");
 //        boolean result = BookDbUtil.addItem(item);
+
+
+
+//         add Ebook
+//        Ebook item = new Ebook("One Piece", 120, 123, 0, "test", "JK Rowling", "Hard", "Kim Dong", "1990-10-01", 123, "English", "fiction", "Lorem ipsum");
+//        boolean result = EbookDbUtil.addItem(item);
+//        item.setTitle("Bleach");
+//        item.setAuthor("Mario Puzo");
+//        item.setContent("Content updated");
+//        result = EbookDbUtil.updateItem(item);
+        EbookDbUtil.deleteItem(70);
+
+
+        List<Ebook> ebookList = EbookDbUtil.getAllItem();
+        System.out.print("Ebook Title: " + ebookList.get(3).getTitle() + "\n");
+        System.out.print("Ebook Content: " + ebookList.get(3).getContent() + "\n");
+
+
     }
 }

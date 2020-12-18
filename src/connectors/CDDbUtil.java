@@ -156,7 +156,7 @@ public class CDDbUtil {
     public static void deleteItem(int id) throws SQLException, ClassNotFoundException {
 
 
-        DeleteItemHelper.deleteItemAndPhysicalGood(id);
+        DeleteItemHelper.deleteItem(id);
 
 
 
