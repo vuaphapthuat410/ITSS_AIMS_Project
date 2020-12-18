@@ -1,10 +1,13 @@
 package models;
 
+import java.util.ArrayList;
+
 public class CD extends PhysicalGood{
     private String artist;
     private String record_label;
     private String publication_date;
     private String genre;
+    private ArrayList<Track> track_list;
 
     public CD(int id, String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension_x, int dimension_y, int dimension_z, int weight, String artist, String record_label, String publication_date, String genre) {
         super(id, title, value, price, unit_sale, category, barcode, description, quantity, date, dimension_x, dimension_y, dimension_z, weight);
@@ -12,6 +15,7 @@ public class CD extends PhysicalGood{
         this.record_label = record_label;
         this.publication_date = publication_date;
         this.genre = genre;
+        this.track_list =  new ArrayList<>();
     }
 
     public CD(String title, int value, int price, int unit_sale, String category, String barcode, String description, int quantity, String date, int dimension_x, int dimension_y, int dimension_z, int weight, String artist, String record_label, String publication_date, String genre) {
@@ -20,6 +24,8 @@ public class CD extends PhysicalGood{
         this.record_label = record_label;
         this.publication_date = publication_date;
         this.genre = genre;
+        this.track_list =  new ArrayList<>();
+
     }
 
     public String getArtist() {
@@ -52,5 +58,21 @@ public class CD extends PhysicalGood{
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public ArrayList<Track> getTrack_list() {
+        return track_list;
+    }
+
+    public void setTrack_list(ArrayList<Track> track_list) {
+        this.track_list = track_list;
+    }
+
+    public void addTrack(Track track){
+        this.track_list.add(track);
+    }
+
+    public void removeTrackList(){
+        this.track_list = new ArrayList<>();
     }
 }

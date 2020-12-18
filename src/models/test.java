@@ -42,6 +42,23 @@ public class test {
 //        item.setArtist("Beethoven");
 //        result = CDDbUtil.updateItem(item);
 
+        //test add track
+        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123,  "2020-02-22", 123,123, 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
+        Track track1 = new Track("test", 123);
+        Track track2 = new Track("test1", 123);
+        item.addTrack(track1);
+        item.addTrack(track2);
+        CDDbUtil.addItem(item);
+        item.removeTrackList();
+        Track track3 = new Track("update1", 123);
+        Track track4 = new Track("update2", 123);
+        item.addTrack(track3);
+        item.addTrack(track4);
+        CDDbUtil.updateItem(item);
+//        TrackDbUtil.addTrackList(item.getTrack_list());
+//        System.out.println(item.getTrack_list().get(0).getName());
+
+
 //        add dvd
 //        DVD item = new DVD("test-dvd", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "anime", "me", 5000, "disney", "English", "English", "2020-12-09", "test");
 //        boolean result = DVDDbUtil.addItem(item);
@@ -78,7 +95,9 @@ public class test {
 //        item.setAuthor("Mario Puzo");
 //        item.setContent("Content updated");
 //        result = EbookDbUtil.updateItem(item);
-        EbookDbUtil.deleteItem(70);
+
+
+//        EbookDbUtil.deleteItem(70);
 
 
         List<Ebook> ebookList = EbookDbUtil.getAllItem();

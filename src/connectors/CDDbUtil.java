@@ -102,20 +102,17 @@ public class CDDbUtil {
             statement.setString(4, cd.getPublication_date());
             statement.setString(5, cd.getGenre());
             int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                return true;
+            if (rowsInserted == 0) {
+                return false;
             }
-
-
-
-
+            TrackDbUtil.addTrackList(cd.getId(), cd.getTrack_list());
 
         } catch (Exception e) {
             System.out.print("Cant connect");
             e.printStackTrace();
         }
 
-        return false;
+        return true;
     }
 
     public static boolean updateItem(CD item) throws ClassNotFoundException, SQLException{
@@ -141,16 +138,16 @@ public class CDDbUtil {
             statement.setString(5, Integer.toString(item.getId()));
 
             int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                return true;
+            if (rowsInserted == 0) {
+                return false;
             }
-
+            TrackDbUtil.updateTrackList(item.getId() ,item.getTrack_list());
 
         } catch (Exception e) {
             System.out.print("Cant connect");
             e.printStackTrace();
         }
-        return false;
+        return true;
     }
 
     public static void deleteItem(int id) throws SQLException, ClassNotFoundException {
