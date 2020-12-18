@@ -47,20 +47,20 @@ public class test {
 
         //test add track
 //        CD item = new CD("test-cd", 120, 123, 0, "test", "xyz", "This is a test", 123,  "2020-02-22", 123,123, 123, 50, "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
-//        LP item = new LP("test-lp", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "Mozard", "Springer", "2020-12-09", "classical");
-//        Track track1 = new Track("test", 123);
-//        Track track2 = new Track("test1", 123);
-//        item.addTrack(track1);
-//        item.addTrack(track2);
-//        LPDbUtil.addItem(item);
+//        LP item = new LP("test-lp-final", 120, 123, 0, "test", "xyz", "This is a test", 123, "2020-02-22", 123, 123, 123, 50, "Mozard", "Springer", "2020-12-09", "classical");
+        Album item = new Album("haru", 120, 123, 0, "test", "Hiroyuki Sawano", "Springer", "2020-12-09", "test");
+        AlbumTrack track1 = new AlbumTrack("saikai", 123);
+        AlbumTrack track2 = new AlbumTrack("anti hero", 123);
+        item.addTrack(track1);
+        item.addTrack(track2);
+        AlbumDbUtil.addItem(item);
 //        item.removeTrackList();
 //        Track track3 = new Track("update1", 123);
 //        Track track4 = new Track("update2", 123);
 //        item.addTrack(track3);
 //        item.addTrack(track4);
 //        LPDbUtil.updateItem(item);
-//        TrackDbUtil.addTrackList(item.getTrack_list());
-//        System.out.println(item.getTrack_list().get(0).getName());
+
 
 
 //        add dvd
@@ -107,6 +107,9 @@ public class test {
         List<Ebook> ebookList = EbookDbUtil.getAllItem();
         System.out.print("Ebook Title: " + ebookList.get(3).getTitle() + "\n");
         System.out.print("Ebook Content: " + ebookList.get(3).getContent() + "\n");
+        List<Album> albumList = AlbumDbUtil.getAllItem();
+        System.out.print("Ebook Title: " + albumList.get(0).getTitle() + "\n");
+        System.out.print("Ebook Content: " + albumList.get(0).getTrack_list().get(0).getName() + "\n");
 
 
     }
