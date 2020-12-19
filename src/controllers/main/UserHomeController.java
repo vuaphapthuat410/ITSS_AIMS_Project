@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controllers.main;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import data.UserInfo;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.ScrollPane;
@@ -31,6 +31,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+
+import data.UserInfo;
+import java.sql.SQLException;
 /**
  * FXML Controller class
  *
@@ -53,17 +56,13 @@ public class UserHomeController implements Initializable {
     @FXML
     private RadioButton rbPGood;
     @FXML
-    private Label lbEbook;
-    @FXML
     private ImageView avatar;
     @FXML
     private StackPane mainview;   
     @FXML
     private Button btHome;
-    
-    private ScrollPane orderPane = null;
-    private ScrollPane cartPane = null;
-    private ScrollPane recommendPane = null;   
+    @FXML
+    private Label lbEbook;
     @FXML
     private Label lbAlbum;
     @FXML
@@ -77,6 +76,12 @@ public class UserHomeController implements Initializable {
     @FXML
     private Label lbDVD;
     
+    private ScrollPane orderPane = null;
+    private ScrollPane cartPane = null;
+    private ScrollPane productPane = null;   
+    private ScrollPane profilePane = null;
+    
+    private ProductPaneController productController;
     /**
      * Initializes the controller class.
      */
@@ -87,8 +92,10 @@ public class UserHomeController implements Initializable {
         avatar.setImage(new Image("data/avatar.png"));
         // generate recommend pane
         try {
-            recommendPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/recommend.fxml"));
-            mainview.getChildren().add(recommendPane);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/productPane.fxml"));
+            productPane = loader.load();
+            productController = loader.getController();
+            mainview.getChildren().add(productPane);
         } catch (IOException ex) {
         }      
     }    
@@ -98,7 +105,7 @@ public class UserHomeController implements Initializable {
         if(orderPane != null)
             orderPane.toFront();
         else {
-            orderPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/order.fxml"));
+            orderPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/mainview/order.fxml"));
             mainview.getChildren().add(orderPane);
         }
     }
@@ -108,14 +115,14 @@ public class UserHomeController implements Initializable {
         if(cartPane != null)
             cartPane.toFront();
         else {
-            cartPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/cart.fxml"));
+            cartPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/mainview/cart.fxml"));
             mainview.getChildren().add(cartPane);
         }
     }
     
     @FXML
     private void toHome(ActionEvent event) {
-        recommendPane.toFront();
+        productPane.toFront();
     }
     
     @FXML
@@ -150,18 +157,38 @@ public class UserHomeController implements Initializable {
 
     @FXML
     private void toBook(MouseEvent event) {
+         productController.getBook();
     }
 
     @FXML
     private void toLP(MouseEvent event) {
+        productController.getLP();
     }
 
     @FXML
     private void toCD(MouseEvent event) {
+        productController.getCD();
     }
 
     @FXML
     private void toDVD(MouseEvent event) {
+        productController.getDVD();
+    }
+
+    @FXML
+    private void toProfile(MouseEvent event) throws IOException {
+        try {
+            Parent profile = FXMLLoader.load(getClass().getClassLoader().getResource("views/profile/profile.fxml"));
+            //  
+            Stage stage = new Stage();
+            stage.setTitle("Profile screen");
+            stage.setScene(new Scene(profile));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            System.out.println("Open profile screen sucessful");
+        } catch (IOException e) {
+            System.err.println("Error occurs while trying to open profile screen.");
+        }
     }
     
 }

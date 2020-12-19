@@ -8,7 +8,7 @@ package utils;
  *
  * @author vuaphapthuat410
  */
-public class SignupUtils {
+public class CheckValidFieldUtils {
     
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {

@@ -25,11 +25,14 @@ import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import models.User;
-import data.UserInfo;
 import java.sql.ResultSet;
 import connectors.UserDB;
 import java.sql.SQLException;
+
+import models.User;
+import data.UserInfo;
+import java.util.ArrayList;
+import utils.CredentialUtils;
 
 /**
  * FXML Controller class
@@ -59,13 +62,19 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        ArrayList<String> savedAcc = CredentialUtils.getCredentialFromFile();
+        if(savedAcc != null) {
+            tfUname.setText(savedAcc.get(0));
+            pfPasswd.setText(savedAcc.get(1));
+            cdRemember.setSelected(true);
+        }
     }    
 
     @FXML
     private void submit(ActionEvent event) throws ClassNotFoundException, SQLException {
         // TODO change this to authorize user in DB using user.authorize(), now just for testing
-        Integer loginstatus = UserDB.getLoginUser(tfUname.getText(), pfPasswd.getText());
-        if(loginstatus != 0) {
+        User loginUser = UserDB.getLoginUser(tfUname.getText(), pfPasswd.getText());
+        if(loginUser != null) {
             Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
             statusAlert.setTitle("Success");
 
@@ -75,17 +84,23 @@ public class LoginController implements Initializable {
             statusAlert.showAndWait();
             
             // Save login info
-            UserInfo.saveInfo(tfUname.getText());
+            UserInfo.saveInfo(loginUser);
             
+            if(cdRemember.isSelected()) {
+                CredentialUtils.createCredentialFile(tfUname.getText(), pfPasswd.getText());
+            }
+            else {
+                CredentialUtils.deleteCrendentialFile();
+            }
             // TO DO
             
             try {
                 Parent homepage;
                 // TO DO : change this
-                if(loginstatus == 2)     // admin
-                    homepage = FXMLLoader.load(getClass().getClassLoader().getResource("views/adminHome.fxml"));
-                else  // 1 means user 
-                    homepage = FXMLLoader.load(getClass().getClassLoader().getResource("views/userHome.fxml"));
+                if(loginUser.isAdmin())     // admin
+                    homepage = FXMLLoader.load(getClass().getClassLoader().getResource("views/mainview/adminHome.fxml"));
+                else  //  user 
+                    homepage = FXMLLoader.load(getClass().getClassLoader().getResource("views/mainview/userHome.fxml"));
                 //  
                 Stage primaryStage = new Stage();
                 primaryStage.setTitle("Home screen");

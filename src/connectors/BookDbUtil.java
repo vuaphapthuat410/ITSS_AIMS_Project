@@ -18,7 +18,7 @@ import java.util.List;
 
 
 public class BookDbUtil {
-    public static List<Book> getAllItem() throws ClassNotFoundException, SQLException {
+    public static ArrayList<Book> getAllItem() throws ClassNotFoundException, SQLException {
 
         String query = "SELECT `book`.*, `physical_good`.*, `item`.* FROM `book` LEFT JOIN `physical_good` ON `book`.`item_id` = `physical_good`.`item_id` LEFT JOIN `item` ON `physical_good`.`item_id` = `item`.`id`;";
         ArrayList<Book> book = new ArrayList<>();

@@ -8,6 +8,7 @@ package models;
 import connectors.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,13 +17,13 @@ import java.util.List;
  */
 public class test {
     public static void doTest() throws SQLException, ClassNotFoundException {
-        List<Book> bookList = BookDbUtil.getAllItem();
+        ArrayList<Book> bookList = BookDbUtil.getAllItem();
         System.out.print("Book Title: " + bookList.get(0).getTitle() + "\n");
-        List<CD> cdList = CDDbUtil.getAllItem();
+        ArrayList<CD> cdList = CDDbUtil.getAllItem();
         System.out.print("CD Title: " + cdList.get(0).getTitle() + "\n");
-        List<DVD> dvdList = DVDDbUtil.getAllItem();
+        ArrayList<DVD> dvdList = DVDDbUtil.getAllItem();
         System.out.print("DVD Title: " + dvdList.get(2).getTitle() + "\n");
-        List<LP> lpList = LPDbUtil.getAllItem();
+        ArrayList<LP> lpList = LPDbUtil.getAllItem();
         System.out.print("LP Title: " + lpList.get(0).getTitle() + "\n");
         List<Log> logList = LogDbUtil.getAllLog();
         System.out.print("Log: " + logList.get(1).getOperation() + "\n");

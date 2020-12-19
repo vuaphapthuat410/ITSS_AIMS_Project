@@ -18,7 +18,7 @@ import java.util.List;
 
 
 public class CDDbUtil {
-    public static List<CD> getAllItem() throws ClassNotFoundException, SQLException {
+    public static ArrayList<CD> getAllItem() throws ClassNotFoundException, SQLException {
 
         String query = "SELECT `cd`.*, `physical_good`.*, `item`.* FROM `cd` LEFT JOIN `physical_good` ON `cd`.`item_id` = `physical_good`.`item_id` LEFT JOIN `item` ON `physical_good`.`item_id` = `item`.`id`";
         ArrayList<CD> cd = new ArrayList<>();

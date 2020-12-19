@@ -13,11 +13,31 @@ import models.User;
 public class UserInfo {
     private static User loginUser;
     
-    public static void saveInfo(String uname) {
-        loginUser = new User(uname);
+    public static void saveInfo(User user) {
+        loginUser = user;
     }
     
+    public static Integer getId() {
+        return loginUser.getId();
+    }
+
     public static String getUname() {
         return loginUser.getUname();
+    }
+
+    public static String getName() {
+        return loginUser.getName();
+    }
+
+    public static String getEmail() {
+        return loginUser.getEmail();
+    }
+
+    public static String getPhone() {
+        return loginUser.getPhone();
+    }
+
+    public static boolean isAdmin() {
+        return loginUser.isAdmin();
     }
 }

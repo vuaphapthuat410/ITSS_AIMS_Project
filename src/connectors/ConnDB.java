@@ -19,7 +19,7 @@ public class ConnDB {
         String hostName = "localhost";
         String dbName = "aims";
         String userName = "root";
-        String password = "";
+        String password = "password";
 
         return getMySQLConnection(hostName, dbName, userName, password);
     }

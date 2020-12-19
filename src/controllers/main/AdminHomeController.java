@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controllers.main;
 
 import data.UserInfo;
 import java.io.IOException;
@@ -22,6 +22,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -48,8 +49,23 @@ public class AdminHomeController implements Initializable {
     @FXML
     private ImageView avatar;
     
-    private ScrollPane itemPane = null;
-
+    private ScrollPane productPane = null;
+    
+    private ProductPaneController productController;
+    @FXML
+    private Label lbEbook;
+    @FXML
+    private Label lbAlbum;
+    @FXML
+    private Label lbFilm;
+    @FXML
+    private Label lbBook;
+    @FXML
+    private Label lbLP;
+    @FXML
+    private Label lbCD;
+    @FXML
+    private Label lbDVD;
     /**
      * Initializes the controller class.
      */
@@ -60,8 +76,10 @@ public class AdminHomeController implements Initializable {
         avatar.setImage(new Image("data/avatar.png"));
         // generate recommend pane
         try {
-            itemPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/recommend.fxml"));
-            mainview.getChildren().add(itemPane);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/productPane.fxml"));
+            productPane = loader.load();
+            productController = loader.getController();
+            mainview.getChildren().add(productPane);
         } catch (IOException ex) {
         }
     }    
@@ -86,5 +104,37 @@ public class AdminHomeController implements Initializable {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void toEbook(MouseEvent event) {
+    }
+
+    @FXML
+    private void toAlbum(MouseEvent event) {
+    }
+
+    @FXML
+    private void toFilm(MouseEvent event) {
+    }
+
+    @FXML
+    private void toBook(MouseEvent event) {
+         productController.getBook();
+    }
+
+    @FXML
+    private void toLP(MouseEvent event) {
+        productController.getLP();
+    }
+
+    @FXML
+    private void toCD(MouseEvent event) {
+        productController.getCD();
+    }
+
+    @FXML
+    private void toDVD(MouseEvent event) {
+        productController.getDVD();
     }
 }

@@ -19,7 +19,7 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 
 import models.User;
-import utils.SignupUtils;
+import utils.CheckValidFieldUtils;
 
 /**
  * FXML Controller class
@@ -55,7 +55,7 @@ public class SignupController implements Initializable {
 
     @FXML
     private void submit(ActionEvent event) {
-        if(!SignupUtils.isValidUname(tfUname.getText())) {
+        if(!CheckValidFieldUtils.isValidUname(tfUname.getText())) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
@@ -65,7 +65,7 @@ public class SignupController implements Initializable {
             statusAlert.showAndWait();
         }
         
-        else if(!SignupUtils.isValidEmail(tfEmail.getText())) {
+        else if(!CheckValidFieldUtils.isValidEmail(tfEmail.getText())) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
@@ -75,7 +75,7 @@ public class SignupController implements Initializable {
             statusAlert.showAndWait();
         }
         
-        else if(!SignupUtils.isValidPhone(tfPhoneNum.getText())) {
+        else if(!CheckValidFieldUtils.isValidPhone(tfPhoneNum.getText())) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
@@ -85,7 +85,7 @@ public class SignupController implements Initializable {
             statusAlert.showAndWait();
         }
         
-        else if(!SignupUtils.isValidEmail(tfEmail.getText())) {
+        else if(!CheckValidFieldUtils.isValidEmail(tfEmail.getText())) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
@@ -95,7 +95,7 @@ public class SignupController implements Initializable {
             statusAlert.showAndWait();
         }
         
-        else if(!SignupUtils.isValidPasswd(pfPasswd.getText())) {
+        else if(!CheckValidFieldUtils.isValidPasswd(pfPasswd.getText())) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
@@ -117,7 +117,7 @@ public class SignupController implements Initializable {
         else {
             // TO DO: create user in DB
             // ..... Code here...........
-
+            
 
 
             //.......--------------...............
