@@ -20,14 +20,15 @@ public class ConnDB {
         String dbName = "aims";
         String userName = "root";
         String password = "";
+        String config = "?autoReconnect=true&useSSL=false";
 
-        return getMySQLConnection(hostName, dbName, userName, password);
+        return getMySQLConnection(hostName, dbName, userName, password, config);
     }
 
-    public static Connection getMySQLConnection(String hostName, String dbName, String userName, String password) throws SQLException, ClassNotFoundException {
+    public static Connection getMySQLConnection(String hostName, String dbName, String userName, String password, String config) throws SQLException, ClassNotFoundException {
         // Cấu trúc URL Connection dành cho Oracle
         // Ví dụ: jdbc:mysql://localhost:3306/simplehr
-        String connectionURL = "jdbc:mysql://" + hostName + ":3306/" + dbName;
+        String connectionURL = "jdbc:mysql://" + hostName + ":3306/" + dbName + config;
 
         Connection conn = DriverManager.getConnection(connectionURL, userName, password);
         return conn;
