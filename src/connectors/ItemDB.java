@@ -35,16 +35,7 @@ public class ItemDB {
                 int unit_sale = rs.getInt(5);
                 String category = rs.getString(6);
 
-                Item item = new Item(
-                        id,
-                        title,
-                        value,
-                        price,
-                        unit_sale,
-                        category
-                );
-
-                items.add(item);
+               
             }
         } catch (Exception e) {
             System.out.print("Cant connect");

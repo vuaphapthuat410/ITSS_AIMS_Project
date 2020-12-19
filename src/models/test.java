@@ -19,10 +19,13 @@ public class test {
     public static void doTest() throws SQLException, ClassNotFoundException {
         ArrayList<Book> bookList = BookDbUtil.getAllItem();
         System.out.print("Book Title: " + bookList.get(0).getTitle() + "\n");
+        
         ArrayList<CD> cdList = CDDbUtil.getAllItem();
         System.out.print("CD Title: " + cdList.get(0).getTitle() + "\n");
+        
         ArrayList<DVD> dvdList = DVDDbUtil.getAllItem();
         System.out.print("DVD Title: " + dvdList.get(2).getTitle() + "\n");
+        
         ArrayList<LP> lpList = LPDbUtil.getAllItem();
         System.out.print("LP Title: " + lpList.get(lpList.size()-1).getTitle() + "\n");
         System.out.print("First track: " + lpList.get(lpList.size()-1).getTrack_list().get(0).getName() + "\n");
