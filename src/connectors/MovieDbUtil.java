@@ -1,27 +1,21 @@
 package connectors;
 
-//import com.mysql.jdbc.PreparedStatement;
-import java.sql.PreparedStatement;
 import connectors.helper.AddItemHelper;
 import connectors.helper.DeleteItemHelper;
 import connectors.helper.UpdateItemHelper;
 import models.DVD;
+import models.Movie;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+public class MovieDbUtil {
+    public static List<Movie> getAllItem() throws ClassNotFoundException, SQLException {
 
-
-public class DVDDbUtil {
-    public static ArrayList<DVD> getAllItem() throws ClassNotFoundException, SQLException {
-
-        String query = "SELECT `dvd`.*, `physical_good`.*, `item`.* FROM `dvd` LEFT JOIN `physical_good` ON `dvd`.`item_id` = `physical_good`.`item_id` LEFT JOIN `item` ON `physical_good`.`item_id` = `item`.`id`;";
-        ArrayList<DVD> dvd = new ArrayList<>();
+        String query = "SELECT `movie`.*, `item`.* FROM `movie` LEFT JOIN `item` ON `movie`.`item_id` = `item`.`id`";
+        ArrayList<Movie> item = new ArrayList<>();
 
         try{
             Connection connection = ConnDB.getMySQLConnection();
@@ -38,38 +32,32 @@ public class DVDDbUtil {
                 String subtitle = rs.getString(7);
                 String publication_date = rs.getString(8);
                 String genre = rs.getString(9);
-                String barcode = rs.getString(11);
-                String description = rs.getString(12);
-                int quantity = rs.getInt(13);
-                String date = rs.getString(14);
-                int dimension_x = rs.getInt(15);
-                int dimension_y = rs.getInt(16);
-                int dimension_z = rs.getInt(17);
-                int weight = rs.getInt(18);
-                String title = rs.getString(20);
-                int value = rs.getInt(21);
-                int price = rs.getInt(22);
-                int unit_sale = rs.getInt(23);
-                String category = rs.getString(24);
+
+                String actorList = rs.getString(10);
+                actorList = actorList.substring( 1, actorList.length() - 1 );
+                List<String> actors = Arrays.asList(actorList.split(","));
+                String writerList = rs.getString(11);
+                writerList = writerList.substring( 1, writerList.length() - 1 );
+                List<String> writers = Arrays.asList(writerList.split(","));
+
+                String title = rs.getString(13);
+                int value = rs.getInt(14);
+                int price = rs.getInt(15);
+                int unit_sale = rs.getInt(16);
+                String category = rs.getString(17);
 
 
 
 
-                DVD b = new DVD(
+
+
+                Movie b = new Movie(
                         id,
                         title,
                         value,
                         price,
                         unit_sale,
                         category,
-                        barcode,
-                        description,
-                        quantity,
-                        date,
-                        dimension_x,
-                        dimension_y,
-                        dimension_z,
-                        weight,
                         type,
                         director,
                         runtime,
@@ -77,25 +65,27 @@ public class DVDDbUtil {
                         language,
                         subtitle,
                         publication_date,
-                        genre
+                        genre,
+                        actors,
+                        writers
                 );
 
-                dvd.add(b);
+                item.add(b);
             }
         } catch (Exception e) {
             System.out.print("Cant connect");
             e.printStackTrace();
         }
 
-        return dvd;
+        return item;
     }
 
-    public static boolean addItem(DVD dvd) throws ClassNotFoundException, SQLException {
+    public static boolean addItem(Movie item) throws ClassNotFoundException, SQLException {
 
 
-        String query = "INSERT INTO `dvd` (`item_id`, `type`, `director`, `runtime`, `studio`, `language`, `subtitle`, `publication_date`, `genre`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO `movie` (`item_id`, `type`, `director`, `runtime`, `studio`, `language`, `subtitle`, `publication_date`, `genre`, `actors`, `writers`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         // insert to Item and PhysicalGood
-        int id = AddItemHelper.insertToItemAndPhysicalGood(dvd);
+        int id = AddItemHelper.insertToItem(item);
 
         try{
             Connection connection = ConnDB.getMySQLConnection();
@@ -104,14 +94,16 @@ public class DVDDbUtil {
 
             //insert to PhysicalGood
             statement.setString(1, Integer.toString(id));
-            statement.setString(2, dvd.getType());
-            statement.setString(3, dvd.getDirector());
-            statement.setString(4, Integer.toString(dvd.getRuntime()));
-            statement.setString(5, dvd.getStudio());
-            statement.setString(6, dvd.getLanguage());
-            statement.setString(7, dvd.getSubtitle());
-            statement.setString(8, dvd.getPublication_date());
-            statement.setString(9, dvd.getGenre());
+            statement.setString(2, item.getType());
+            statement.setString(3, item.getDirector());
+            statement.setString(4, Integer.toString(item.getRuntime()));
+            statement.setString(5, item.getStudio());
+            statement.setString(6, item.getLanguage());
+            statement.setString(7, item.getSubtitle());
+            statement.setString(8, item.getPublication_date());
+            statement.setString(9, item.getGenre());
+            statement.setString(10, item.getActors().toString());
+            statement.setString(11, item.getWriters().toString());
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 return true;
@@ -129,12 +121,12 @@ public class DVDDbUtil {
         return false;
     }
 
-    public static boolean updateItem(DVD item) throws ClassNotFoundException, SQLException{
+    public static boolean updateItem(Movie item) throws ClassNotFoundException, SQLException{
 
 
-        String query = "UPDATE `dvd` SET `type` = ?, `director` = ?, `runtime` = ?, `studio` = ?, `language` = ?, `subtitle` = ?, `publication_date` = ?, `genre` = ? WHERE `dvd`.`item_id` = ?";
+        String query = "UPDATE `movie` SET `type` = ?, `director` = ?, `runtime` = ?, `studio` = ?, `language` = ?, `subtitle` = ?, `publication_date` = ?, `genre` = ? WHERE `movie`.`item_id` = ?";
         // insert to Item and PhysicalGood
-        boolean result = UpdateItemHelper.updateItemAndPhysicalGood(item);
+        boolean result = UpdateItemHelper.updateItem(item);
         if (!result){
             return false;
         }
@@ -173,5 +165,4 @@ public class DVDDbUtil {
         DeleteItemHelper.deleteItem(id);
 
     }
-
 }

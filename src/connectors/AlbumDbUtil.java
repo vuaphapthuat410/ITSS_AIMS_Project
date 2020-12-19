@@ -1,27 +1,22 @@
 package connectors;
 
-//import com.mysql.jdbc.PreparedStatement;
-import java.sql.PreparedStatement;
 import connectors.helper.AddItemHelper;
 import connectors.helper.DeleteItemHelper;
 import connectors.helper.UpdateItemHelper;
-import models.LP;
+import models.Album;
+import models.AlbumTrack;
+import models.CD;
 import models.Track;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+public class AlbumDbUtil {
+    public static List<Album> getAllItem() throws ClassNotFoundException, SQLException {
 
-
-public class LPDbUtil {
-    public static ArrayList<LP> getAllItem() throws ClassNotFoundException, SQLException {
-
-        String query = "SELECT `lp`.*, `physical_good`.*, `item`.* FROM `lp` LEFT JOIN `physical_good` ON `lp`.`item_id` = `physical_good`.`item_id` LEFT JOIN `item` ON `physical_good`.`item_id` = `item`.`id`;";
-        ArrayList<LP> lp = new ArrayList<>();
+        String query = "SELECT `album`.*, `item`.* FROM `album` LEFT JOIN `item` ON `album`.`item_id` = `item`.`id`";
+        ArrayList<Album> item = new ArrayList<>();
 
         try{
             Connection connection = ConnDB.getMySQLConnection();
@@ -30,66 +25,50 @@ public class LPDbUtil {
 
             while(rs.next()){
                 int id = rs.getInt(1);
-                String artist = rs.getString(2);
+                String artists = rs.getString(2);
                 String record_label = rs.getString(3);
                 String publication_date = rs.getString(4);
                 String genre = rs.getString(5);
-                String barcode = rs.getString(7);
-                String description = rs.getString(8);
-                int quantity = rs.getInt(9);
-                String date = rs.getString(10);
-                int dimension_x = rs.getInt(11);
-                int dimension_y = rs.getInt(12);
-                int dimension_z = rs.getInt(13);
-                int weight = rs.getInt(14);
-                String title = rs.getString(16);
-                int value = rs.getInt(17);
-                int price = rs.getInt(18);
-                int unit_sale = rs.getInt(19);
-                String category = rs.getString(20);
-                ArrayList<Track> track_list = TrackDbUtil.getAllTrack(id);
+                String title = rs.getString(7);
+                int price = rs.getInt(8);
+                int value = rs.getInt(9);
+                int unit_sale = rs.getInt(10);
+                String category = rs.getString(11);
+                ArrayList<AlbumTrack> track_list = AlbumTrackDbUtil.getAllTrack(id);
 
 
 
-                LP b = new LP(
+
+                Album b = new Album(
                         id,
                         title,
                         value,
                         price,
                         unit_sale,
                         category,
-                        barcode,
-                        description,
-                        quantity,
-                        date,
-                        dimension_x,
-                        dimension_y,
-                        dimension_z,
-                        weight,
-                        artist,
+                        artists,
                         record_label,
                         publication_date,
                         genre,
                         track_list
                 );
 
-                lp.add(b);
+                item.add(b);
             }
         } catch (Exception e) {
             System.out.print("Cant connect");
             e.printStackTrace();
         }
 
-        return lp;
+        return item;
     }
 
+    public static boolean addItem(Album item) throws ClassNotFoundException, SQLException {
 
-    public static boolean addItem(LP item) throws ClassNotFoundException, SQLException {
 
-
-        String query = "INSERT INTO `lp` (`item_id`, `artist`, `record_label`, `publication_date`, `genre`) VALUES (?, ?, ?, ?, ?);";
+        String query = "INSERT INTO `album` (`item_id`, `artist`, `record_label`, `publication_date`, `genre`) VALUES (?, ?, ?, ?, ?);";
         // insert to Item and PhysicalGood
-        int id = AddItemHelper.insertToItemAndPhysicalGood(item);
+        int id = AddItemHelper.insertToItem(item);
 
         try{
             Connection connection = ConnDB.getMySQLConnection();
@@ -106,8 +85,7 @@ public class LPDbUtil {
             if (rowsInserted == 0) {
                 return false;
             }
-
-            TrackDbUtil.addTrackList(item.getId(), item.getTrack_list());
+            AlbumTrackDbUtil.addTrackList(item.getId(), item.getTrack_list());
 
         } catch (Exception e) {
             System.out.print("Cant connect");
@@ -117,12 +95,12 @@ public class LPDbUtil {
         return true;
     }
 
-    public static boolean updateItem(LP item) throws ClassNotFoundException, SQLException{
+    public static boolean updateItem(Album item) throws ClassNotFoundException, SQLException{
 
 
-        String query = "UPDATE `lp` SET `artist` = ?, `record_label` = ?, `publication_date` = ?, `genre` = ? WHERE `lp`.`item_id` = ?";
+        String query = "UPDATE `album` SET `artist` = ?, `record_label` = ?, `publication_date` = ?, `genre` = ? WHERE `cd`.`item_id` = ?";
         // insert to Item and PhysicalGood
-        boolean result = UpdateItemHelper.updateItemAndPhysicalGood(item);
+        boolean result = UpdateItemHelper.updateItem(item);
         if (!result){
             return false;
         }
@@ -143,8 +121,7 @@ public class LPDbUtil {
             if (rowsInserted == 0) {
                 return false;
             }
-            TrackDbUtil.updateTrackList(item.getId() ,item.getTrack_list());
-
+            AlbumTrackDbUtil.updateTrackList(item.getId() ,item.getTrack_list());
 
         } catch (Exception e) {
             System.out.print("Cant connect");
@@ -155,7 +132,10 @@ public class LPDbUtil {
 
     public static void deleteItem(int id) throws SQLException, ClassNotFoundException {
 
+
         DeleteItemHelper.deleteItem(id);
+
+
 
     }
 }
