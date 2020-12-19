@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MovieDbUtil {
-    public static List<Movie> getAllItem() throws ClassNotFoundException, SQLException {
+    public static ArrayList<Movie> getAllItem() throws ClassNotFoundException, SQLException {
 
         String query = "SELECT `movie`.*, `item`.* FROM `movie` LEFT JOIN `item` ON `movie`.`item_id` = `item`.`id`";
         ArrayList<Movie> item = new ArrayList<>();

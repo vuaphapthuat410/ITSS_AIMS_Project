@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.stage.Stage;
 
 import models.User;
 import utils.CheckValidFieldUtils;
@@ -137,14 +138,16 @@ public class SignupController implements Initializable {
 
     @FXML
     private void back(ActionEvent event) {
-        // TO DO : this simple hide this pane
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        // TO DO : close this stage
+        Stage stage = (Stage) btCancel.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void login(ActionEvent event) {
         // TO DO : this too
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        Stage stage = (Stage) btCancel.getScene().getWindow();
+        stage.close();
     }
     
 }

@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -45,7 +46,8 @@ public class ChangePasswdController implements Initializable {
 
     @FXML
     private void toCancel(ActionEvent event) {
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        Stage stage = (Stage) btCancel.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

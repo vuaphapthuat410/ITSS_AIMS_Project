@@ -5,13 +5,19 @@
  */
 package controllers.main;
 
+import connectors.AlbumDbUtil;
 import connectors.BookDbUtil;
 import connectors.CDDbUtil;
 import connectors.DVDDbUtil;
+import connectors.EbookDbUtil;
 import connectors.LPDbUtil;
+import connectors.MovieDbUtil;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,11 +34,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import models.Album;
 import models.Book;
 import models.CD;
 import models.DVD;
+import models.Ebook;
 import models.Item;
 import models.LP;
+import models.Movie;
 
 /**
  * FXML Controller class
@@ -47,7 +56,9 @@ public class ProductPaneController implements Initializable {
     private Button btNext;
     @FXML
     private Button btPrev;
-
+    
+    Integer page = 0;
+    ArrayList<? extends Item> itemsList;
     /**
      * Initializes the controller class.
      */
@@ -58,13 +69,15 @@ public class ProductPaneController implements Initializable {
 
     @FXML
     private void toNext(ActionEvent event) {
+        reloadProducts(itemsList, ++page);
     }
 
     @FXML
     private void toPrev(ActionEvent event) {
+        reloadProducts(itemsList, --page);
     }
     
-    private void reloadProducts(ArrayList<? extends Item> items) { // using wildcard here for polymorphism
+    private void reloadProducts(ArrayList<? extends Item> items, Integer page) { // using wildcard here for polymorphism
         ObservableList<Node> products = productView.getChildren();
         for(int i = 0; i < 9; ++i) {
             GridPane aProduct = (GridPane) products.get(i);
@@ -74,8 +87,9 @@ public class ProductPaneController implements Initializable {
             image.setImage(new Image("data/not-bug-feature.jpg"));
             Label productName = (Label) imagePaneBox.getChildren().get(1);
             
-            if(i < items.size()) {
-                productName.setText(items.get(i).getTitle());
+            int j = 9*page + i; // this is item index
+            if(j < items.size()) {
+                productName.setText(items.get(j).getTitle());
                 aProduct.setVisible(true); // show item in case it was hided before
             }
             else 
@@ -85,6 +99,51 @@ public class ProductPaneController implements Initializable {
     
     public void getMixed() {
         // Write function that return random list of products
+        ArrayList<Item> items = new ArrayList<Item>();
+        
+        ArrayList<Book> books = null;
+        ArrayList<CD> cds = null;
+        ArrayList<LP> lps = null;
+        ArrayList<DVD> dvds = null;
+        
+        ArrayList<Ebook> ebooks = null;
+        ArrayList<Movie> movies = null;
+        ArrayList<Album> albums = null;
+        
+        try {
+            books = BookDbUtil.getAllItem();
+            cds = CDDbUtil.getAllItem();
+            lps = LPDbUtil.getAllItem();
+            dvds = DVDDbUtil.getAllItem();
+            
+            ebooks = EbookDbUtil.getAllItem();
+            movies = MovieDbUtil.getAllItem();
+            albums = AlbumDbUtil.getAllItem();
+            
+            items.addAll(books);
+            items.addAll(cds);
+            items.addAll(lps);
+            items.addAll(dvds);
+            
+            items.addAll(ebooks);
+            items.addAll(movies);
+            items.addAll(albums);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        
+        items.removeIf(Objects::isNull); // Java 8 code for remove all null element from list
+        ArrayList<Item> removedList = new ArrayList<Item>();    // contains element that have title is null
+        for(Item item : items) {
+            if(item.getTitle() == null)
+                removedList.add(item);
+        }
+        items.removeAll(removedList);   // remove all element have null title
+        Collections.sort(items);    // sort by title
+        
+        page = 0;
+        itemsList = items;
+        reloadProducts(items, 0);
     }
     
     public void getBook() {
@@ -99,7 +158,9 @@ public class ProductPaneController implements Initializable {
             ex.printStackTrace();
         }
         
-        reloadProducts(books);
+        page = 0;
+        itemsList = books;
+        reloadProducts(books, 0);
     }
     
     public void getCD() {
@@ -114,7 +175,9 @@ public class ProductPaneController implements Initializable {
             ex.printStackTrace();
         }
         
-        reloadProducts(cds);
+        page = 0;
+        itemsList = cds;
+        reloadProducts(cds, 0);
     } 
     
     public void getLP() {
@@ -129,7 +192,9 @@ public class ProductPaneController implements Initializable {
             ex.printStackTrace();
         }
         
-        reloadProducts(lps);
+        page = 0;
+        itemsList = lps;
+        reloadProducts(lps, 0);
     } 
     
     public void getDVD() {
@@ -144,7 +209,59 @@ public class ProductPaneController implements Initializable {
             ex.printStackTrace();
         }
         
-        reloadProducts(dvds);
+        page = 0;
+        itemsList = dvds;
+        reloadProducts(dvds, 0);
     } 
     
+    public void getEbook() {
+        ArrayList<Ebook> ebooks = null;
+        try {
+            // TODO
+            ebooks = EbookDbUtil.getAllItem();
+            if(ebooks == null) return;
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        page = 0;
+        itemsList = ebooks;
+        reloadProducts(ebooks, 0);
+    }
+    
+    public void getMovie() {
+        ArrayList<Movie> movies = null;
+        try {
+            // TODO
+            movies = MovieDbUtil.getAllItem();
+            if(movies == null) return;
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        page = 0;
+        itemsList = movies;
+        reloadProducts(movies, 0);
+    }
+    
+    public void getAlbum() {
+        ArrayList<Album> albums = null;
+        try {
+            // TODO
+            albums = AlbumDbUtil.getAllItem();
+            if(albums == null) return;
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        page = 0;
+        itemsList = albums;
+        reloadProducts(albums, 0);
+    }
 }

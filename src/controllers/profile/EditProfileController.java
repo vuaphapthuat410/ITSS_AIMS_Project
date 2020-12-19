@@ -121,7 +121,8 @@ public class EditProfileController implements Initializable {
 
     @FXML
     private void cancelEdit(ActionEvent event) {
-        ((Node)(event.getSource())).getScene().getWindow().hide();
+        Stage stage = (Stage) btCancel.getScene().getWindow();
+        stage.close();
     }
     
 }

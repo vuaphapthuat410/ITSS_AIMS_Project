@@ -110,6 +110,7 @@ public class LoginController implements Initializable {
                 // Hide login pane
                 ((Node)(event.getSource())).getScene().getWindow().hide();
             } catch (IOException e) {
+                e.printStackTrace();
                 System.err.println("Error occurs while trying to  open home screen.");
             }
             

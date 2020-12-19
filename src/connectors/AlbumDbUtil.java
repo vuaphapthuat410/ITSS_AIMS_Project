@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumDbUtil {
-    public static List<Album> getAllItem() throws ClassNotFoundException, SQLException {
+    public static ArrayList<Album> getAllItem() throws ClassNotFoundException, SQLException {
 
         String query = "SELECT `album`.*, `item`.* FROM `album` LEFT JOIN `item` ON `album`.`item_id` = `item`.`id`";
         ArrayList<Album> item = new ArrayList<>();

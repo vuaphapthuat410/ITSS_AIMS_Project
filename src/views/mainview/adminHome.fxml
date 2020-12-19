@@ -50,22 +50,22 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label accessibleRole="BUTTON" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" text="Product manage">
+                              <Label fx:id="productsManage" accessibleRole="BUTTON" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toProductsManage" prefHeight="30.0" prefWidth="200.0" text="Product manage">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Label accessibleRole="BUTTON" layoutX="21.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" text="Account manage" GridPane.rowIndex="2">
+                              <Label fx:id="accsManage" accessibleRole="BUTTON" layoutX="21.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toAccsManage" prefHeight="30.0" prefWidth="200.0" text="Account manage" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Label accessibleRole="BUTTON" layoutX="21.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" text="Promo manage" GridPane.rowIndex="4">
+                              <Label fx:id="promosManage" accessibleRole="BUTTON" layoutX="21.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toPromosManage" prefHeight="30.0" prefWidth="200.0" text="Promo manage" GridPane.rowIndex="4">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Label accessibleRole="BUTTON" layoutX="21.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" text="Order manage" GridPane.rowIndex="6">
+                              <Label fx:id="ordersManage" accessibleRole="BUTTON" layoutX="21.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toOrdersManage" prefHeight="30.0" prefWidth="200.0" text="Order manage" GridPane.rowIndex="6">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

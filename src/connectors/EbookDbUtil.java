@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EbookDbUtil {
 
-    public static List<Ebook> getAllItem() throws ClassNotFoundException, SQLException {
+    public static ArrayList<Ebook> getAllItem() throws ClassNotFoundException, SQLException {
 
         String query = "SELECT `book_content`.*, `book`.*, `item`.* FROM `book_content` LEFT JOIN `book` ON `book_content`.`item_id` = `book`.`item_id` LEFT JOIN `item` ON `book`.`item_id` = `item`.`id`;";
         ArrayList<Ebook> item = new ArrayList<>();

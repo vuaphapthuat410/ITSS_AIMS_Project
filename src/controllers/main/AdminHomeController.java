@@ -48,10 +48,6 @@ public class AdminHomeController implements Initializable {
     private StackPane mainview;
     @FXML
     private ImageView avatar;
-    
-    private ScrollPane productPane = null;
-    
-    private ProductPaneController productController;
     @FXML
     private Label lbEbook;
     @FXML
@@ -66,6 +62,22 @@ public class AdminHomeController implements Initializable {
     private Label lbCD;
     @FXML
     private Label lbDVD;
+    @FXML
+    private Label productsManage;
+    @FXML
+    private Label accsManage;
+    @FXML
+    private Label promosManage;
+    @FXML
+    private Label ordersManage;
+    
+        
+    private ScrollPane productPane = null;
+    private ProductPaneController productController;
+    private ScrollPane accsManagePane = null;
+    private ScrollPane productsManagePane = null;
+    private ScrollPane promosManagePane = null;
+    
     /**
      * Initializes the controller class.
      */
@@ -81,11 +93,15 @@ public class AdminHomeController implements Initializable {
             productController = loader.getController();
             mainview.getChildren().add(productPane);
         } catch (IOException ex) {
+            ex.printStackTrace();
         }
+        productController.getMixed();
     }    
     
     @FXML
     private void toHome(ActionEvent event) {
+        productPane.toFront();
+        productController.getMixed();
     }
     
     @FXML
@@ -108,33 +124,77 @@ public class AdminHomeController implements Initializable {
 
     @FXML
     private void toEbook(MouseEvent event) {
+        productPane.toFront();
+        productController.getEbook();
     }
 
     @FXML
     private void toAlbum(MouseEvent event) {
+        productPane.toFront();
+        productController.getAlbum();
     }
 
     @FXML
     private void toFilm(MouseEvent event) {
+        productPane.toFront();
+        productController.getMovie();
     }
 
     @FXML
     private void toBook(MouseEvent event) {
+        productPane.toFront();
          productController.getBook();
     }
 
     @FXML
     private void toLP(MouseEvent event) {
+        productPane.toFront();
         productController.getLP();
     }
 
     @FXML
     private void toCD(MouseEvent event) {
+        productPane.toFront();
         productController.getCD();
     }
 
     @FXML
     private void toDVD(MouseEvent event) {
+        productPane.toFront();
         productController.getDVD();
+    }
+
+    @FXML
+    private void toProductsManage(MouseEvent event) throws IOException {
+        if(productsManagePane != null)
+            productsManagePane.toFront();
+        else {
+            productsManagePane = FXMLLoader.load(getClass().getClassLoader().getResource("views/dashboard/productsManage.fxml"));
+            mainview.getChildren().add(productsManagePane);
+        }
+    }
+
+    @FXML
+    private void toAccsManage(MouseEvent event) throws IOException {
+        if(accsManagePane != null)
+            accsManagePane.toFront();
+        else {
+            accsManagePane = FXMLLoader.load(getClass().getClassLoader().getResource("views/dashboard/accsManage.fxml"));
+            mainview.getChildren().add(accsManagePane);
+        }
+    }
+
+    @FXML
+    private void toPromosManage(MouseEvent event) throws IOException {
+        if(promosManagePane != null)
+            promosManagePane.toFront();
+        else {
+            promosManagePane = FXMLLoader.load(getClass().getClassLoader().getResource("views/dashboard/promosManage.fxml"));
+            mainview.getChildren().add(promosManagePane);
+        }
+    }
+
+    @FXML
+    private void toOrdersManage(MouseEvent event) {
     }
 }

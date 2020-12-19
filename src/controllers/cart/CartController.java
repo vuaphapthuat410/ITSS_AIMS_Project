@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers.main;
+package controllers.cart;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -31,13 +36,25 @@ public class CartController implements Initializable {
     private Button btPurchase;
     @FXML
     private ComboBox<?> cbSortType;
+    @FXML
+    private GridPane productList;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            // TODO
+            AnchorPane product1 = FXMLLoader.load(getClass().getClassLoader().getResource("views/cart/productInCart.fxml"));
+            AnchorPane product2 = FXMLLoader.load(getClass().getClassLoader().getResource("views/cart/productInCart.fxml"));
+            
+            productList.addRow(1, product1);
+            productList.addRow(2, product2);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
     }    
 
     @FXML

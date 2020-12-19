@@ -10,7 +10,7 @@ package models;
 <<<<<<< HEAD
  * @author Vinh
  */
-public class Item {
+public class Item implements Comparable<Item>{
     private int id;
     private String title;
     private int value;
@@ -83,4 +83,8 @@ public class Item {
         this.category = category;
     }
 
+    @Override
+    public int compareTo(Item t) {  // check if there are any null element or title of element is null
+        return this.getTitle().compareToIgnoreCase(t.getTitle());
+    }
 }

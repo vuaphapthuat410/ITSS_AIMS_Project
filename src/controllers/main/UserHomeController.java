@@ -97,7 +97,9 @@ public class UserHomeController implements Initializable {
             productController = loader.getController();
             mainview.getChildren().add(productPane);
         } catch (IOException ex) {
-        }      
+            ex.printStackTrace();
+        } 
+        productController.getMixed();
     }    
 
     @FXML
@@ -115,7 +117,7 @@ public class UserHomeController implements Initializable {
         if(cartPane != null)
             cartPane.toFront();
         else {
-            cartPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/mainview/cart.fxml"));
+            cartPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/cart/cart.fxml"));
             mainview.getChildren().add(cartPane);
         }
     }
@@ -123,6 +125,7 @@ public class UserHomeController implements Initializable {
     @FXML
     private void toHome(ActionEvent event) {
         productPane.toFront();
+        productController.getMixed();
     }
     
     @FXML
@@ -145,33 +148,43 @@ public class UserHomeController implements Initializable {
 
     @FXML
     private void toEbook(MouseEvent event) {
+        productPane.toFront();
+        productController.getEbook();
     }
 
     @FXML
     private void toAlbum(MouseEvent event) {
+        productPane.toFront();
+        productController.getAlbum();
     }
 
     @FXML
     private void toFilm(MouseEvent event) {
+        productPane.toFront();
+        productController.getMovie();
     }
 
     @FXML
     private void toBook(MouseEvent event) {
+        productPane.toFront();
          productController.getBook();
     }
 
     @FXML
     private void toLP(MouseEvent event) {
+        productPane.toFront();
         productController.getLP();
     }
 
     @FXML
     private void toCD(MouseEvent event) {
+        productPane.toFront();
         productController.getCD();
     }
 
     @FXML
     private void toDVD(MouseEvent event) {
+        productPane.toFront();
         productController.getDVD();
     }
 
