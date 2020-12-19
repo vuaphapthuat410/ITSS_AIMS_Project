@@ -4,6 +4,7 @@ package connectors.helper;
 import java.sql.PreparedStatement;
 import connectors.ConnDB;
 import connectors.LogDbUtil;
+import models.Item;
 import models.Log;
 import models.PhysicalGood;
 
@@ -82,6 +83,55 @@ public class AddItemHelper {
         return id;
     }
 
+    public static int insertToItem(Item item) throws SQLException, ClassNotFoundException {
+        String itemQuery = "INSERT INTO `item` (`id`, `title`, `value`, `price`, `unit_sale`, `category`) VALUES (NULL, ?, ?, ?, ?, ?);";
+        String physicalGoodQuery = "INSERT INTO `physical_good` (`item_id`, `barcode`, `description`, `quantity`, `date`, `dimension_x`, `dimension_y`, `dimension_z`, `weight`) VALUES (?, ?, ?, ? ,? ,? ,? ,? ,? );";
+        int id = 0;
 
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(itemQuery,
+                    Statement.RETURN_GENERATED_KEYS);
+
+            //Insert to Item
+            statement.setString(1, item.getTitle());
+            statement.setString(2, Integer.toString(item.getValue()));
+            statement.setString(3, Integer.toString(item.getPrice()));
+            statement.setString(4, Integer.toString(item.getUnit_sale()));
+            statement.setString(5, item.getCategory());
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+//                System.out.println("A new item was inserted successfully!");
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getInt(1);
+//                    System.out.println("created item's id: " + id);
+                }
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+
+
+
+
+
+        } catch (Exception e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
+
+        //set new id
+        item.setId(id);
+
+        //create log
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        Log log = new Log(id, "add", dtf.format(now));
+        LogDbUtil.addLog((log));
+
+        return id;
+    }
 
 }
