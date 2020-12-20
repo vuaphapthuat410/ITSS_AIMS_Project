@@ -28,7 +28,7 @@ public class Aims extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {
-                test.doTest();
+                //test.doTest();
 
                 Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
                 stage.setTitle("AIMS PROJECT");

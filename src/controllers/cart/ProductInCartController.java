@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import models.Item;
+import controllers.cart.CartController;
 
 /**
  * FXML Controller class
@@ -44,6 +45,8 @@ public class ProductInCartController implements Initializable {
     private Label totalPrice;
     
     private Item item;
+    private CartController parentController;
+    
     /**
      * Initializes the controller class.
      */
@@ -59,11 +62,16 @@ public class ProductInCartController implements Initializable {
         price.setText(String.valueOf(anItem.getPrice()));
         quantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1));
     }
-
+    
+    public void setParentControl(CartController controller) {
+        parentController = controller;
+    }
+    
     @FXML
     private void remove(ActionEvent event) {
         GridPane grid = (GridPane) btRemove.getParent().getParent();
         grid.getChildren().remove(btRemove.getParent());
+        parentController.removeItemFromCart(item);
     }
     
 }

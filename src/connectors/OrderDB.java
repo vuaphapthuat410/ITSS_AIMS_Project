@@ -8,9 +8,10 @@ package connectors;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import models.Order;
 
 /**
@@ -59,5 +60,35 @@ public class OrderDB {
         }
         
         return orders;
+    }
+    
+    public static boolean createOrder(Order order) throws ClassNotFoundException, SQLException {
+        String query = "INSERT INTO `order_table`(`user_id`, `name`, `address`, `phone`, `total`, `tracking_id`, `order_status`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        // insert to Item and PhysicalGood
+
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+
+            statement.setInt(1, order.getUserId());
+            statement.setString(2, order.getName());
+            statement.setString(3, order.getAddress());
+            statement.setString(4, order.getPhoneNum());
+            statement.setFloat(5, order.getTotal());
+            statement.setInt(6, order.getTrackingId());
+            statement.setInt(7, order.getOrderStatus());
+            statement.setDate(8, order.getDate());
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+
+        } catch (Exception e) {
+            System.out.print("Cant create order");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

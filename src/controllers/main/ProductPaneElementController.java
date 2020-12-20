@@ -55,5 +55,4 @@ public class ProductPaneElementController implements Initializable {
     private void addToCart(ActionEvent event) {
         cartController.addCartElement(item);
     }
-    
 }

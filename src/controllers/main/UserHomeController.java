@@ -6,6 +6,7 @@
 package controllers.main;
 
 import controllers.cart.CartController;
+import controllers.order.OrderController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -93,7 +94,10 @@ public class UserHomeController implements Initializable {
         avatar.setImage(new Image("data/avatar.png"));
         // generate recommend pane
         try {
-            orderPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/order/order.fxml"));
+            FXMLLoader orderLoader = new FXMLLoader(getClass().getClassLoader().getResource("views/order/order.fxml"));
+            orderPane = orderLoader.load();
+            OrderController orderController = orderLoader.getController();
+            orderController.addAllOrders();
             mainview.getChildren().add(orderPane);
             
             FXMLLoader cartLoader = new FXMLLoader(getClass().getClassLoader().getResource("views/cart/cart.fxml"));
@@ -105,11 +109,11 @@ public class UserHomeController implements Initializable {
             productPane = productLoader.load();
             productController = productLoader.getController();
             productController.setCartController(cartController);
+            productController.getMixed();   // get mixed items after having cartController or got NullPointerException because of cartController varriables in ProductPaneController
             mainview.getChildren().add(productPane);
         } catch (IOException ex) {
             ex.printStackTrace();
         } 
-        productController.getMixed();
     }    
 
     @FXML

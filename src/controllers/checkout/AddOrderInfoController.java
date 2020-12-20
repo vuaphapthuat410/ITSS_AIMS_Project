@@ -7,6 +7,7 @@ package controllers.checkout;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Item;
 import utils.CheckValidFieldUtils;
 
 /**
@@ -45,7 +47,8 @@ public class AddOrderInfoController implements Initializable {
     private CheckBox ckbDefault;
     @FXML
     private AnchorPane orderInfo;
-
+    
+    private ArrayList<Item> items;
     /**
      * Initializes the controller class.
      */
@@ -92,17 +95,29 @@ public class AddOrderInfoController implements Initializable {
             statusAlert.showAndWait();
         }
         
-        
         else {
             // create invoice here then forward to confirmOrder
-            Parent orderPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/checkout/confirmOrder.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/checkout/confirmOrder.fxml"));
+            Parent orderPane =  loader.load();
+            ConfirmOrderController orderController = loader.getController();
+            // call setter for passing argument
+            orderController.setItems(items);
+            orderController.setInfo(tfName.getText(), tfPhone.getText(), tfAddress.getText());
+            orderController.refresh();
             Stage orderStage = new Stage();
             orderStage.setTitle("Confirm order");
             orderStage.setScene(new Scene(orderPane));
             orderStage.initModality(Modality.APPLICATION_MODAL);
             // show confirmOrder and wait for closing event
             orderStage.showAndWait();
+            // end this stage too
+            Stage stage = (Stage) btCancel.getScene().getWindow();
+            stage.close();
         }
+    }
+    
+    public void setItems(ArrayList<Item> itemList) {
+        items = itemList;
     }
     
 }

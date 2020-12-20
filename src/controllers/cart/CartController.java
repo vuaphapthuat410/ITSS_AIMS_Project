@@ -5,8 +5,10 @@
  */
 package controllers.cart;
 
+import controllers.checkout.AddOrderInfoController;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +41,8 @@ public class CartController implements Initializable {
     private ComboBox<?> cbSortType;
     @FXML
     private GridPane productList;
-
+    
+    private ArrayList<Item> items = new ArrayList<Item>();
     /**
      * Initializes the controller class.
      */
@@ -54,16 +57,25 @@ public class CartController implements Initializable {
             AnchorPane cartElement = loader.load();
             ProductInCartController cartElementController= loader.getController();
             cartElementController.setItem(item);
+            cartElementController.setParentControl(this);   // to have privilege to invoke remove item from cart
             productList.addRow(index, cartElement);
+            items.add(item);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
     
+    public void removeItemFromCart(Item item) {
+        items.remove(item);
+    }
+    
     @FXML
     private void purchase(ActionEvent event) {
         try {
-            Parent orderPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/checkout/addOrderInfo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/checkout/addOrderInfo.fxml"));
+            Parent orderPane  = loader.load();
+            AddOrderInfoController invoiceController = loader.getController();
+            invoiceController.setItems(items);
             Stage orderStage = new Stage();
             orderStage.setTitle("Order info");
             orderStage.setScene(new Scene(orderPane));

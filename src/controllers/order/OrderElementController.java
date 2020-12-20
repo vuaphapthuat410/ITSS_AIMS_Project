@@ -70,9 +70,9 @@ public class OrderElementController implements Initializable {
         imageView.setImage(new Image("data/not-bug-feature.jpg"));
         lbOrderId.setText(anOrder.getId().toString());
         lbTrackId.setText(anOrder.getTrackingId().toString());
-        lbPrice.setText(anOrder.getTotal().toString());
-        lbStatus.setText(getStatus(order.getOrderStatus()));
-        lbDate.setText(order.getDate().toString());
+        lbPrice.setText(String.valueOf(anOrder.getTotal()));
+        lbStatus.setText(getStatus(anOrder.getOrderStatus()));
+        lbDate.setText(anOrder.getDate().toString());
     }
     
 }

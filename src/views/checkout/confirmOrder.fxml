@@ -39,17 +39,17 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="167.0" layoutY="100.0" text="Customer Vuong" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0">
+      <Label fx:id="lbName" layoutX="167.0" layoutY="100.0" text="Customer Vuong" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="150.0" layoutY="150.0" text="0337055XXX" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="150.0">
+      <Label fx:id="lbPhone" layoutX="150.0" layoutY="150.0" text="0337055XXX" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="150.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Text layoutX="150.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ngach 299/62 duong Hoang Mai, quan Hoang Mai, Ha Noi" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="200.0">
+      <Text fx:id="lbAddress" layoutX="150.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ngach 299/62 duong Hoang Mai, quan Hoang Mai, Ha Noi" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="200.0">
          <font>
             <Font size="16.0" />
          </font>
@@ -59,7 +59,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="160.0" layoutY="237.0" text="15.000 vnd" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="250.0">
+      <Label fx:id="lbShipFee" layoutX="160.0" layoutY="237.0" text="15.000 vnd" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="250.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -69,7 +69,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="170.0" layoutY="260.0" text="100.000 vnd" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="300.0">
+      <Label fx:id="lbTotal" layoutX="170.0" layoutY="260.0" text="100.000 vnd" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="300.0">
          <font>
             <Font size="18.0" />
          </font>

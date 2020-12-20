@@ -30,6 +30,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -59,6 +60,8 @@ public class ProductPaneController implements Initializable {
     private Button btNext;
     @FXML
     private Button btPrev;
+    @FXML
+    private ComboBox<?> cbSort;
     
     Integer page = 0;
     ArrayList<? extends Item> itemsList;
@@ -69,7 +72,6 @@ public class ProductPaneController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-           
     }    
 
     @FXML
@@ -90,8 +92,8 @@ public class ProductPaneController implements Initializable {
         ObservableList<Node> products = productView.getChildren();
         products.clear();   //clear list before get new one
 
-        for(int i = 0; i < 9; ++i) {
-            int j = 9*page + i; // this is item index  - in need change this code and the above code , change 9 to change the max number of element in TilePane
+        for(int i = 0; i < 20; ++i) {
+            int j = 20*page + i; // this is item index  - in need change this code and the above code , change 9 to change the max number of element in TilePane
             if(j < items.size()) {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/productPaneElement.fxml"));
                 GridPane anItem = null;
@@ -103,6 +105,7 @@ public class ProductPaneController implements Initializable {
                 }
                 ProductPaneElementController itemControl = loader.getController();
                 itemControl.setItem(items.get(j));
+                if(cartController == null) System.out.println("NullPointerException");
                 itemControl.setCartController(cartController);
                 products.add(anItem);
             }
