@@ -6,6 +6,7 @@
 package controllers.checkout;
 
 import connectors.OrderDB;
+import data.ControllerUtils;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import javafx.stage.Stage;
 import models.Item;
 import models.Order;
 import data.UserInfo;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
@@ -45,7 +48,7 @@ public class ConfirmOrderController implements Initializable {
     @FXML
     private Label lbTotal;
     
-    private ArrayList<Item> items;
+    private HashMap<Item,Integer> items;
     private String name;
     private String phone;
     private String address;
@@ -69,7 +72,7 @@ public class ConfirmOrderController implements Initializable {
     @FXML
     private void submit(ActionEvent event) throws ClassNotFoundException, SQLException {
         Order order = new Order(0, UserInfo.getId(), name, address, phone, total.floatValue(), generateUUID(total), 1, getDate());
-        boolean status = OrderDB.createOrder(order);
+        boolean status = OrderDB.createOrder(order, items);
         if(status == true) {
             System.out.println("Create order sucessfully");
         }
@@ -78,9 +81,10 @@ public class ConfirmOrderController implements Initializable {
         // exit
         Stage stage = (Stage) btBack.getScene().getWindow();
         stage.close();
+        ControllerUtils.refresh();
     }
     
-    public void setItems(ArrayList<Item> itemList) {
+    public void setItems(HashMap<Item,Integer> itemList) {
         items = itemList;
     }
     
@@ -101,8 +105,8 @@ public class ConfirmOrderController implements Initializable {
     }
     
     public void refresh() {
-        for(Item item : items) {
-            total += item.getPrice();
+        for(Map.Entry<Item,Integer> item : items.entrySet()) {
+            total = total + (item.getKey().getPrice())*(item.getValue());
         }
         lbName.setText(name);
         lbPhone.setText(phone);

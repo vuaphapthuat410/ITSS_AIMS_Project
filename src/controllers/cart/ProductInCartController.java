@@ -61,6 +61,11 @@ public class ProductInCartController implements Initializable {
         category.setText(anItem.getCategory());
         price.setText(String.valueOf(anItem.getPrice()));
         quantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1));
+        quantity.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            if(oldValue != newValue)
+                parentController.updateItemQuantity(anItem, Integer.parseInt(newValue));
+        });
+        item = anItem;
     }
     
     public void setParentControl(CartController controller) {

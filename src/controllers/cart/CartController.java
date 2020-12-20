@@ -9,6 +9,7 @@ import controllers.checkout.AddOrderInfoController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class CartController implements Initializable {
     @FXML
     private GridPane productList;
     
-    private ArrayList<Item> items = new ArrayList<Item>();
+    private HashMap<Item,Integer> items = new HashMap<Item,Integer>();
     /**
      * Initializes the controller class.
      */
@@ -59,7 +60,7 @@ public class CartController implements Initializable {
             cartElementController.setItem(item);
             cartElementController.setParentControl(this);   // to have privilege to invoke remove item from cart
             productList.addRow(index, cartElement);
-            items.add(item);
+            items.put(item, 1);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -85,5 +86,14 @@ public class CartController implements Initializable {
             e.printStackTrace();
             System.err.println("Cannot open purchase screen.");
         }
+    }
+    
+    public void updateItemQuantity(Item item, Integer quantity) {
+        items.replace(item, quantity);
+    }
+    
+    public void clear() {
+        productList.getChildren().clear();
+        items.clear();
     }
 }

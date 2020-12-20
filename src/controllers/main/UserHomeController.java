@@ -36,6 +36,8 @@ import javafx.scene.layout.StackPane;
 
 import data.UserInfo;
 import java.sql.SQLException;
+import data.ControllerUtils;
+
 /**
  * FXML Controller class
  *
@@ -111,6 +113,8 @@ public class UserHomeController implements Initializable {
             productController.setCartController(cartController);
             productController.getMixed();   // get mixed items after having cartController or got NullPointerException because of cartController varriables in ProductPaneController
             mainview.getChildren().add(productPane);
+            
+            ControllerUtils.setControllers(cartController, orderController, productController); // save for convenient
         } catch (IOException ex) {
             ex.printStackTrace();
         } 

@@ -62,4 +62,9 @@ public class OrderController implements Initializable {
         for(int i = 0; i< num; ++i) 
             addOrderElement(orders.get(i));
     }
+    
+    public void update() {
+        orderList.getChildren().clear();
+        addAllOrders();
+    }
 }

@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+import models.Item;
 import models.Order;
 
 /**
@@ -62,13 +65,15 @@ public class OrderDB {
         return orders;
     }
     
-    public static boolean createOrder(Order order) throws ClassNotFoundException, SQLException {
+    public static boolean createOrder(Order order, HashMap<Item, Integer> items) throws ClassNotFoundException, SQLException {
         String query = "INSERT INTO `order_table`(`user_id`, `name`, `address`, `phone`, `total`, `tracking_id`, `order_status`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        String query2 = "INSERT INTO `order_item`(`order_id`, `item_id`, `quantity`) VALUES (?,?,?)";
         // insert to Item and PhysicalGood
-
+        int id = 0;
+        
         try{
             Connection connection = ConnDB.getMySQLConnection();
-            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             statement.setInt(1, order.getUserId());
             statement.setString(2, order.getName());
@@ -80,9 +85,25 @@ public class OrderDB {
             statement.setDate(8, order.getDate());
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                return true;
+                ResultSet keys = statement.getGeneratedKeys();
+                if(keys.next())
+                    id = keys.getInt(1);
+                else {
+                    throw new SQLException("Cannot create record order_item");
+                }                
             }
-
+            else 
+                return false;
+            
+            for(Map.Entry<Item,Integer> item : items.entrySet()) {
+                PreparedStatement otherPreparedStatement = connection.prepareStatement(query2);
+                otherPreparedStatement.setInt(1, id);
+                otherPreparedStatement.setInt(2, item.getKey().getId());
+                otherPreparedStatement.setInt(3, item.getValue());
+                int row = otherPreparedStatement.executeUpdate();
+                if(row < 0)
+                    return false;
+            }
 
         } catch (Exception e) {
             System.out.print("Cant create order");

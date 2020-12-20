@@ -8,6 +8,7 @@ package controllers.checkout;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,7 +49,7 @@ public class AddOrderInfoController implements Initializable {
     @FXML
     private AnchorPane orderInfo;
     
-    private ArrayList<Item> items;
+    private HashMap<Item,Integer> items;
     /**
      * Initializes the controller class.
      */
@@ -116,7 +117,7 @@ public class AddOrderInfoController implements Initializable {
         }
     }
     
-    public void setItems(ArrayList<Item> itemList) {
+    public void setItems(HashMap<Item,Integer> itemList) {
         items = itemList;
     }
     
