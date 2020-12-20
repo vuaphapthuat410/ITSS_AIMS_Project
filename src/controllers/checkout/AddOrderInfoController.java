@@ -99,7 +99,7 @@ public class AddOrderInfoController implements Initializable {
             Stage orderStage = new Stage();
             orderStage.setTitle("Confirm order");
             orderStage.setScene(new Scene(orderPane));
-            orderStage.initModality(Modality.NONE);
+            orderStage.initModality(Modality.APPLICATION_MODAL);
             // show confirmOrder and wait for closing event
             orderStage.showAndWait();
         }

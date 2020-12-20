@@ -93,6 +93,8 @@ public class UserDB {
             statement.setString(5, phone);
             statement.setString(6, Integer.toString(0));
             int rowsInserted = statement.executeUpdate();
+            
+            connection.close();
             if (rowsInserted > 0) {
                 return true;
             }
@@ -119,6 +121,8 @@ public class UserDB {
             statement.setInt(4, id);
             
             int rowsInserted = statement.executeUpdate();
+            
+            connection.close();
             if (rowsInserted > 0) {
                 return true;
             }
@@ -144,6 +148,8 @@ public class UserDB {
             statement.setString(3, oldPasswd);
             
             int rowsInserted = statement.executeUpdate();
+            
+            connection.close();
             if (rowsInserted > 0) {
                 return true;
             }

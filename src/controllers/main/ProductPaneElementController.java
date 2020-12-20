@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers.cart;
+package controllers.main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,13 +12,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import controllers.cart.CartController;
 import models.Item;
 
 /**
@@ -26,44 +22,38 @@ import models.Item;
  *
  * @author vuaphapthuat410
  */
-public class ProductInCartController implements Initializable {
+public class ProductPaneElementController implements Initializable {
 
-    @FXML
-    private Button btRemove;
     @FXML
     private ImageView imageView;
     @FXML
-    private Label name;
+    private Label lbName;
     @FXML
-    private Label category;
-    @FXML
-    private Label price;
-    @FXML
-    private Spinner<Integer> quantity;
-    @FXML
-    private Label totalPrice;
+    private Button btAddToCart;
     
     private Item item;
+    private CartController cartController;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    } 
     
     public void setItem(Item anItem) {
+        item = anItem;
         imageView.setImage(new Image("data/not-bug-feature.jpg"));
-        name.setText(anItem.getTitle());
-        category.setText(anItem.getCategory());
-        price.setText(String.valueOf(anItem.getPrice()));
-        quantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1));
+        lbName.setText(item.getTitle());
+    }
+    
+    public void setCartController(CartController controller) {
+        cartController = controller;
     }
 
     @FXML
-    private void remove(ActionEvent event) {
-        GridPane grid = (GridPane) btRemove.getParent().getParent();
-        grid.getChildren().remove(btRemove.getParent());
+    private void addToCart(ActionEvent event) {
+        cartController.addCartElement(item);
     }
     
 }

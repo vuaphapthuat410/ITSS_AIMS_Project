@@ -5,6 +5,7 @@
  */
 package controllers.main;
 
+import controllers.cart.CartController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -92,9 +93,18 @@ public class UserHomeController implements Initializable {
         avatar.setImage(new Image("data/avatar.png"));
         // generate recommend pane
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/productPane.fxml"));
-            productPane = loader.load();
-            productController = loader.getController();
+            orderPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/order/order.fxml"));
+            mainview.getChildren().add(orderPane);
+            
+            FXMLLoader cartLoader = new FXMLLoader(getClass().getClassLoader().getResource("views/cart/cart.fxml"));
+            cartPane = cartLoader.load();
+            CartController cartController = cartLoader.getController();
+            mainview.getChildren().add(cartPane);
+            
+            FXMLLoader productLoader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/productPane.fxml"));
+            productPane = productLoader.load();
+            productController = productLoader.getController();
+            productController.setCartController(cartController);
             mainview.getChildren().add(productPane);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -104,22 +114,12 @@ public class UserHomeController implements Initializable {
 
     @FXML
     private void toOrder(MouseEvent event) throws IOException {
-        if(orderPane != null)
             orderPane.toFront();
-        else {
-            orderPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/mainview/order.fxml"));
-            mainview.getChildren().add(orderPane);
-        }
     }
 
     @FXML
     private void toCart(MouseEvent event) throws IOException {
-        if(cartPane != null)
             cartPane.toFront();
-        else {
-            cartPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/cart/cart.fxml"));
-            mainview.getChildren().add(cartPane);
-        }
     }
     
     @FXML
@@ -138,8 +138,9 @@ public class UserHomeController implements Initializable {
             stage.initModality(Modality.NONE);
             stage.show();
             
-            // Hide home screen
-            ((Node)(event.getSource())).getScene().getWindow().hide();
+            // close home screen
+            Stage currrentStage = (Stage) btLogOut.getScene().getWindow();
+            currrentStage.close();
         }
         catch (IOException e) {
             e.printStackTrace();

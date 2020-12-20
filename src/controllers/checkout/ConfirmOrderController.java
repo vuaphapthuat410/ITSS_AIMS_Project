@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -34,6 +35,8 @@ public class ConfirmOrderController implements Initializable {
 
     @FXML
     private void toBack(ActionEvent event) {
+        Stage stage = (Stage) btBack.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

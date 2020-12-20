@@ -12,6 +12,8 @@ import connectors.DVDDbUtil;
 import connectors.EbookDbUtil;
 import connectors.LPDbUtil;
 import connectors.MovieDbUtil;
+import controllers.cart.CartController;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -59,6 +62,8 @@ public class ProductPaneController implements Initializable {
     
     Integer page = 0;
     ArrayList<? extends Item> itemsList;
+    CartController cartController;
+    
     /**
      * Initializes the controller class.
      */
@@ -77,24 +82,31 @@ public class ProductPaneController implements Initializable {
         reloadProducts(itemsList, --page);
     }
     
+    public void setCartController(CartController controller) {
+        cartController = controller;
+    }
+    
     private void reloadProducts(ArrayList<? extends Item> items, Integer page) { // using wildcard here for polymorphism
         ObservableList<Node> products = productView.getChildren();
+        products.clear();   //clear list before get new one
+
         for(int i = 0; i < 9; ++i) {
-            GridPane aProduct = (GridPane) products.get(i);
-            AnchorPane imagePane = (AnchorPane) aProduct.getChildren().get(0);
-            VBox imagePaneBox = (VBox) imagePane.getChildren().get(0);
-            ImageView image = (ImageView) imagePaneBox.getChildren().get(0);
-            image.setImage(new Image("data/not-bug-feature.jpg"));
-            Label productName = (Label) imagePaneBox.getChildren().get(1);
-            
-            int j = 9*page + i; // this is item index
+            int j = 9*page + i; // this is item index  - in need change this code and the above code , change 9 to change the max number of element in TilePane
             if(j < items.size()) {
-                productName.setText(items.get(j).getTitle());
-                aProduct.setVisible(true); // show item in case it was hided before
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/productPaneElement.fxml"));
+                GridPane anItem = null;
+                try {
+                    anItem = loader.load();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    continue;
+                }
+                ProductPaneElementController itemControl = loader.getController();
+                itemControl.setItem(items.get(j));
+                itemControl.setCartController(cartController);
+                products.add(anItem);
             }
-            else 
-                aProduct.setVisible(false); // hide item if there're not anymore items
-        }
+        } 
     }
     
     public void getMixed() {

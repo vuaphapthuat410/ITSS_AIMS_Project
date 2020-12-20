@@ -24,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Item;
 
 /**
  * FXML Controller class
@@ -44,19 +45,21 @@ public class CartController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }    
+    
+    public void addCartElement(Item item) {
+        Integer index = productList.getChildren().size();
         try {
-            // TODO
-            AnchorPane product1 = FXMLLoader.load(getClass().getClassLoader().getResource("views/cart/productInCart.fxml"));
-            AnchorPane product2 = FXMLLoader.load(getClass().getClassLoader().getResource("views/cart/productInCart.fxml"));
-            
-            productList.addRow(1, product1);
-            productList.addRow(2, product2);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/cart/productInCart.fxml"));
+            AnchorPane cartElement = loader.load();
+            ProductInCartController cartElementController= loader.getController();
+            cartElementController.setItem(item);
+            productList.addRow(index, cartElement);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        
-    }    
-
+    }
+    
     @FXML
     private void purchase(ActionEvent event) {
         try {
