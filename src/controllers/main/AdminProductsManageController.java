@@ -13,16 +13,15 @@ import connectors.EbookDbUtil;
 import connectors.LPDbUtil;
 import connectors.MovieDbUtil;
 import controllers.cart.CartController;
+import controllers.main.ProductPaneElementController;
+import controllers.main.AdminProductPaneElementController;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,13 +30,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import models.Album;
 import models.Book;
 import models.CD;
@@ -52,7 +47,7 @@ import models.Movie;
  *
  * @author vuaphapthuat410
  */
-public class ProductPaneController implements Initializable {
+public class AdminProductsManageController implements Initializable {
 
     @FXML
     private TilePane productView;
@@ -62,18 +57,26 @@ public class ProductPaneController implements Initializable {
     private Button btPrev;
     @FXML
     private ComboBox<?> cbSort;
+    @FXML
+    private Button btNew;
+    @FXML
+    private TextField tfSearch;
     
     Integer page = 0;
     ArrayList<? extends Item> itemsList;
-    CartController cartController;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // TODO
     }    
 
+    @FXML
+    private void createNew(ActionEvent event) {
+    }
+    
     @FXML
     private void toNext(ActionEvent event) {
         reloadProducts(itemsList, ++page);
@@ -84,10 +87,6 @@ public class ProductPaneController implements Initializable {
         reloadProducts(itemsList, --page);
     }
     
-    public void setCartController(CartController controller) {
-        cartController = controller;
-    }
-    
     private void reloadProducts(ArrayList<? extends Item> items, Integer page) { // using wildcard here for polymorphism
         ObservableList<Node> products = productView.getChildren();
         products.clear();   //clear list before get new one
@@ -95,17 +94,17 @@ public class ProductPaneController implements Initializable {
         for(int i = 0; i < 20; ++i) {
             int j = 20*page + i; // this is item index  - in need change this code and the above code , change 9 to change the max number of element in TilePane
             if(j < items.size()) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/productPaneElement.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/adminProductPaneElement.fxml"));
                 GridPane anItem = null;
                 try {
                     anItem = loader.load();
                 } catch (IOException ex) {
                     ex.printStackTrace();
+                    
                     continue;
                 }
-                ProductPaneElementController itemControl = loader.getController();
+                AdminProductPaneElementController itemControl = loader.getController();
                 itemControl.setItem(items.get(j));
-                itemControl.setCartController(cartController);
                 products.add(anItem);
             }
         } 

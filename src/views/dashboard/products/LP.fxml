@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashboard.products.AlbumController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashboard.products.LPController">
    <children>
-      <Button fx:id="btCancel" alignment="TOP_CENTER" layoutX="50.0" layoutY="471.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#toCancel" prefHeight="31.0" prefWidth="220.0" text="Cancel" textAlignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="471.0">
+      <Button fx:id="btCancel" alignment="TOP_CENTER" layoutX="50.0" layoutY="437.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#toCancel" prefHeight="31.0" prefWidth="220.0" text="Cancel" textAlignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="437.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -26,7 +26,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btNext" alignment="TOP_CENTER" layoutX="330.0" layoutY="471.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#toNext" prefHeight="31.0" prefWidth="220.0" text="Next" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="471.0">
+      <Button fx:id="btCreate" alignment="TOP_CENTER" layoutX="330.0" layoutY="437.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#toCreate" prefHeight="31.0" prefWidth="220.0" text="Create" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="437.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -36,7 +36,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="200.0" layoutY="70.0" prefHeight="31.0" prefWidth="360.0" promptText="track cannot add here, it need a seperate pane" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="100.0">
+      <TextField fx:id="tfTracks" layoutX="200.0" layoutY="70.0" prefHeight="31.0" prefWidth="360.0" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -100,16 +100,6 @@
       </Label>
       <Spinner fx:id="unitSale" layoutX="191.0" layoutY="390.0" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="380.0" />
       <Label layoutX="60.0" layoutY="350.0" text="unit sale" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="380.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfContent" layoutX="200.0" layoutY="70.0" prefHeight="31.0" prefWidth="360.0" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="420.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <Label layoutX="60.0" layoutY="70.0" text="content" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="420.0">
          <font>
             <Font size="18.0" />
          </font>

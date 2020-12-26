@@ -5,7 +5,9 @@
  */
 package controllers;
 
+import connectors.UserDB;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,7 +57,7 @@ public class SignupController implements Initializable {
     }    
 
     @FXML
-    private void submit(ActionEvent event) {
+    private void submit(ActionEvent event) throws SQLException, ClassNotFoundException {
         if(!CheckValidFieldUtils.isValidUname(tfUname.getText())) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
@@ -117,19 +119,27 @@ public class SignupController implements Initializable {
         }
         else {
             // TO DO: create user in DB
-            // ..... Code here...........
-            
+            // Because Vuong not create Full Name in input form so we use username as full name and made it can be updated through edit profile
+            boolean status = UserDB.addUser(tfUname.getText(), pfPasswd.getText(), tfUname.getText(), tfEmail.getText(), tfPhoneNum.getText());
 
+            if(status == true) {
+                Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
+                statusAlert.setTitle("Sign up sucessfully");
 
-            //.......--------------...............
+                statusAlert.setHeaderText("Signup status: ");
+                statusAlert.setContentText("Your account has been created. Redirecting to login screen ..... ");
 
-            Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
-            statusAlert.setTitle("Sign up sucessfully");
+                statusAlert.showAndWait();
+            }
+            else {
+                Alert statusAlert = new Alert(Alert.AlertType.ERROR);
+                statusAlert.setTitle("Sign up unsucessfully");
 
-            statusAlert.setHeaderText("Signup status");
-            statusAlert.setContentText("Your account has been created. Redirecting to login screen ..... ");
+                statusAlert.setHeaderText("Signup status: ");
+                statusAlert.setContentText("Your account has not been created. Please try again.");
 
-            statusAlert.showAndWait();
+                statusAlert.showAndWait();
+            }
 
             // Redirect to login screen
             this.back(event);

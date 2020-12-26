@@ -5,6 +5,7 @@
  */
 package controllers.order;
 
+import connectors.OrderDB;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import models.Order;
+import data.ControllerUtils;
 
 /**
  * FXML Controller class
@@ -53,6 +55,10 @@ public class OrderElementController implements Initializable {
     @FXML
     private void cancelOrder(ActionEvent event) {
         // TO DO; change order status then update to DB
+        GridPane grid = (GridPane) btCancel.getParent().getParent();
+        grid.getChildren().remove(btCancel.getParent());
+        OrderDB.cancelOrder(order.getId());
+        ControllerUtils.refresh();
     }
     
     private String getStatus(Integer statusNum) {

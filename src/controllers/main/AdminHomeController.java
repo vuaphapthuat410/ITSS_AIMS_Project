@@ -5,6 +5,7 @@
  */
 package controllers.main;
 
+import data.ControllerUtils;
 import data.UserInfo;
 import java.io.IOException;
 import java.net.URL;
@@ -73,7 +74,7 @@ public class AdminHomeController implements Initializable {
     
         
     private ScrollPane productPane = null;
-    private ProductPaneController productController;
+    private AdminProductsManageController productController;
     private ScrollPane accsManagePane = null;
     private ScrollPane productsManagePane = null;
     private ScrollPane promosManagePane = null;
@@ -88,10 +89,13 @@ public class AdminHomeController implements Initializable {
         avatar.setImage(new Image("data/avatar.png"));
         // generate recommend pane
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/productPane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/adminProductsManage.fxml"));
             productPane = loader.load();
             productController = loader.getController();
+            productController.getMixed();
             mainview.getChildren().add(productPane);
+            
+            ControllerUtils.setControllers(productController); //save for convenient
         } catch (IOException ex) {
             ex.printStackTrace();
         }

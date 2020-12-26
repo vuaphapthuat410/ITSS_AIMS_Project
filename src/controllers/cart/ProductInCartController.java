@@ -62,9 +62,12 @@ public class ProductInCartController implements Initializable {
         price.setText(String.valueOf(anItem.getPrice()));
         quantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1));
         quantity.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            if(oldValue != newValue)
+            if(oldValue != newValue) {
                 parentController.updateItemQuantity(anItem, Integer.parseInt(newValue));
+                totalPrice.setText(calTotal(anItem.getPrice(), quantity.getValue()));
+            }
         });
+        totalPrice.setText(calTotal(anItem.getPrice(), quantity.getValue()));
         item = anItem;
     }
     
@@ -77,6 +80,11 @@ public class ProductInCartController implements Initializable {
         GridPane grid = (GridPane) btRemove.getParent().getParent();
         grid.getChildren().remove(btRemove.getParent());
         parentController.removeItemFromCart(item);
+    }
+    
+    public String calTotal(Integer price, Integer quantity) {
+        Integer total = price*quantity;
+        return String.valueOf(total);
     }
     
 }

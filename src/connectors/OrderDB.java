@@ -104,7 +104,9 @@ public class OrderDB {
                 if(row < 0)
                     return false;
             }
-
+            
+            return true;
+            
         } catch (Exception e) {
             System.out.print("Cant create order");
             e.printStackTrace();
@@ -112,4 +114,52 @@ public class OrderDB {
 
         return false;
     }
+    
+    public static boolean deleteOrder(Integer orderId) {
+        String query = "DELETE FROM `order_table` WHERE `id` = ?";
+        String query2 = "DELETE FROM `order_item` WHERE `order_id` = ?";
+        
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+
+            statement.setInt(1, orderId);
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted < 0) 
+                return false;
+            
+            PreparedStatement other = connection.prepareStatement(query2);
+            
+            other.setInt(1, orderId);
+            rowsDeleted = other.executeUpdate();
+            if (rowsDeleted > 0) 
+                return true;
+            
+        } catch (Exception e) {
+            System.out.print("Cant delete order");
+            e.printStackTrace();
+        }
+
+        return false;
+    } 
+    
+    public static boolean cancelOrder(Integer orderId) {
+        String query = "UPDATE `order_table` SET `order_status`= 0 WHERE `order_table`.`id` = ?";
+        
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+
+            statement.setInt(1, orderId);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) 
+                return true;
+            
+        } catch (Exception e) {
+            System.out.print("Cant cancel order");
+            e.printStackTrace();
+        }
+
+        return false;
+    } 
 }
