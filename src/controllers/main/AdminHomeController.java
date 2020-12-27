@@ -76,7 +76,6 @@ public class AdminHomeController implements Initializable {
     private ScrollPane productPane = null;
     private AdminProductsManageController productController;
     private ScrollPane accsManagePane = null;
-    private ScrollPane productsManagePane = null;
     private ScrollPane promosManagePane = null;
     
     /**
@@ -170,11 +169,11 @@ public class AdminHomeController implements Initializable {
 
     @FXML
     private void toProductsManage(MouseEvent event) throws IOException {
-        if(productsManagePane != null)
-            productsManagePane.toFront();
+        if(productPane != null)
+            productPane.toFront();
         else {
-            productsManagePane = FXMLLoader.load(getClass().getClassLoader().getResource("views/dashboard/productsManage.fxml"));
-            mainview.getChildren().add(productsManagePane);
+            productPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/dashboard/adminProductsManage.fxml"));
+            mainview.getChildren().add(productPane);
         }
     }
 

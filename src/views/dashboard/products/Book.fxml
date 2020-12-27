@@ -46,11 +46,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="tfCover" layoutX="200.0" layoutY="110.0" prefHeight="31.0" prefWidth="360.0" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="140.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
       <Label layoutX="60.0" layoutY="110.0" text="cover" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="140.0">
          <font>
             <Font size="18.0" />
@@ -98,8 +93,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Spinner fx:id="unitSale" layoutX="191.0" layoutY="390.0" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="460.0" />
-      <Label layoutX="60.0" layoutY="350.0" text="unit sale" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="460.0">
+      <Spinner fx:id="stock" editable="true" layoutX="191.0" layoutY="390.0" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="460.0" />
+      <Label layoutX="60.0" layoutY="350.0" text="stock" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="460.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -120,5 +115,6 @@
             <Font size="15.0" />
          </font>
       </TextField>
+      <ComboBox fx:id="cbCover" layoutX="190.0" layoutY="138.0" prefHeight="26.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

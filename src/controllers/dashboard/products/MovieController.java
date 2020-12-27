@@ -5,15 +5,14 @@
  */
 package controllers.dashboard.products;
 
-import connectors.BookDbUtil;
+import connectors.MovieDbUtil;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,7 +24,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.Book;
+import models.Movie;
 import utils.CheckValidFieldUtils;
 
 /**
@@ -33,34 +32,36 @@ import utils.CheckValidFieldUtils;
  *
  * @author vuaphapthuat410
  */
-public class BookController implements Initializable {
+public class MovieController implements Initializable {
 
     @FXML
     private TextField tfTitle;
     @FXML
-    private TextField tfAuthor;
+    private TextField tfDirector;
     @FXML
-    private TextField tfPublisher;
+    private TextField tfStudio;
     @FXML
     private DatePicker datePicker;
     @FXML
-    private ComboBox<String> cbGenre;
+    private ComboBox<String> cbLang;
     @FXML
     private TextField tfValue;
     @FXML
     private TextField tfPrice;
     @FXML
-    private Spinner<Integer> stock;
+    private Spinner<Integer> unitSale;
     @FXML
-    private ComboBox<String> cbLang;
+    private ComboBox<String> cbGenre;
     @FXML
-    private TextField tfPage;
+    private ComboBox<String> cbSub;
     @FXML
     private Button btCancel;
     @FXML
     private Button btCreate;
     @FXML
-    private ComboBox<String> cbCover;
+    private TextField tfActors;
+    @FXML
+    private TextField tfWriters;
 
     /**
      * Initializes the controller class.
@@ -68,9 +69,9 @@ public class BookController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        cbCover.getItems().add("Paperback");
-        cbCover.getItems().add("Hardcover");
-        cbCover.getItems().add("Mass Market");
+        cbSub.getItems().add("English");
+        cbSub.getItems().add("Vietnamese");
+        cbSub.getItems().add("Japanese");
         
         cbLang.getItems().add("English");
         cbLang.getItems().add("Vietnamese");
@@ -81,9 +82,7 @@ public class BookController implements Initializable {
         cbGenre.getItems().add("Drama");
         cbGenre.getItems().add("Horror");
         cbGenre.getItems().add("Detective");
-        
-        stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
-    }    
+    }   
 
     @FXML
     private void toCancel(ActionEvent event) {
@@ -98,44 +97,35 @@ public class BookController implements Initializable {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
-            statusAlert.setHeaderText("Add Book status");
+            statusAlert.setHeaderText("Add Movie status");
             statusAlert.setContentText("No title entered.");
 
             statusAlert.showAndWait();
         }
-        else if(tfAuthor.getText().isEmpty()) {
+        else if(tfDirector.getText().isEmpty()) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
-            statusAlert.setHeaderText("Add Book status");
-            statusAlert.setContentText("No author entered.");
+            statusAlert.setHeaderText("Add Movie status");
+            statusAlert.setContentText("No director entered.");
 
             statusAlert.showAndWait();
         }
-        else if(cbCover.getValue().isEmpty()) {
+        else if(tfStudio.getText().isEmpty()) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
-            statusAlert.setHeaderText("Add Book status");
-            statusAlert.setContentText("No cover selected.");
+            statusAlert.setHeaderText("Add Movie status");
+            statusAlert.setContentText("No studio entered.");
 
             statusAlert.showAndWait();
         }
-        else if(tfPublisher.getText().isEmpty()) {
+        else if(cbSub.getValue().isEmpty()) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
-            statusAlert.setHeaderText("Add Book status");
-            statusAlert.setContentText("No publisher entered.");
-
-            statusAlert.showAndWait();
-        }
-        else if(cbGenre.getValue().isEmpty()) {
-            Alert statusAlert = new Alert(Alert.AlertType.ERROR);
-            statusAlert.setTitle("Error");
-
-            statusAlert.setHeaderText("Add Book status");
-            statusAlert.setContentText("No genre selected.");
+            statusAlert.setHeaderText("Add Movie status");
+            statusAlert.setContentText("No subtitles selected.");
 
             statusAlert.showAndWait();
         }
@@ -143,34 +133,34 @@ public class BookController implements Initializable {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
-            statusAlert.setHeaderText("Add Book status");
+            statusAlert.setHeaderText("Add Movie status");
             statusAlert.setContentText("No language selected.");
 
             statusAlert.showAndWait();
         }
-        else if(tfPage.getText().isEmpty() || !CheckValidFieldUtils.isInteger(tfPage.getText())) {
+        else if(cbGenre.getValue().isEmpty()) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
-            statusAlert.setHeaderText("Add Book status");
-            statusAlert.setContentText("Invalid page.");
+            statusAlert.setHeaderText("Add Movie status");
+            statusAlert.setContentText("No genre selected.");
 
             statusAlert.showAndWait();
-        }
-        else if(tfValue.getText().isEmpty() || !CheckValidFieldUtils.isInteger(tfValue.getText())) {
+        }       
+        else if(tfValue.getText().isEmpty() || !CheckValidFieldUtils.isNumeric(tfValue.getText())) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
-            statusAlert.setHeaderText("Add Book status");
+            statusAlert.setHeaderText("Add Movie status");
             statusAlert.setContentText("Invalid value.");
 
             statusAlert.showAndWait();
         }
-        else if(tfPrice.getText().isEmpty() || !CheckValidFieldUtils.isInteger(tfPrice.getText()) || Integer.parseInt(tfPrice.getText()) < Integer.parseInt(tfValue.getText())) {
+        else if(tfPrice.getText().isEmpty() || !CheckValidFieldUtils.isNumeric(tfPrice.getText()) || Integer.parseInt(tfPrice.getText()) < Integer.parseInt(tfValue.getText())) {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
-            statusAlert.setHeaderText("Add Book status");
+            statusAlert.setHeaderText("Add Movie status");
             statusAlert.setContentText("Invalid price.");
 
             statusAlert.showAndWait();
@@ -179,23 +169,22 @@ public class BookController implements Initializable {
             Alert statusAlert = new Alert(Alert.AlertType.ERROR);
             statusAlert.setTitle("Error");
 
-            statusAlert.setHeaderText("Add Book status");
+            statusAlert.setHeaderText("Add Movie status");
             statusAlert.setContentText("Invalid date.");
 
             statusAlert.showAndWait();
         }
         else {
-            Book newBook = new Book(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Book", "000000", "No description", stock.getValue(), 
-                    LocalDate.now().format(DateTimeFormatter.ISO_DATE), 2, 7, 2, 1, tfAuthor.getText(), cbCover.getValue(), tfPublisher.getText(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
-                    Integer.parseInt(tfPage.getText()), cbLang.getValue(), cbGenre.getValue());
+            Movie newMovie = new Movie(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Movie", "Series", tfDirector.getText(), 120, tfStudio.getText(), cbLang.getValue(), cbSub.getValue(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
+                    cbGenre.getValue(), new ArrayList<String>(Arrays.asList(tfActors.getText().split(","))), new ArrayList<String>(Arrays.asList(tfWriters.getText().split(","))));
             try {
-                boolean status = BookDbUtil.addItem(newBook);
+                boolean status = MovieDbUtil.addItem(newMovie);
                 
                 Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
                 statusAlert.setTitle("Info");
 
-                statusAlert.setHeaderText("Add Book status");
-                statusAlert.setContentText("Create book sucessfully..");
+                statusAlert.setHeaderText("Add Movie status");
+                statusAlert.setContentText("Create movie sucessfully..");
 
                 statusAlert.showAndWait();
             } catch (ClassNotFoundException | SQLException ex) {
@@ -205,7 +194,6 @@ public class BookController implements Initializable {
             Stage stage = (Stage) btCancel.getScene().getWindow();
             stage.close();
         }
-        
     }
     
 }

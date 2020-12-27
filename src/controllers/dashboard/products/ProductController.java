@@ -64,9 +64,9 @@ public class ProductController implements Initializable {
     @FXML
     private void toNext(ActionEvent event) throws IOException {
         int count = 0;
-        String file_path = new String();
+        String file_name = new String();
         
-        boolean isBook = rbEbook.isSelected();
+        boolean isBook = rbBook.isSelected();
         boolean isCD = rbCD.isSelected();
         boolean isDVD = rbDVD.isSelected();
         boolean isLP = rbLP.isSelected();
@@ -99,23 +99,23 @@ public class ProductController implements Initializable {
         }
         else {
             if(isBook == true)
-                file_path = "views/dashboard/products/book.fxml";
+                file_name = "Book";
             else if(isCD == true)
-                file_path = "views/dashboard/products/CD.fxml";
+                file_name = "CD";
             else if(isDVD == true)
-                file_path = "views/dashboard/products/DVD.fxml";
+                file_name = "DVD";
             else if(isLP == true)
-                file_path = "views/dashboard/products/LP.fxml";
+                file_name = "LP";
             else if(isEbook == true)
-                file_path = "views/dashboard/products/ebook.fxml";
+                file_name = "Ebook";
             else if(isAlbum == true)
-                file_path = "views/dashboard/products/album.fxml";
+                file_name = "Album";
             else if(isFilm == true)
-                file_path = "views/dashboard/products/film.fxml";
+                file_name = "Movie";
             
-            Parent node = FXMLLoader.load(getClass().getClassLoader().getResource(file_path));
+            Parent node = FXMLLoader.load(getClass().getClassLoader().getResource("views/dashboard/products/"+file_name+".fxml"));
             Stage stage = new Stage();
-            stage.setTitle("Add product");
+            stage.setTitle("Add " + file_name);
             stage.setScene(new Scene(node));
             stage.show();
             

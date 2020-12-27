@@ -13,6 +13,7 @@ import connectors.EbookDbUtil;
 import connectors.LPDbUtil;
 import connectors.MovieDbUtil;
 import controllers.cart.CartController;
+import controllers.dashboard.products.ProductController;
 import controllers.main.ProductPaneElementController;
 import controllers.main.AdminProductPaneElementController;
 import java.io.IOException;
@@ -28,11 +29,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import models.Album;
 import models.Book;
 import models.CD;
@@ -74,7 +79,16 @@ public class AdminProductsManageController implements Initializable {
     }    
 
     @FXML
-    private void createNew(ActionEvent event) {
+    private void createNew(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/dashboard/products/Product.fxml"));
+        Parent node = loader.load();
+        ProductController addProductController = loader.getController();
+        
+        Stage stage = new Stage();
+        stage.setTitle("Add product");
+        stage.setScene(new Scene(node));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
     
     @FXML

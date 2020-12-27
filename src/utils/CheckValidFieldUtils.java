@@ -22,6 +22,18 @@ public class CheckValidFieldUtils {
         return true;
     }
     
+    public static boolean isInteger(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            Integer i = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+    
     public static boolean isValidPhone(String phoneNum) {
         boolean valid = isNumeric(phoneNum);
         return (phoneNum.length() == 10 || phoneNum.length() == 11) && valid;
