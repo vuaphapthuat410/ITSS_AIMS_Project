@@ -102,11 +102,11 @@ public class CDController implements Initializable {
         
         trackTime.setCellValueFactory(new PropertyValueFactory<>("duration"));
         
-        cbGenre.getItems().add("Science fiction");
-        cbGenre.getItems().add("Action");
-        cbGenre.getItems().add("Drama");
-        cbGenre.getItems().add("Horror");
-        cbGenre.getItems().add("Detective");
+        cbGenre.getItems().add("Bolero");
+        cbGenre.getItems().add("Classical");
+        cbGenre.getItems().add("Pop");
+        cbGenre.getItems().add("R&B");
+        cbGenre.getItems().add("Rap");
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
     }    
