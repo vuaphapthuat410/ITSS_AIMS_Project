@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="100.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.cart.ProductInCartController">
+   <children>
+      <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" layoutX="19.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0">
+         <image>
+            <Image url="@../../data/not-bug-feature.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="name" layoutX="153.0" layoutY="17.0" text="Product 1" AnchorPane.topAnchor="17.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="category" layoutX="158.0" layoutY="48.0" text="alien cat" textFill="#7c7c7c">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="345.0" layoutY="30.0" text="Price:" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="price" layoutX="399.0" layoutY="31.0" prefHeight="19.0" prefWidth="75.0" text="NULL" AnchorPane.topAnchor="31.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="491.0" layoutY="30.0" text="Quantity:" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Spinner fx:id="quantity" layoutX="587.0" layoutY="29.0" prefHeight="26.0" prefWidth="66.0" AnchorPane.topAnchor="29.0" />
+      <Label fx:id="totalPrice" layoutX="735.0" layoutY="37.0" text="priceXquantity" AnchorPane.topAnchor="37.0" />
+      <Button fx:id="btRemove" layoutX="910.0" layoutY="25.0" mnemonicParsing="false" onAction="#remove" text="Remove">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

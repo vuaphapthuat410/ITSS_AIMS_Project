@@ -38,6 +38,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Album;
 import models.AlbumTrack;
+import utils.Add_Update_Picker;
 import utils.CheckValidFieldUtils;
 
 /**
@@ -78,6 +79,7 @@ public class AlbumController implements Initializable {
     
     private ArrayList<AlbumTrack> tracks = new ArrayList<AlbumTrack>();
     
+    private Album tempAlbum = null;
     /**
      * Initializes the controller class.
      */
@@ -105,6 +107,11 @@ public class AlbumController implements Initializable {
         cbGenre.getItems().add("Pop");
         cbGenre.getItems().add("R&B");
         cbGenre.getItems().add("Rap");
+        
+        if(Add_Update_Picker.getMode() == 1) {
+            tempAlbum = (Album) Add_Update_Picker.getItem();
+            loadInfo();
+        }
     }    
 
     @FXML
@@ -189,10 +196,19 @@ public class AlbumController implements Initializable {
             statusAlert.showAndWait();
         }
         else {
-            Album newAlbum = new Album(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Album", tfArtist.getText(), tfRecordLabel.getText(), 
+            Album newAlbum;
+            if(Add_Update_Picker.getMode() == 0) 
+                newAlbum = new Album(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Album", tfArtist.getText(), tfRecordLabel.getText(), 
+                    datePicker.getValue().format(DateTimeFormatter.ISO_DATE), cbGenre.getValue(), tracks);
+            else 
+                newAlbum = new Album(tempAlbum.getId(), tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Album", tfArtist.getText(), tfRecordLabel.getText(), 
                     datePicker.getValue().format(DateTimeFormatter.ISO_DATE), cbGenre.getValue(), tracks);
             try {
-                boolean status = AlbumDbUtil.addItem(newAlbum);
+                boolean status;
+                if(Add_Update_Picker.getMode() == 0) 
+                    status = AlbumDbUtil.addItem(newAlbum);
+                else
+                    status = AlbumDbUtil.updateItem(newAlbum);
                 
                 Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
                 statusAlert.setTitle("Info");
@@ -240,4 +256,11 @@ public class AlbumController implements Initializable {
         }
     }
     
+    public void loadInfo() throws NullPointerException {
+        tfTitle.setText(tempAlbum.getTitle());
+        datePicker.setValue(LocalDate.parse(tempAlbum.getPublication_date()));
+        cbGenre.setValue(tempAlbum.getGenre());
+        tfValue.setText(String.valueOf(tempAlbum.getValue()));
+        tfPrice.setText(String.valueOf(tempAlbum.getPrice()));
+    }
 }

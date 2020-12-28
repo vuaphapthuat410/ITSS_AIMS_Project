@@ -27,7 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Book;
 import utils.CheckValidFieldUtils;
-
+import utils.Add_Update_Picker;
 /**
  * FXML Controller class
  *
@@ -61,7 +61,8 @@ public class BookController implements Initializable {
     private Button btCreate;
     @FXML
     private ComboBox<String> cbCover;
-
+    
+    private Book tempBook = null;
     /**
      * Initializes the controller class.
      */
@@ -83,6 +84,11 @@ public class BookController implements Initializable {
         cbGenre.getItems().add("Detective");
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
+        
+        if(Add_Update_Picker.getMode() == 1) {
+            tempBook = (Book) Add_Update_Picker.getItem();
+            loadInfo();
+        }
     }    
 
     @FXML
@@ -185,19 +191,42 @@ public class BookController implements Initializable {
             statusAlert.showAndWait();
         }
         else {
-            Book newBook = new Book(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Book", "000000", "No description", stock.getValue(), 
+            Book newBook;
+            if(Add_Update_Picker.getMode() == 0)
+                newBook = new Book(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Book", "000000", "No description", stock.getValue(), 
                     LocalDate.now().format(DateTimeFormatter.ISO_DATE), 2, 7, 2, 1, tfAuthor.getText(), cbCover.getValue(), tfPublisher.getText(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
                     Integer.parseInt(tfPage.getText()), cbLang.getValue(), cbGenre.getValue());
+            else
+                newBook = new Book(tempBook.getId(), tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Book", "000000", "No description", stock.getValue(), 
+                    LocalDate.now().format(DateTimeFormatter.ISO_DATE), 2, 7, 2, 1, tfAuthor.getText(), cbCover.getValue(), tfPublisher.getText(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
+                    Integer.parseInt(tfPage.getText()), cbLang.getValue(), cbGenre.getValue());
+            
             try {
-                boolean status = BookDbUtil.addItem(newBook);
+                boolean status = false;
+                if(Add_Update_Picker.getMode() == 0)
+                    status = BookDbUtil.addItem(newBook);
+                else if(Add_Update_Picker.getMode() == 1) 
+                    status = BookDbUtil.updateItem(newBook);
+                    
                 
-                Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
-                statusAlert.setTitle("Info");
+                if(status == true) {
+                    Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
+                    statusAlert.setTitle("Info");
 
-                statusAlert.setHeaderText("Add Book status");
-                statusAlert.setContentText("Create book sucessfully..");
+                    statusAlert.setHeaderText("Add/Update Book status");
+                    statusAlert.setContentText("Create/Update book sucessfully..");
 
-                statusAlert.showAndWait();
+                    statusAlert.showAndWait();
+                }
+                else {
+                    Alert statusAlert = new Alert(Alert.AlertType.ERROR);
+                    statusAlert.setTitle("Error");
+
+                    statusAlert.setHeaderText("Add/Update Book status");
+                    statusAlert.setContentText("Create/Update book unsucessfully..Error occurs");
+
+                    statusAlert.showAndWait();
+                }
             } catch (ClassNotFoundException | SQLException ex) {
                 ex.printStackTrace();
             }
@@ -208,4 +237,17 @@ public class BookController implements Initializable {
         
     }
     
+    public void loadInfo() throws NullPointerException {
+        tfTitle.setText(tempBook.getTitle());
+        tfAuthor.setText(tempBook.getAuthor());
+        tfPublisher.setText(tempBook.getPublisher());
+        datePicker.setValue(LocalDate.parse(tempBook.getPublication_date()));
+        cbGenre.setValue(tempBook.getGenre());
+        tfValue.setText(String.valueOf(tempBook.getValue()));
+        tfPrice.setText(String.valueOf(tempBook.getPrice()));
+        stock.getValueFactory().setValue(tempBook.getQuantity());
+        cbLang.setValue(tempBook.getLanguage());
+        tfPage.setText(String.valueOf(tempBook.getPage()));
+        cbCover.setValue(tempBook.getCover());
+    }
 }

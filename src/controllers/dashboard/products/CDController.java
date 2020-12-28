@@ -38,6 +38,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.CD;
 import models.Track;
+import utils.Add_Update_Picker;
 import utils.CheckValidFieldUtils;
 
 /**
@@ -80,6 +81,7 @@ public class CDController implements Initializable {
     @FXML
     private Spinner<Integer> stock;
     
+    private CD tempCD = null;
     /**
      * Initializes the controller class.
      */
@@ -109,6 +111,11 @@ public class CDController implements Initializable {
         cbGenre.getItems().add("Rap");
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
+        
+        if(Add_Update_Picker.getMode() == 1) {
+            tempCD = (CD) Add_Update_Picker.getItem();
+            loadInfo();
+        }
     }    
 
     @FXML
@@ -193,11 +200,22 @@ public class CDController implements Initializable {
             statusAlert.showAndWait();
         }
         else {
-            CD newCD = new CD(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "CD", "000000", "No description", stock.getValue(), 
+            CD newCD;
+            if(Add_Update_Picker.getMode() == 0) 
+                newCD = new CD(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "CD", "000000", "No description", stock.getValue(), 
                     LocalDate.now().format(DateTimeFormatter.ISO_DATE), 2, 7, 2, 1, tfArtist.getText(), tfRecordLabel.getText(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
-                    cbGenre.getValue());
+                    cbGenre.getValue(), tracks);
+            else
+                newCD = new CD(tempCD.getId(), tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "CD", "000000", "No description", stock.getValue(), 
+                    LocalDate.now().format(DateTimeFormatter.ISO_DATE), 2, 7, 2, 1, tfArtist.getText(), tfRecordLabel.getText(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
+                    cbGenre.getValue(), tracks);
+            
             try {
-                boolean status = CDDbUtil.addItem(newCD);
+                boolean status;
+                if(Add_Update_Picker.getMode() == 0)
+                    status = CDDbUtil.addItem(newCD);
+                else 
+                    status = CDDbUtil.updateItem(newCD);
                 
                 Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
                 statusAlert.setTitle("Info");
@@ -243,6 +261,15 @@ public class CDController implements Initializable {
             tracks.remove(delTrack);
             trackList.getItems().remove(delTrack);
         }
+    }
+    
+    public void loadInfo() throws NullPointerException {
+        tfTitle.setText(tempCD.getTitle());
+        datePicker.setValue(LocalDate.parse(tempCD.getPublication_date()));
+        cbGenre.setValue(tempCD.getGenre());
+        tfValue.setText(String.valueOf(tempCD.getValue()));
+        tfPrice.setText(String.valueOf(tempCD.getPrice()));
+        stock.getValueFactory().setValue(tempCD.getQuantity());
     }
     
 }

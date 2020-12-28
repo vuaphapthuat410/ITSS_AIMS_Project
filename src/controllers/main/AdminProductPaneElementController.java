@@ -7,20 +7,27 @@ package controllers.main;
 
 import connectors.helper.DeleteItemHelper;
 import data.ControllerUtils;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import models.Book;
 import models.Item;
+import utils.Add_Update_Picker;
 
 /**
  * FXML Controller class
@@ -48,8 +55,24 @@ public class AdminProductPaneElementController implements Initializable {
     }    
 
     @FXML
-    private void editItem(ActionEvent event) {
+    private void editItem(ActionEvent event) throws IOException {
         // TO DO: 
+        String file_name = null;
+        
+        if(item instanceof Book) {
+            file_name = "Book";
+        }
+        
+        if(file_name != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/dashboard/products/"+file_name+".fxml"));
+            Add_Update_Picker.setMode(1); // set mode to update item
+            Add_Update_Picker.setItem(item);
+            Parent node = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Edit " + file_name);
+            stage.setScene(new Scene(node));
+            stage.show();
+        }
     }
 
     @FXML

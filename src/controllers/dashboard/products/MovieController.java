@@ -25,6 +25,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Movie;
+import utils.Add_Update_Picker;
 import utils.CheckValidFieldUtils;
 
 /**
@@ -62,7 +63,8 @@ public class MovieController implements Initializable {
     private TextField tfActors;
     @FXML
     private TextField tfWriters;
-
+    
+    private Movie tempMovie = null;
     /**
      * Initializes the controller class.
      */
@@ -82,6 +84,11 @@ public class MovieController implements Initializable {
         cbGenre.getItems().add("Drama");
         cbGenre.getItems().add("Horror");
         cbGenre.getItems().add("Detective");
+        
+        if(Add_Update_Picker.getMode() == 1) {
+            tempMovie = (Movie) Add_Update_Picker.getItem();
+            loadInfo();
+        }
     }   
 
     @FXML
@@ -175,10 +182,19 @@ public class MovieController implements Initializable {
             statusAlert.showAndWait();
         }
         else {
-            Movie newMovie = new Movie(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Movie", "Series", tfDirector.getText(), 120, tfStudio.getText(), cbLang.getValue(), cbSub.getValue(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
+            Movie newMovie;
+            if(Add_Update_Picker.getMode() == 0) 
+                newMovie = new Movie(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Movie", "Series", tfDirector.getText(), 120, tfStudio.getText(), cbLang.getValue(), cbSub.getValue(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
+                    cbGenre.getValue(), new ArrayList<String>(Arrays.asList(tfActors.getText().split(","))), new ArrayList<String>(Arrays.asList(tfWriters.getText().split(","))));
+            else
+                newMovie = new Movie(tempMovie.getId(), tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Movie", "Series", tfDirector.getText(), 120, tfStudio.getText(), cbLang.getValue(), cbSub.getValue(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
                     cbGenre.getValue(), new ArrayList<String>(Arrays.asList(tfActors.getText().split(","))), new ArrayList<String>(Arrays.asList(tfWriters.getText().split(","))));
             try {
-                boolean status = MovieDbUtil.addItem(newMovie);
+                boolean status;
+                if(Add_Update_Picker.getMode() == 0) 
+                    status = MovieDbUtil.addItem(newMovie);
+                else
+                    status = MovieDbUtil.updateItem(newMovie);
                 
                 Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
                 statusAlert.setTitle("Info");
@@ -194,6 +210,15 @@ public class MovieController implements Initializable {
             Stage stage = (Stage) btCancel.getScene().getWindow();
             stage.close();
         }
+    }
+    
+    public void loadInfo() throws NullPointerException {
+        tfTitle.setText(tempMovie.getTitle());
+        datePicker.setValue(LocalDate.parse(tempMovie.getPublication_date()));
+        cbGenre.setValue(tempMovie.getGenre());
+        tfValue.setText(String.valueOf(tempMovie.getValue()));
+        tfPrice.setText(String.valueOf(tempMovie.getPrice()));
+        cbLang.setValue(tempMovie.getLanguage());
     }
     
 }

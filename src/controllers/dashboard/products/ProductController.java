@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
+import utils.Add_Update_Picker;
 
 /**
  * FXML Controller class
@@ -113,7 +114,9 @@ public class ProductController implements Initializable {
             else if(isFilm == true)
                 file_name = "Movie";
             
-            Parent node = FXMLLoader.load(getClass().getClassLoader().getResource("views/dashboard/products/"+file_name+".fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/dashboard/products/"+file_name+".fxml"));
+            Add_Update_Picker.setMode(0); // set mode to add item
+            Parent node = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Add " + file_name);
             stage.setScene(new Scene(node));

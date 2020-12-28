@@ -1,0 +1,45 @@
+<html><head>
+  <SCRIPT src="http://java.com/js/dtjava.js"></SCRIPT>
+<script>
+    function launchApplication(jnlpfile) {
+        dtjava.launch(            {
+                url : 'AIMS_Project.jnlp',
+                jnlp_content : 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGpubHAgc3BlYz0iMS4wIiB4bWxuczpqZng9Imh0dHA6Ly9qYXZhZnguY29tIiBocmVmPSJBSU1TX1Byb2plY3Quam5scCI+CiAgPGluZm9ybWF0aW9uPgogICAgPHRpdGxlPkFJTVNfUHJvamVjdDwvdGl0bGU+CiAgICA8dmVuZG9yPnZ1YXBoYXB0aHVhdDQxMDwvdmVuZG9yPgogICAgPGRlc2NyaXB0aW9uPm51bGw8L2Rlc2NyaXB0aW9uPgogICAgPG9mZmxpbmUtYWxsb3dlZC8+CiAgPC9pbmZvcm1hdGlvbj4KICA8cmVzb3VyY2VzPgogICAgPGoyc2UgdmVyc2lvbj0iMS42KyIgaHJlZj0iaHR0cDovL2phdmEuc3VuLmNvbS9wcm9kdWN0cy9hdXRvZGwvajJzZSIvPgogICAgPGphciBocmVmPSJBSU1TX1Byb2plY3QuamFyIiBzaXplPSIyNjgxNDIiIGRvd25sb2FkPSJlYWdlciIgLz4KICAgIDxqYXIgaHJlZj0ibGliL215c3FsLWNvbm5lY3Rvci1qYXZhLTguMC4yMi5qYXIiIHNpemU9IjIzODkyMTYiIGRvd25sb2FkPSJlYWdlciIgLz4KICA8L3Jlc291cmNlcz4KICA8amZ4OmphdmFmeC1kZXNjICB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgbWFpbi1jbGFzcz0iYWltc19wcm9qZWN0LkFpbXMiICBuYW1lPSJBSU1TX1Byb2plY3QiIC8+CiAgPHVwZGF0ZSBjaGVjaz0iYWx3YXlzIi8+Cjwvam5scD4K'
+            },
+            {
+                javafx : '8.0+'
+            },
+            {}
+        );
+        return false;
+    }
+</script>
+
+<script>
+    function javafxEmbedaims_project() {
+        dtjava.embed(
+            {
+                id : 'aims_project',
+                url : 'AIMS_Project.jnlp',
+                placeholder : 'javafx-app-placeholder',
+                width : '800',
+                height : '600',
+                jnlp_content : 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGpubHAgc3BlYz0iMS4wIiB4bWxuczpqZng9Imh0dHA6Ly9qYXZhZnguY29tIiBocmVmPSJBSU1TX1Byb2plY3Quam5scCI+CiAgPGluZm9ybWF0aW9uPgogICAgPHRpdGxlPkFJTVNfUHJvamVjdDwvdGl0bGU+CiAgICA8dmVuZG9yPnZ1YXBoYXB0aHVhdDQxMDwvdmVuZG9yPgogICAgPGRlc2NyaXB0aW9uPm51bGw8L2Rlc2NyaXB0aW9uPgogICAgPG9mZmxpbmUtYWxsb3dlZC8+CiAgPC9pbmZvcm1hdGlvbj4KICA8cmVzb3VyY2VzPgogICAgPGoyc2UgdmVyc2lvbj0iMS42KyIgaHJlZj0iaHR0cDovL2phdmEuc3VuLmNvbS9wcm9kdWN0cy9hdXRvZGwvajJzZSIvPgogICAgPGphciBocmVmPSJBSU1TX1Byb2plY3QuamFyIiBzaXplPSIyNjgxNDIiIGRvd25sb2FkPSJlYWdlciIgLz4KICAgIDxqYXIgaHJlZj0ibGliL215c3FsLWNvbm5lY3Rvci1qYXZhLTguMC4yMi5qYXIiIHNpemU9IjIzODkyMTYiIGRvd25sb2FkPSJlYWdlciIgLz4KICA8L3Jlc291cmNlcz4KICA8amZ4OmphdmFmeC1kZXNjICB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgbWFpbi1jbGFzcz0iYWltc19wcm9qZWN0LkFpbXMiICBuYW1lPSJBSU1TX1Byb2plY3QiIC8+CiAgPHVwZGF0ZSBjaGVjaz0iYWx3YXlzIi8+Cjwvam5scD4K'
+            },
+            {
+                javafx : '8.0+'
+            },
+            {}
+        );
+    }
+    <!-- Embed FX application into web page once page is loaded -->
+    dtjava.addOnloadCallback(javafxEmbedaims_project);
+</script>
+
+</head><body>
+<h2>Test page for <b>AIMS_Project</b></h2>
+  <b>Webstart:</b> <a href='AIMS_Project.jnlp' onclick="return launchApplication('AIMS_Project.jnlp');">click to launch this app as webstart</a><br><hr><br>
+
+  <!-- Applet will be inserted here -->
+  <div id='javafx-app-placeholder'></div>
+</body></html>

@@ -23,6 +23,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.DVD;
+import utils.Add_Update_Picker;
 import utils.CheckValidFieldUtils;
 
 /**
@@ -56,7 +57,8 @@ public class DVDController implements Initializable {
     private Button btCreate;
     @FXML
     private Spinner<Integer> stock;
-
+    
+    private DVD tempDVD = null;
     /**
      * Initializes the controller class.
      */
@@ -78,6 +80,11 @@ public class DVDController implements Initializable {
         cbGenre.getItems().add("Detective");
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
+        
+        if(Add_Update_Picker.getMode() == 1) {
+            tempDVD = (DVD) Add_Update_Picker.getItem();
+            loadInfo();
+        }
     }    
 
     @FXML
@@ -171,11 +178,21 @@ public class DVDController implements Initializable {
             statusAlert.showAndWait();
         }
         else {
-            DVD newDVD = new DVD(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "DVD", "000000", "No description", stock.getValue(), 
+            DVD newDVD;
+            if(Add_Update_Picker.getMode() == 0)
+                newDVD = new DVD(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "DVD", "000000", "No description", stock.getValue(), 
+                    LocalDate.now().format(DateTimeFormatter.ISO_DATE), 2, 7, 2, 1, "Series", tfDirector.getText(), 120, tfStudio.getText(), cbLang.getValue(), cbSub.getValue(), 
+                    datePicker.getValue().format(DateTimeFormatter.ISO_DATE), cbGenre.getValue());
+            else 
+                newDVD = new DVD(tempDVD.getId(), tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "DVD", "000000", "No description", stock.getValue(), 
                     LocalDate.now().format(DateTimeFormatter.ISO_DATE), 2, 7, 2, 1, "Series", tfDirector.getText(), 120, tfStudio.getText(), cbLang.getValue(), cbSub.getValue(), 
                     datePicker.getValue().format(DateTimeFormatter.ISO_DATE), cbGenre.getValue());
             try {
-                boolean status = DVDDbUtil.addItem(newDVD);
+                boolean status;
+                if(Add_Update_Picker.getMode() == 0) 
+                    status = DVDDbUtil.addItem(newDVD);
+                else 
+                    status = DVDDbUtil.updateItem(newDVD);
                 
                 Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
                 statusAlert.setTitle("Info");
@@ -191,6 +208,16 @@ public class DVDController implements Initializable {
             Stage stage = (Stage) btCancel.getScene().getWindow();
             stage.close();
         }
+    }
+    
+    public void loadInfo() throws NullPointerException {
+        tfTitle.setText(tempDVD.getTitle());
+        datePicker.setValue(LocalDate.parse(tempDVD.getPublication_date()));
+        cbGenre.setValue(tempDVD.getGenre());
+        tfValue.setText(String.valueOf(tempDVD.getValue()));
+        tfPrice.setText(String.valueOf(tempDVD.getPrice()));
+        stock.getValueFactory().setValue(tempDVD.getQuantity());
+        cbLang.setValue(tempDVD.getLanguage());
     }
     
 }

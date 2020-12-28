@@ -22,8 +22,8 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.Book;
 import models.Ebook;
+import utils.Add_Update_Picker;
 import utils.CheckValidFieldUtils;
 
 /**
@@ -59,7 +59,8 @@ public class EbookController implements Initializable {
     private TextField tfPublisher;
     @FXML
     private DatePicker datePicker;
-
+    
+    private Ebook tempEbook = null;
     /**
      * Initializes the controller class.
      */
@@ -79,6 +80,11 @@ public class EbookController implements Initializable {
         cbGenre.getItems().add("Drama");
         cbGenre.getItems().add("Horror");
         cbGenre.getItems().add("Detective");
+        
+        if(Add_Update_Picker.getMode() == 1) {
+            tempEbook = (Ebook) Add_Update_Picker.getItem();
+            loadInfo();
+        }
     }    
 
     @FXML
@@ -190,10 +196,19 @@ public class EbookController implements Initializable {
             statusAlert.showAndWait();
         }
         else {
-            Ebook newEbook = new Ebook(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Ebook", tfAuthor.getText(), cbCover.getValue(), tfPublisher.getText(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
+            Ebook newEbook;
+            if(Add_Update_Picker.getMode() == 0) 
+                newEbook = new Ebook(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Ebook", tfAuthor.getText(), cbCover.getValue(), tfPublisher.getText(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
+                    Integer.parseInt(tfPage.getText()), cbLang.getValue(), cbGenre.getValue(), tfContent.getText());
+            else
+                newEbook = new Ebook(tempEbook.getId(), tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "Ebook", tfAuthor.getText(), cbCover.getValue(), tfPublisher.getText(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
                     Integer.parseInt(tfPage.getText()), cbLang.getValue(), cbGenre.getValue(), tfContent.getText());
             try {
-                boolean status = EbookDbUtil.addItem(newEbook);
+                boolean status;
+                if(Add_Update_Picker.getMode() == 0) 
+                    status = EbookDbUtil.addItem(newEbook);
+                else 
+                    status = EbookDbUtil.updateItem(newEbook);
                 
                 Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
                 statusAlert.setTitle("Info");
@@ -209,6 +224,19 @@ public class EbookController implements Initializable {
             Stage stage = (Stage) btCancel.getScene().getWindow();
             stage.close();
         }
+    }
+    
+    public void loadInfo() throws NullPointerException {
+        tfTitle.setText(tempEbook.getTitle());
+        tfAuthor.setText(tempEbook.getAuthor());
+        tfPublisher.setText(tempEbook.getPublisher());
+        datePicker.setValue(LocalDate.parse(tempEbook.getPublication_date()));
+        cbGenre.setValue(tempEbook.getGenre());
+        tfValue.setText(String.valueOf(tempEbook.getValue()));
+        tfPrice.setText(String.valueOf(tempEbook.getPrice()));
+        cbLang.setValue(tempEbook.getLanguage());
+        tfPage.setText(String.valueOf(tempEbook.getPage()));
+        cbCover.setValue(tempEbook.getCover());
     }
     
 }

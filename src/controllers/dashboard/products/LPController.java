@@ -38,6 +38,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.LP;
 import models.Track;
+import utils.Add_Update_Picker;
 import utils.CheckValidFieldUtils;
 
 /**
@@ -80,6 +81,7 @@ public class LPController implements Initializable {
     @FXML
     private Spinner<Integer> stock;
     
+    private LP tempLP = null;
     /**
      * Initializes the controller class.
      */
@@ -109,6 +111,11 @@ public class LPController implements Initializable {
         cbGenre.getItems().add("Detective");
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
+        
+        if(Add_Update_Picker.getMode() == 1) {
+            tempLP = (LP) Add_Update_Picker.getItem();
+            loadInfo();
+        }
     }    
 
     @FXML
@@ -193,11 +200,21 @@ public class LPController implements Initializable {
             statusAlert.showAndWait();
         }
         else {
-            LP newLP = new LP(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "LP", "000000", "No description", stock.getValue(), 
+            LP newLP;
+            if(Add_Update_Picker.getMode() == 0) 
+                newLP = new LP(tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "LP", "000000", "No description", stock.getValue(), 
                     LocalDate.now().format(DateTimeFormatter.ISO_DATE), 2, 7, 2, 1, tfArtist.getText(), tfRecordLabel.getText(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
-                    cbGenre.getValue());
+                    cbGenre.getValue(), tracks);
+            else
+                newLP = new LP(tempLP.getId(), tfTitle.getText(), Integer.parseInt(tfValue.getText()), Integer.parseInt(tfPrice.getText()), 0, "LP", "000000", "No description", stock.getValue(), 
+                    LocalDate.now().format(DateTimeFormatter.ISO_DATE), 2, 7, 2, 1, tfArtist.getText(), tfRecordLabel.getText(), datePicker.getValue().format(DateTimeFormatter.ISO_DATE), 
+                    cbGenre.getValue(), tracks);
             try {
-                boolean status = LPDbUtil.addItem(newLP);
+                boolean status;
+                if(Add_Update_Picker.getMode() == 0) 
+                    status = LPDbUtil.addItem(newLP);
+                else 
+                    status = LPDbUtil.updateItem(newLP);
                 
                 Alert statusAlert = new Alert(Alert.AlertType.INFORMATION);
                 statusAlert.setTitle("Info");
@@ -245,4 +262,12 @@ public class LPController implements Initializable {
         }
     }
     
+    public void loadInfo() throws NullPointerException {
+        tfTitle.setText(tempLP.getTitle());
+        datePicker.setValue(LocalDate.parse(tempLP.getDate()));
+        cbGenre.setValue(tempLP.getGenre());
+        tfValue.setText(String.valueOf(tempLP.getValue()));
+        tfPrice.setText(String.valueOf(tempLP.getPrice()));
+        stock.getValueFactory().setValue(tempLP.getQuantity());
+    }
 }

@@ -129,6 +129,7 @@ public class BookDbUtil {
         // insert to Item and PhysicalGood
         boolean result = UpdateItemHelper.updateItemAndPhysicalGood(item);
         if (!result){
+            // got error here
             return false;
         }
 
