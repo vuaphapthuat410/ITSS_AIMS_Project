@@ -24,12 +24,12 @@
          <children>
             <VBox layoutX="25.0" layoutY="34.0">
                <children>
-                  <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="250.0" onMouseClicked="#toDetail" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../data/not-bug-feature.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="lbName" alignment="CENTER" prefHeight="20.0" prefWidth="192.0" text="Album">
+                  <Label fx:id="lbName" alignment="CENTER" onMouseClicked="#toDetail" prefHeight="20.0" prefWidth="192.0" text="Album">
                      <font>
                         <Font size="16.0" />
                      </font>

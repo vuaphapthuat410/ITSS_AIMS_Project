@@ -6,6 +6,7 @@
 package controllers.dashboard.products;
 
 import connectors.BookDbUtil;
+import data.UserInfo;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -72,23 +73,27 @@ public class BookController implements Initializable {
         cbCover.getItems().add("Paperback");
         cbCover.getItems().add("Hardcover");
         cbCover.getItems().add("Mass Market");
-        
+
         cbLang.getItems().add("English");
         cbLang.getItems().add("Vietnamese");
         cbLang.getItems().add("Japanese");
-        
+
         cbGenre.getItems().add("Science fiction");
         cbGenre.getItems().add("Action");
         cbGenre.getItems().add("Drama");
         cbGenre.getItems().add("Horror");
         cbGenre.getItems().add("Detective");
-        
+
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
         
-        if(Add_Update_Picker.getMode() == 1) {
-            tempBook = (Book) Add_Update_Picker.getItem();
-            loadInfo();
+        if(UserInfo.isAdmin()) {
+            if(Add_Update_Picker.getMode() == 1) {
+                tempBook = (Book) Add_Update_Picker.getItem();
+                loadInfo();
+            }
         }
+        else 
+            seeDetail((Book) Add_Update_Picker.getItem());       
     }    
 
     @FXML
@@ -249,5 +254,24 @@ public class BookController implements Initializable {
         cbLang.setValue(tempBook.getLanguage());
         tfPage.setText(String.valueOf(tempBook.getPage()));
         cbCover.setValue(tempBook.getCover());
+    }
+    
+    public void seeDetail(Book book) {
+        tempBook = book;
+        loadInfo();
+        
+        tfTitle.setEditable(false);
+        tfAuthor.setEditable(false);
+        tfPublisher.setEditable(false);
+        datePicker.setEditable(false);
+        cbGenre.setEditable(false);
+        tfValue.setEditable(false);
+        tfPrice.setEditable(false);
+        stock.setEditable(false);
+        cbLang.setEditable(false);
+        tfPage.setEditable(false);
+        cbCover.setEditable(false);
+        
+        btCreate.setVisible(false);
     }
 }

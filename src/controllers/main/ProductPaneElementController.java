@@ -15,7 +15,21 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import controllers.cart.CartController;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import models.Album;
+import models.Book;
+import models.CD;
+import models.DVD;
+import models.Ebook;
 import models.Item;
+import models.LP;
+import models.Movie;
+import utils.Add_Update_Picker;
 
 /**
  * FXML Controller class
@@ -54,5 +68,35 @@ public class ProductPaneElementController implements Initializable {
     @FXML
     private void addToCart(ActionEvent event) {
         cartController.addCartElement(item);
+    }
+
+    @FXML
+    private void toDetail(MouseEvent event) throws IOException {
+        String file_name = null;
+        
+        if(item instanceof Book) 
+            file_name = "Book";
+        else if(item instanceof CD)
+            file_name = "CD";
+        else if(item instanceof DVD)
+            file_name = "DVD";
+        else if(item instanceof LP)
+            file_name= "LP";
+        else if(item instanceof Ebook)
+            file_name = "Ebook";
+        else if(item instanceof Movie)
+            file_name = "Movie";
+        else if(item instanceof Album)
+            file_name = "Album";
+        
+        if(file_name != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/dashboard/products/"+file_name+".fxml"));
+            Add_Update_Picker.setItem(item);
+            Parent node = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Show " + file_name);
+            stage.setScene(new Scene(node));
+            stage.show();
+        }
     }
 }
