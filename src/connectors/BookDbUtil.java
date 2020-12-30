@@ -115,7 +115,7 @@ public class BookDbUtil {
 
 
         } catch (Exception e) {
-            System.out.print("Cant connect");
+            System.out.print("Cant execute query");
             e.printStackTrace();
         }
 
