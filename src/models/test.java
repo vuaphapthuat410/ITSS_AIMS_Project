@@ -18,20 +18,21 @@ import java.util.List;
 public class test {
     public static void doTest() throws SQLException, ClassNotFoundException {
 
-        ArrayList<Promo> promoList = PromoDbUtil.getAllPromo();
-        System.out.print("First promo name: " + promoList.get(0).getName() + "\n");
-        ArrayList<PromoItem> promoItemList = PromoDbUtil.getAllPromoItemById(1);
-        System.out.print("First promo item title: " + promoItemList.get(1).getTitle() + "\n");
-        System.out.print("First promo item rate: " + promoItemList.get(1).getRate() + "\n");
-        Promo promo = new Promo("Noel 2020", "khuyen mai lon", "2020-12-09", "2020-12-17");
-        PromoDbUtil.addPromo(promo);
-        PromoItem promoItem = new PromoItem(1, 12);
-        PromoDbUtil.addPromoItem(promo, promoItem);
-        System.out.println("Created promo id: " + promo.getId() + "\n");
-        promoItemList = PromoDbUtil.getAllPromoItem();
-        for(int i = 0; i < promoItemList.size(); i++) {
-            System.out.println("Tile of valid promo item: " + promoItemList.get(i).getTitle() + "\n");
-        }
+//        ArrayList<Promo> promoList = PromoDbUtil.getAllPromo();
+//        System.out.print("First promo name: " + promoList.get(0).getName() + "\n");
+//        ArrayList<PromoItem> promoItemList = PromoDbUtil.getAllPromoItemById(1);
+//        System.out.print("First promo item title: " + promoItemList.get(1).getTitle() + "\n");
+//        System.out.print("First promo item rate: " + promoItemList.get(1).getRate() + "\n");
+//        Promo promo = new Promo("Noel 2020", "khuyen mai lon", "2020-12-09", "2020-12-17");
+//        PromoDbUtil.addPromo(promo);
+//        PromoItem promoItem = new PromoItem(1, 12);
+//        PromoDbUtil.addPromoItem(promo, promoItem);
+//        System.out.println("Created promo id: " + promo.getId() + "\n");
+//        promoItemList = PromoDbUtil.getAllPromoItem();
+//        for(int i = 0; i < promoItemList.size(); i++) {
+//            System.out.println("Tile of valid promo item: " + promoItemList.get(i).getTitle() + "\n");
+//        }
+//        PromoDbUtil.deletePromo(1);
 
 
 //        ArrayList<Book> bookList = BookDbUtil.getAllItem();

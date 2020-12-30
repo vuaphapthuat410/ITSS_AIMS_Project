@@ -1,5 +1,6 @@
 package connectors;
 
+import models.Log;
 import models.Promo;
 import models.PromoItem;
 
@@ -7,6 +8,8 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -183,5 +186,25 @@ public class PromoDbUtil {
         }
 
         return false;
+    }
+
+    //xoa promo
+    public static void deletePromo (int id) throws SQLException, ClassNotFoundException {
+        String itemQuery = "DELETE FROM `promo` WHERE `promo`.`id` = ?";
+        try {
+
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(itemQuery);
+
+            statement.setString(1, Integer.toString(id));
+            int rowsDeleted = statement.executeUpdate();
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
