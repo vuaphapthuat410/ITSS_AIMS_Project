@@ -17,20 +17,28 @@ import java.util.List;
  */
 public class test {
     public static void doTest() throws SQLException, ClassNotFoundException {
-        ArrayList<Book> bookList = BookDbUtil.getAllItem();
-        System.out.print("Book Title: " + bookList.get(0).getTitle() + "\n");
-        
-        ArrayList<CD> cdList = CDDbUtil.getAllItem();
-        System.out.print("CD Title: " + cdList.get(0).getTitle() + "\n");
-        
-        ArrayList<DVD> dvdList = DVDDbUtil.getAllItem();
-        System.out.print("DVD Title: " + dvdList.get(2).getTitle() + "\n");
-        
-        ArrayList<LP> lpList = LPDbUtil.getAllItem();
-        System.out.print("LP Title: " + lpList.get(lpList.size()-1).getTitle() + "\n");
-        System.out.print("First track: " + lpList.get(lpList.size()-1).getTrack_list().get(0).getName() + "\n");
-        System.out.print("CD Title: " + cdList.get(cdList.size()-1).getTitle() + "\n");
-        System.out.print("First track: " + cdList.get(cdList.size()-1).getTrack_list().get(0).getName() + "\n");
+
+        ArrayList<Promo> promoList = PromoDbUtil.getAllPromo();
+        System.out.print("First promo name: " + promoList.get(0).getName() + "\n");
+        ArrayList<PromoItem> promoItemList = PromoDbUtil.getAllPromoItem(1);
+        System.out.print("First promo item title: " + promoItemList.get(0).getTitle() + "\n");
+        System.out.print("First promo item rate: " + promoItemList.get(0).getRate() + "\n");
+
+
+//        ArrayList<Book> bookList = BookDbUtil.getAllItem();
+//        System.out.print("Book Title: " + bookList.get(0).getTitle() + "\n");
+//
+//        ArrayList<CD> cdList = CDDbUtil.getAllItem();
+//        System.out.print("CD Title: " + cdList.get(0).getTitle() + "\n");
+//
+//        ArrayList<DVD> dvdList = DVDDbUtil.getAllItem();
+//        System.out.print("DVD Title: " + dvdList.get(2).getTitle() + "\n");
+//
+//        ArrayList<LP> lpList = LPDbUtil.getAllItem();
+//        System.out.print("LP Title: " + lpList.get(lpList.size()-1).getTitle() + "\n");
+//        System.out.print("First track: " + lpList.get(lpList.size()-1).getTrack_list().get(0).getName() + "\n");
+//        System.out.print("CD Title: " + cdList.get(cdList.size()-1).getTitle() + "\n");
+//        System.out.print("First track: " + cdList.get(cdList.size()-1).getTrack_list().get(0).getName() + "\n");
 
 
 //         add book
@@ -118,16 +126,16 @@ public class test {
 //        MovieDbUtil.deleteItem(69);
 
 
-        List<Ebook> ebookList = EbookDbUtil.getAllItem();
-        System.out.print("Ebook Title: " + ebookList.get(3).getTitle() + "\n");
-        System.out.print("Ebook Content: " + ebookList.get(3).getContent() + "\n");
-        List<Album> albumList = AlbumDbUtil.getAllItem();
-        System.out.print("Ebook Title: " + albumList.get(0).getTitle() + "\n");
-        System.out.print("Ebook Content: " + albumList.get(0).getTrack_list().get(0).getName() + "\n");
-        List<Movie> movieList = MovieDbUtil.getAllItem();
-        System.out.print("Movie Title: " + movieList.get(2).getTitle() + "\n");
-        System.out.print("Movie first actor: " + movieList.get(2).getActors().get(0) + "\n");
-        System.out.print("Movie first writer: " + movieList.get(2).getWriters().get(0) + "\n");
+//        List<Ebook> ebookList = EbookDbUtil.getAllItem();
+//        System.out.print("Ebook Title: " + ebookList.get(3).getTitle() + "\n");
+//        System.out.print("Ebook Content: " + ebookList.get(3).getContent() + "\n");
+//        List<Album> albumList = AlbumDbUtil.getAllItem();
+//        System.out.print("Ebook Title: " + albumList.get(0).getTitle() + "\n");
+//        System.out.print("Ebook Content: " + albumList.get(0).getTrack_list().get(0).getName() + "\n");
+//        List<Movie> movieList = MovieDbUtil.getAllItem();
+//        System.out.print("Movie Title: " + movieList.get(2).getTitle() + "\n");
+//        System.out.print("Movie first actor: " + movieList.get(2).getActors().get(0) + "\n");
+//        System.out.print("Movie first writer: " + movieList.get(2).getWriters().get(0) + "\n");
 
 
 
