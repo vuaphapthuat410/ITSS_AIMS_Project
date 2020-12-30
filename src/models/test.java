@@ -21,8 +21,11 @@ public class test {
         ArrayList<Promo> promoList = PromoDbUtil.getAllPromo();
         System.out.print("First promo name: " + promoList.get(0).getName() + "\n");
         ArrayList<PromoItem> promoItemList = PromoDbUtil.getAllPromoItem(1);
-        System.out.print("First promo item title: " + promoItemList.get(0).getTitle() + "\n");
-        System.out.print("First promo item rate: " + promoItemList.get(0).getRate() + "\n");
+        System.out.print("First promo item title: " + promoItemList.get(1).getTitle() + "\n");
+        System.out.print("First promo item rate: " + promoItemList.get(1).getRate() + "\n");
+        Promo promo = new Promo("Noel 2020", "khuyen mai lon", "2020-12-09", "2020-12-17");
+        PromoDbUtil.addPromo(promo);
+        System.out.println("Created promo id: " + promo.getId() + "\n");
 
 
 //        ArrayList<Book> bookList = BookDbUtil.getAllItem();

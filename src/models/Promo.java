@@ -15,6 +15,13 @@ public class Promo {
         this.end_time = end_time;
     }
 
+    public Promo(String name, String description, String start_time, String end_time) {
+        this.name = name;
+        this.description = description;
+        this.start_time = start_time;
+        this.end_time = end_time;
+    }
+
     public int getId() {
         return id;
     }
