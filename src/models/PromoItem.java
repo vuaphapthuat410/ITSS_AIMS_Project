@@ -8,28 +8,23 @@ public class PromoItem {
     private int rate;
     private String start_time;
     private String end_time;
+    private int limit_quantity;
+    private int sold;
 
-    public PromoItem(int item_id, int rate) {
+    public PromoItem(int item_id, int rate, int limit_quantity) {
         this.item_id = item_id;
         this.rate = rate;
+        this.limit_quantity = limit_quantity;
     }
 
-    public PromoItem(int item_id, String title, int value, int price, int rate) {
+    public PromoItem(int item_id, String title, int value, int price, int rate, int limit_quantity, int sold) {
         this.item_id = item_id;
         this.title = title;
         this.value = value;
         this.price = price;
         this.rate = rate;
-    }
-
-    public PromoItem(int item_id, String title, int value, int price, int rate, String start_time, String end_time) {
-        this.item_id = item_id;
-        this.title = title;
-        this.value = value;
-        this.price = price;
-        this.rate = rate;
-        this.start_time = start_time;
-        this.end_time = end_time;
+        this.limit_quantity = limit_quantity;
+        this.sold = sold;
     }
 
     public int getRate() {
@@ -86,5 +81,21 @@ public class PromoItem {
 
     public void setEnd_time(String end_time) {
         this.end_time = end_time;
+    }
+
+    public int getLimit_quantity() {
+        return limit_quantity;
+    }
+
+    public void setLimit_quantity(int limit_quantity) {
+        this.limit_quantity = limit_quantity;
+    }
+
+    public int getSold() {
+        return sold;
+    }
+
+    public void setSold(int sold) {
+        this.sold = sold;
     }
 }

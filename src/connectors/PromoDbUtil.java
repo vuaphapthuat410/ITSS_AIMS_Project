@@ -1,5 +1,6 @@
 package connectors;
 
+import connectors.helper.UpdateItemHelper;
 import models.Log;
 import models.Promo;
 import models.PromoItem;
@@ -61,10 +62,12 @@ public class PromoDbUtil {
 
             while(rs.next()){
                 int item_id = rs.getInt(2);
-                String title = rs.getString(7);
-                int value = rs.getInt(8);
-                int price = rs.getInt(9);
+                String title = rs.getString(9);
+                int value = rs.getInt(10);
+                int price = rs.getInt(11);
                 int rate = rs.getInt(3);
+                int limit_quantity = rs.getInt(6);
+                int sold = rs.getInt(7);
 
                 String end_time = rs.getString(5);
 
@@ -73,7 +76,9 @@ public class PromoDbUtil {
                         title,
                         value,
                         price,
-                        rate
+                        rate,
+                        limit_quantity,
+                        sold
                 );
 
                 // check if promo valid
@@ -103,17 +108,21 @@ public class PromoDbUtil {
 
             while(rs.next()){
                 int item_id = rs.getInt(2);
-                String title = rs.getString(7);
-                int value = rs.getInt(8);
-                int price = rs.getInt(9);
+                String title = rs.getString(9);
+                int value = rs.getInt(10);
+                int price = rs.getInt(11);
                 int rate = rs.getInt(3);
+                int limit_quantity = rs.getInt(6);
+                int sold = rs.getInt(7);
 
                 PromoItem b = new PromoItem(
                         item_id,
                         title,
                         value,
                         price,
-                        rate
+                        rate,
+                        limit_quantity,
+                        sold
                 );
 
                 promo_list.add(b);
@@ -125,7 +134,33 @@ public class PromoDbUtil {
         return promo_list;
     }
 
+    // update so luong san pham ban ra cua san pham nam trong chuong trinh khuyen mai
+    public static boolean updatePromoItemSoldQuantity(int quantity, int promo_id, int item_id){
 
+        String query = "UPDATE `promo_item` SET sold = sold + ? WHERE `promo_item`.`promo_id` = ? AND `promo_item`.`item_id` = ?;";
+
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = (PreparedStatement) connection.prepareStatement(query);
+
+
+            //insert to PhysicalGood
+            statement.setString(1, Integer.toString(quantity));
+            statement.setString(2, Integer.toString(promo_id));
+            statement.setString(3, Integer.toString(item_id));
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+
+
+        } catch (Exception e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     // them chuong trinh khuyen mai
     public static boolean addPromo(Promo promo){
@@ -164,7 +199,7 @@ public class PromoDbUtil {
 
     // them san pham khuyen mai
     public static boolean addPromoItem(Promo promo, PromoItem promoItem) throws SQLException, ClassNotFoundException {
-        String query = "INSERT INTO `promo_item` (`promo_id`, `item_id`, `rate`, `start_time`, `end_time`) VALUES (?, ?, ?, ?, ?);";
+        String query = "INSERT INTO `promo_item` (`promo_id`, `item_id`, `rate`, `start_time`, `end_time`, `limit_quantity`) VALUES (?, ?, ?, ?, ?, ?);";
         int id;
         try{
             Connection connection = ConnDB.getMySQLConnection();
@@ -175,6 +210,8 @@ public class PromoDbUtil {
             statement.setString(3, Integer.toString(promoItem.getRate()));
             statement.setString(4, promo.getStart_time());
             statement.setString(5, promo.getEnd_time());
+            statement.setString(6, Integer.toString(promoItem.getLimit_quantity()));
+
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
