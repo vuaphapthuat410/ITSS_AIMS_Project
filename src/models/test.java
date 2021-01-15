@@ -17,7 +17,6 @@ import java.util.List;
  */
 public class test {
     public static void doTest() throws SQLException, ClassNotFoundException {
-
 //        ArrayList<Promo> promoList = PromoDbUtil.getAllPromo();
 //        System.out.print("First promo name: " + promoList.get(0).getName() + "\n");
 //        ArrayList<PromoItem> promoItemList = PromoDbUtil.getAllPromoItemById(1);
@@ -25,13 +24,17 @@ public class test {
 //        System.out.print("First promo item rate: " + promoItemList.get(1).getRate() + "\n");
 //        Promo promo = new Promo("Noel 2020", "khuyen mai lon", "2020-12-09", "2020-12-17");
 //        PromoDbUtil.addPromo(promo);
-//        PromoItem promoItem = new PromoItem(1, 12);
+//        PromoItem promoItem = new PromoItem(1, 15, 50);
 //        PromoDbUtil.addPromoItem(promo, promoItem);
 //        System.out.println("Created promo id: " + promo.getId() + "\n");
-//        promoItemList = PromoDbUtil.getAllPromoItem();
+//        ArrayList<PromoItem> promoItemList = PromoDbUtil.getAllPromoItem();
 //        for(int i = 0; i < promoItemList.size(); i++) {
-//            System.out.println("Tile of valid promo item: " + promoItemList.get(i).getTitle() + "\n");
-//        }
+//            System.out.println("rate: " + promoItemList.get(i).getRate() + "\n");
+//            System.out.println("sold: " + promoItemList.get(i).getSold() + "\n");
+//            System.out.println("limit: " + promoItemList.get(i).getLimit_quantity() + "\n");
+//    }
+//        PromoDbUtil.updatePromoItemSoldQuantity(10, 11, 1);
+
 //        PromoDbUtil.deletePromo(1);
 
 
