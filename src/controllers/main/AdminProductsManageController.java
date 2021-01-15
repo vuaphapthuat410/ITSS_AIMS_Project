@@ -21,6 +21,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -61,14 +62,15 @@ public class AdminProductsManageController implements Initializable {
     @FXML
     private Button btPrev;
     @FXML
-    private ComboBox<?> cbSort;
+    private ComboBox<String> cbSort;
     @FXML
     private Button btNew;
     @FXML
     private TextField tfSearch;
     
     Integer page = 0;
-    ArrayList<? extends Item> itemsList;
+    ArrayList<? extends Item> itemsList; //this for viewing as page
+    ArrayList<? extends Item> savedItems; // this for searching and many things else
     
     /**
      * Initializes the controller class.
@@ -76,6 +78,13 @@ public class AdminProductsManageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        cbSort.getItems().add("A to Z");
+        cbSort.getItems().add("Z to A");
+        cbSort.getItems().add("Ascending price");
+        cbSort.getItems().add("Descending price");
+        cbSort.getItems().add("Best seller");
+        
+        cbSort.setValue("A to Z"); //default sort
     }    
 
     @FXML
@@ -102,6 +111,11 @@ public class AdminProductsManageController implements Initializable {
     }
     
     private void reloadProducts(ArrayList<? extends Item> items, Integer page) { // using wildcard here for polymorphism
+        if(page < 0) { //prev for nothing
+            this.page++;
+            return;
+        } 
+        
         ObservableList<Node> products = productView.getChildren();
         products.clear();   //clear list before get new one
 
@@ -169,20 +183,16 @@ public class AdminProductsManageController implements Initializable {
         Collections.sort(items);    // sort by title
         
         page = 0;
-        itemsList = items;
+        itemsList = items; //for viewing
+        savedItems = items; // for searching and many thing, only refresh if getMixed()
         reloadProducts(items, 0);
     }
     
     public void getBook() {
-        ArrayList<Book> books = null;
-        try {
-            // TODO
-            books = BookDbUtil.getAllItem();
-            if(books == null) return;
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        ArrayList<Book> books = new ArrayList<Book>();
+        for(Item item : savedItems) {
+            if(item instanceof Book)
+                books.add((Book) item);
         }
         
         page = 0;
@@ -191,15 +201,10 @@ public class AdminProductsManageController implements Initializable {
     }
     
     public void getCD() {
-        ArrayList<CD> cds = null;
-        try {
-            // TODO
-            cds = CDDbUtil.getAllItem();
-            if(cds == null) return;
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        ArrayList<CD> cds = new ArrayList<CD>();
+        for(Item item : savedItems) {
+            if(item instanceof CD)
+                cds.add((CD) item);
         }
         
         page = 0;
@@ -208,15 +213,10 @@ public class AdminProductsManageController implements Initializable {
     } 
     
     public void getLP() {
-        ArrayList<LP> lps = null;
-        try {
-            // TODO
-            lps = LPDbUtil.getAllItem();
-            if(lps == null) return;
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        ArrayList<LP> lps = new ArrayList<LP>();
+        for(Item item : savedItems) {
+            if(item instanceof LP)
+                lps.add((LP) item);
         }
         
         page = 0;
@@ -225,15 +225,10 @@ public class AdminProductsManageController implements Initializable {
     } 
     
     public void getDVD() {
-        ArrayList<DVD> dvds = null;
-        try {
-            // TODO
-            dvds = DVDDbUtil.getAllItem();
-            if(dvds == null) return;
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        ArrayList<DVD> dvds = new ArrayList<DVD>();
+        for(Item item : savedItems) {
+            if(item instanceof DVD)
+                dvds.add((DVD) item);
         }
         
         page = 0;
@@ -242,15 +237,10 @@ public class AdminProductsManageController implements Initializable {
     } 
     
     public void getEbook() {
-        ArrayList<Ebook> ebooks = null;
-        try {
-            // TODO
-            ebooks = EbookDbUtil.getAllItem();
-            if(ebooks == null) return;
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        ArrayList<Ebook> ebooks = new ArrayList<Ebook>();
+        for(Item item : savedItems) {
+            if(item instanceof Ebook)
+                ebooks.add((Ebook) item);
         }
         
         page = 0;
@@ -259,15 +249,10 @@ public class AdminProductsManageController implements Initializable {
     }
     
     public void getMovie() {
-        ArrayList<Movie> movies = null;
-        try {
-            // TODO
-            movies = MovieDbUtil.getAllItem();
-            if(movies == null) return;
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        for(Item item : savedItems) {
+            if(item instanceof Movie)
+                movies.add((Movie) item);
         }
         
         page = 0;
@@ -276,19 +261,92 @@ public class AdminProductsManageController implements Initializable {
     }
     
     public void getAlbum() {
-        ArrayList<Album> albums = null;
-        try {
-            // TODO
-            albums = AlbumDbUtil.getAllItem();
-            if(albums == null) return;
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        ArrayList<Album> albums = new ArrayList<Album>();
+        for(Item item : savedItems) {
+            if(item instanceof Album)
+                albums.add((Album) item);
         }
         
         page = 0;
         itemsList = albums;
         reloadProducts(albums, 0);
+    }
+    
+    public void getSearchList(String keyword) {
+        ArrayList<Item> searchList = new ArrayList<Item>();
+        for(Item item : savedItems) {
+            if(item.getTitle().toLowerCase().contains(keyword.toLowerCase()))
+                searchList.add(item);
+        }
+        
+        page = 0;
+        itemsList = searchList;
+        reloadProducts(searchList, 0);
+    }
+
+    @FXML
+    private void toSort(ActionEvent event) {
+        switch(cbSort.getSelectionModel().getSelectedItem()) {
+            case "A to Z":
+                itemsList.sort(new Comparator<Item>() {
+                    @Override
+                    public int compare(Item t1, Item t2) {  
+                        return t1.getTitle().compareToIgnoreCase(t2.getTitle()); // from A -> Z
+                    }
+                });
+                break;
+            case "Z to A":
+                itemsList.sort(new Comparator<Item>() {
+                    @Override
+                    public int compare(Item t1, Item t2) {  
+                        return t2.getTitle().compareToIgnoreCase(t1.getTitle()); // reverse order of t1 vs t2 to get Z -> A
+                    }
+                });
+                break;
+            case "Ascending price":
+                itemsList.sort(new Comparator<Item>() {
+                    @Override
+                    public int compare(Item t1, Item t2) {  
+                        if(t1.getPrice() < t2.getPrice())
+                            return -1;
+                        else if (t1.getPrice() > t2.getPrice())
+                            return 1;
+                        else
+                            return 0;
+                    }
+                });
+                break;
+            case "Descending price":
+                itemsList.sort(new Comparator<Item>() {
+                    @Override
+                    public int compare(Item t1, Item t2) {  //reverse 1 vs -1 of ascending price sort
+                        if(t1.getPrice() < t2.getPrice())
+                            return 1;
+                        else if (t1.getPrice() > t2.getPrice())
+                            return -1;
+                        else
+                            return 0;
+                    }
+                });
+                break;
+            case "Best seller":
+                itemsList.sort(new Comparator<Item>() {
+                    @Override
+                    public int compare(Item t1, Item t2) {  //reverse 1 vs -1 of ascending price sort
+                        if(t1.getUnit_sale() < t2.getUnit_sale())
+                            return 1;
+                        else if (t1.getUnit_sale() > t2.getUnit_sale())
+                            return -1;
+                        else
+                            return 0;
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+        
+        page = 0;
+        reloadProducts(itemsList, 0);
     }
 }

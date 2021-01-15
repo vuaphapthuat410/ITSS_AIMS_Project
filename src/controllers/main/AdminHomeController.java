@@ -21,8 +21,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
@@ -71,12 +74,14 @@ public class AdminHomeController implements Initializable {
     private Label promosManage;
     @FXML
     private Label ordersManage;
-    
+    @FXML
+    private TextField tfSearch;
         
     private ScrollPane productPane = null;
     private AdminProductsManageController productController;
     private ScrollPane accsManagePane = null;
     private ScrollPane promosManagePane = null;
+    
     
     /**
      * Initializes the controller class.
@@ -199,5 +204,12 @@ public class AdminHomeController implements Initializable {
 
     @FXML
     private void toOrdersManage(MouseEvent event) {
+    }
+
+    @FXML
+    private void toSearch(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            productController.getSearchList(tfSearch.getText());
+        }
     }
 }

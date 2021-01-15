@@ -6,6 +6,7 @@
 package controllers.dashboard.products;
 
 import connectors.LPDbUtil;
+import data.UserInfo;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -25,6 +26,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -76,12 +78,14 @@ public class LPController implements Initializable {
     private Button btAddTrack;
     @FXML
     private Button btRemoveTrack;
-    
-    private ArrayList<Track> tracks = new ArrayList<Track>();
+    @FXML
+    private Label windowTitle;
     @FXML
     private Spinner<Integer> stock;
     
+    private ArrayList<Track> tracks = new ArrayList<Track>();
     private LP tempLP = null;
+    
     /**
      * Initializes the controller class.
      */
@@ -112,9 +116,15 @@ public class LPController implements Initializable {
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
         
-        if(Add_Update_Picker.getMode() == 1) {
-            tempLP = (LP) Add_Update_Picker.getItem();
-            loadInfo();
+        if(Add_Update_Picker.getMode() == 0)
+            seeDetail((LP) Add_Update_Picker.getItem());
+        if(UserInfo.isAdmin()) {
+            if(Add_Update_Picker.getMode() == 1) {
+                windowTitle.setText("Edit LP");
+                btCreate.setText("Update");
+                tempLP = (LP) Add_Update_Picker.getItem();
+                loadInfo();
+            }
         }
     }    
 
@@ -263,11 +273,35 @@ public class LPController implements Initializable {
     }
     
     public void loadInfo() throws NullPointerException {
+        tracks = tempLP.getTrack_list();
+        
         tfTitle.setText(tempLP.getTitle());
-        datePicker.setValue(LocalDate.parse(tempLP.getDate()));
+        trackList.getItems().addAll(tempLP.getTrack_list());
+        tfArtist.setText(tempLP.getArtist());
+        tfRecordLabel.setText(tempLP.getRecord_label());
+        datePicker.setValue(LocalDate.parse(tempLP.getPublication_date()));
         cbGenre.setValue(tempLP.getGenre());
         tfValue.setText(String.valueOf(tempLP.getValue()));
         tfPrice.setText(String.valueOf(tempLP.getPrice()));
         stock.getValueFactory().setValue(tempLP.getQuantity());
+    }
+    
+    public void seeDetail(LP lp) {
+        tempLP = lp;
+        loadInfo();
+        
+        tfTitle.setEditable(false);
+        trackList.setEditable(false);
+        tfArtist.setEditable(false);
+        tfRecordLabel.setEditable(false);
+        datePicker.setEditable(false);
+        cbGenre.setEditable(false);
+        tfValue.setEditable(false);
+        tfPrice.setEditable(false);
+        stock.setEditable(false);
+        
+        btCreate.setVisible(false);
+        btAddTrack.setVisible(false);
+        btRemoveTrack.setVisible(false);
     }
 }

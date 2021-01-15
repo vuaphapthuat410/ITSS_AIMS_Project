@@ -6,6 +6,7 @@
 package controllers.dashboard.products;
 
 import connectors.MovieDbUtil;
+import data.UserInfo;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -50,8 +52,6 @@ public class MovieController implements Initializable {
     @FXML
     private TextField tfPrice;
     @FXML
-    private Spinner<Integer> unitSale;
-    @FXML
     private ComboBox<String> cbGenre;
     @FXML
     private ComboBox<String> cbSub;
@@ -63,8 +63,11 @@ public class MovieController implements Initializable {
     private TextField tfActors;
     @FXML
     private TextField tfWriters;
+    @FXML
+    private Label windowTitle;
     
     private Movie tempMovie = null;
+    
     /**
      * Initializes the controller class.
      */
@@ -85,10 +88,17 @@ public class MovieController implements Initializable {
         cbGenre.getItems().add("Horror");
         cbGenre.getItems().add("Detective");
         
-        if(Add_Update_Picker.getMode() == 1) {
-            tempMovie = (Movie) Add_Update_Picker.getItem();
-            loadInfo();
-        }
+        if(Add_Update_Picker.getMode() == 0)
+            seeDetail((Movie) Add_Update_Picker.getItem());
+        
+        if(UserInfo.isAdmin()) {
+            if(Add_Update_Picker.getMode() == 1) {
+                windowTitle.setText("Edit Movie");
+                btCreate.setText("Update");
+                tempMovie = (Movie) Add_Update_Picker.getItem();
+                loadInfo();
+            }
+        }   
     }   
 
     @FXML
@@ -214,11 +224,34 @@ public class MovieController implements Initializable {
     
     public void loadInfo() throws NullPointerException {
         tfTitle.setText(tempMovie.getTitle());
+        tfDirector.setText(tempMovie.getDirector());
+        tfStudio.setText(tempMovie.getStudio());
         datePicker.setValue(LocalDate.parse(tempMovie.getPublication_date()));
+        cbSub.setValue(tempMovie.getSubtitle());
+        cbLang.setValue(tempMovie.getLanguage());
         cbGenre.setValue(tempMovie.getGenre());
         tfValue.setText(String.valueOf(tempMovie.getValue()));
         tfPrice.setText(String.valueOf(tempMovie.getPrice()));
-        cbLang.setValue(tempMovie.getLanguage());
+        tfActors.setText(String.join(",", tempMovie.getActors()));
+        tfWriters.setText(String.join(",", tempMovie.getWriters()));
     }
     
+    public void seeDetail(Movie movie) {
+        tempMovie = movie;
+        loadInfo();
+        
+        tfTitle.setEditable(false);
+        tfDirector.setEditable(false);
+        tfStudio.setEditable(false);
+        datePicker.setEditable(false);
+        cbSub.setEditable(false);
+        cbLang.setEditable(false);
+        cbGenre.setEditable(false);
+        tfValue.setEditable(false);
+        tfPrice.setEditable(false);
+        tfActors.setEditable(false);
+        tfWriters.setEditable(false);
+        
+        btCreate.setVisible(false);
+    }
 }

@@ -24,6 +24,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.Album;
 import models.Book;
@@ -50,8 +51,11 @@ public class AdminProductPaneElementController implements Initializable {
     private Button btEdit;
     @FXML
     private Button btRemove;
+    @FXML
+    private Label lbPrice;
     
     private Item item;
+    
     /**
      * Initializes the controller class.
      */
@@ -120,5 +124,36 @@ public class AdminProductPaneElementController implements Initializable {
         item = anItem;
         imageView.setImage(new Image("data/not-bug-feature.jpg"));
         lbName.setText(item.getTitle());
+    }
+
+    @FXML
+    private void toDetail(MouseEvent event) throws IOException {
+        String file_name = null;
+        
+        if(item instanceof Book) 
+            file_name = "Book";
+        else if(item instanceof CD)
+            file_name = "CD";
+        else if(item instanceof DVD)
+            file_name = "DVD";
+        else if(item instanceof LP)
+            file_name= "LP";
+        else if(item instanceof Ebook)
+            file_name = "Ebook";
+        else if(item instanceof Movie)
+            file_name = "Movie";
+        else if(item instanceof Album)
+            file_name = "Album";
+        
+        if(file_name != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/dashboard/products/"+file_name+".fxml"));
+            Add_Update_Picker.setMode(0); // exclude from 1 because 1 mean edit
+            Add_Update_Picker.setItem(item);
+            Parent node = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Show " + file_name);
+            stage.setScene(new Scene(node));
+            stage.show();
+        }
     }
 }

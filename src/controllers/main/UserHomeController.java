@@ -37,6 +37,9 @@ import javafx.scene.layout.StackPane;
 import data.UserInfo;
 import java.sql.SQLException;
 import data.ControllerUtils;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -53,8 +56,6 @@ public class UserHomeController implements Initializable {
     private Label lbUname;
     @FXML
     private Button btLogOut;
-    @FXML
-    private TextArea taSearch;
     @FXML
     private RadioButton rbEGood;
     @FXML
@@ -79,6 +80,8 @@ public class UserHomeController implements Initializable {
     private Label lbCD;
     @FXML
     private Label lbDVD;
+    @FXML
+    private TextField tfSearch;
     
     private ScrollPane orderPane = null;
     private ScrollPane cartPane = null;
@@ -86,6 +89,7 @@ public class UserHomeController implements Initializable {
     private ScrollPane profilePane = null;
     
     private ProductPaneController productController;
+    
     /**
      * Initializes the controller class.
      */
@@ -210,6 +214,13 @@ public class UserHomeController implements Initializable {
             System.out.println("Open profile screen sucessful");
         } catch (IOException e) {
             System.err.println("Error occurs while trying to open profile screen.");
+        }
+    }
+
+    @FXML
+    private void toSearch(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER) {
+            productController.getSearchList(tfSearch.getText());
         }
     }
     

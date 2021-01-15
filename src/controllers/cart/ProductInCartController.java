@@ -21,6 +21,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import models.Item;
 import controllers.cart.CartController;
+import models.Album;
+import models.Ebook;
+import models.Movie;
 
 /**
  * FXML Controller class
@@ -43,6 +46,11 @@ public class ProductInCartController implements Initializable {
     private Spinner<Integer> quantity;
     @FXML
     private Label totalPrice;
+    @FXML
+    private Label lbQuantity;
+    @FXML
+    private Label lbRate;
+    
     
     private Item item;
     private CartController parentController;
@@ -55,11 +63,12 @@ public class ProductInCartController implements Initializable {
         // TODO
     }    
     
-    public void setItem(Item anItem) {
+    public void setItem(Item anItem, int rate) {
         imageView.setImage(new Image("data/not-bug-feature.jpg"));
         name.setText(anItem.getTitle());
         category.setText(anItem.getCategory());
         price.setText(String.valueOf(anItem.getPrice()));
+        lbRate.setText(Integer.toString(rate));
         quantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1));
         quantity.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
             if(oldValue != newValue) {
@@ -68,6 +77,12 @@ public class ProductInCartController implements Initializable {
             }
         });
         totalPrice.setText(calTotal(anItem.getPrice(), quantity.getValue()));
+        
+        if(anItem instanceof Ebook || anItem instanceof Movie || anItem instanceof Album) {
+            lbQuantity.setVisible(false);
+            quantity.setVisible(false);
+        }
+            
         item = anItem;
     }
     

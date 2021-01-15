@@ -25,17 +25,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="345.0" layoutY="30.0" text="Price:" AnchorPane.topAnchor="30.0">
+      <Label layoutX="346.0" layoutY="21.0" text="Price:" AnchorPane.topAnchor="21.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="price" layoutX="399.0" layoutY="31.0" prefHeight="19.0" prefWidth="75.0" text="NULL" AnchorPane.topAnchor="31.0">
+      <Label fx:id="price" layoutX="402.0" layoutY="22.0" prefHeight="19.0" prefWidth="75.0" AnchorPane.topAnchor="22.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="491.0" layoutY="30.0" text="Quantity:" AnchorPane.topAnchor="30.0">
+      <Label fx:id="lbQuantity" layoutX="491.0" layoutY="30.0" text="Quantity:" AnchorPane.topAnchor="30.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -47,5 +47,15 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Label layoutX="316.0" layoutY="53.0" prefHeight="26.0" prefWidth="79.0" text="Discount:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbRate" layoutX="402.0" layoutY="53.0" prefHeight="26.0" prefWidth="45.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

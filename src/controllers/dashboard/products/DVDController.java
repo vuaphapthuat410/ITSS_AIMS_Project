@@ -6,6 +6,7 @@
 package controllers.dashboard.products;
 
 import connectors.DVDDbUtil;
+import data.UserInfo;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -57,8 +59,11 @@ public class DVDController implements Initializable {
     private Button btCreate;
     @FXML
     private Spinner<Integer> stock;
+    @FXML
+    private Label windowTitle;
     
     private DVD tempDVD = null;
+    
     /**
      * Initializes the controller class.
      */
@@ -81,9 +86,16 @@ public class DVDController implements Initializable {
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
         
-        if(Add_Update_Picker.getMode() == 1) {
-            tempDVD = (DVD) Add_Update_Picker.getItem();
-            loadInfo();
+        if(Add_Update_Picker.getMode() == 0)
+            seeDetail((DVD) Add_Update_Picker.getItem());
+            
+        if(UserInfo.isAdmin()) {
+            if(Add_Update_Picker.getMode() == 1) {
+                windowTitle.setText("Edit DVD");
+                btCreate.setText("Update");
+                tempDVD = (DVD) Add_Update_Picker.getItem();
+                loadInfo();
+            }
         }
     }    
 
@@ -212,12 +224,33 @@ public class DVDController implements Initializable {
     
     public void loadInfo() throws NullPointerException {
         tfTitle.setText(tempDVD.getTitle());
+        tfDirector.setText(tempDVD.getDirector());
+        tfStudio.setText(tempDVD.getStudio());
         datePicker.setValue(LocalDate.parse(tempDVD.getPublication_date()));
+        cbSub.setValue(tempDVD.getSubtitle());
+        cbLang.setValue(tempDVD.getLanguage());
         cbGenre.setValue(tempDVD.getGenre());
         tfValue.setText(String.valueOf(tempDVD.getValue()));
         tfPrice.setText(String.valueOf(tempDVD.getPrice()));
         stock.getValueFactory().setValue(tempDVD.getQuantity());
-        cbLang.setValue(tempDVD.getLanguage());
+    }
+    
+    public void seeDetail(DVD dvd) {
+        tempDVD = dvd;
+        loadInfo();
+        
+        tfTitle.setEditable(false);
+        tfDirector.setEditable(false);
+        tfStudio.setEditable(false);
+        datePicker.setEditable(false);
+        cbSub.setEditable(false);
+        cbLang.setEditable(false);
+        cbGenre.setEditable(false);
+        tfValue.setEditable(false);
+        tfPrice.setEditable(false);
+        stock.setEditable(false);
+        
+        btCreate.setVisible(false);
     }
     
 }

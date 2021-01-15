@@ -22,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -62,8 +63,11 @@ public class BookController implements Initializable {
     private Button btCreate;
     @FXML
     private ComboBox<String> cbCover;
+    @FXML
+    private Label windowTitle;
     
     private Book tempBook = null;
+    
     /**
      * Initializes the controller class.
      */
@@ -86,14 +90,17 @@ public class BookController implements Initializable {
 
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
         
+        if(Add_Update_Picker.getMode() == 0)
+            seeDetail((Book) Add_Update_Picker.getItem());     
+        
         if(UserInfo.isAdmin()) {
             if(Add_Update_Picker.getMode() == 1) {
+                windowTitle.setText("Edit Book");
+                btCreate.setText("Update");
                 tempBook = (Book) Add_Update_Picker.getItem();
                 loadInfo();
             }
-        }
-        else 
-            seeDetail((Book) Add_Update_Picker.getItem());       
+        }  
     }    
 
     @FXML

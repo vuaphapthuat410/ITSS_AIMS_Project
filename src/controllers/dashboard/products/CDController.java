@@ -6,6 +6,7 @@
 package controllers.dashboard.products;
 
 import connectors.CDDbUtil;
+import data.UserInfo;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -25,6 +26,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -76,12 +78,14 @@ public class CDController implements Initializable {
     private Button btAddTrack;
     @FXML
     private Button btRemoveTrack;
-    
-    private ArrayList<Track> tracks = new ArrayList<Track>();
+    @FXML
+    private Label windowTitle;
     @FXML
     private Spinner<Integer> stock;
     
+    private ArrayList<Track> tracks = new ArrayList<Track>();
     private CD tempCD = null;
+    
     /**
      * Initializes the controller class.
      */
@@ -112,9 +116,16 @@ public class CDController implements Initializable {
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
         
-        if(Add_Update_Picker.getMode() == 1) {
-            tempCD = (CD) Add_Update_Picker.getItem();
-            loadInfo();
+        if(Add_Update_Picker.getMode() == 0)
+            seeDetail((CD) Add_Update_Picker.getItem());
+        
+        if(UserInfo.isAdmin()) {
+            if(Add_Update_Picker.getMode() == 1) {
+                windowTitle.setText("Edit CD");
+                btCreate.setText("Update");
+                tempCD = (CD) Add_Update_Picker.getItem();
+                loadInfo();
+            }
         }
     }    
 
@@ -264,7 +275,12 @@ public class CDController implements Initializable {
     }
     
     public void loadInfo() throws NullPointerException {
+        tracks = tempCD.getTrack_list();
+        
         tfTitle.setText(tempCD.getTitle());
+        trackList.getItems().addAll(tempCD.getTrack_list());
+        tfArtist.setText(tempCD.getArtist());
+        tfRecordLabel.setText(tempCD.getRecord_label());
         datePicker.setValue(LocalDate.parse(tempCD.getPublication_date()));
         cbGenre.setValue(tempCD.getGenre());
         tfValue.setText(String.valueOf(tempCD.getValue()));
@@ -272,4 +288,22 @@ public class CDController implements Initializable {
         stock.getValueFactory().setValue(tempCD.getQuantity());
     }
     
+    public void seeDetail(CD cd) {
+        tempCD = cd;
+        loadInfo();
+        
+        tfTitle.setEditable(false);
+        trackList.setEditable(false);
+        tfArtist.setEditable(false);
+        tfRecordLabel.setEditable(false);
+        datePicker.setEditable(false);
+        cbGenre.setEditable(false);
+        tfValue.setEditable(false);
+        tfPrice.setEditable(false);
+        stock.setEditable(false);
+        
+        btCreate.setVisible(false);
+        btAddTrack.setVisible(false);
+        btRemoveTrack.setVisible(false);
+    }
 }

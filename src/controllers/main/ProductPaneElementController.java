@@ -5,6 +5,7 @@
  */
 package controllers.main;
 
+import com.sun.glass.ui.Cursor;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Album;
 import models.Book;
@@ -29,6 +31,7 @@ import models.Ebook;
 import models.Item;
 import models.LP;
 import models.Movie;
+import models.PromoItem;
 import utils.Add_Update_Picker;
 
 /**
@@ -44,9 +47,17 @@ public class ProductPaneElementController implements Initializable {
     private Label lbName;
     @FXML
     private Button btAddToCart;
+    @FXML
+    private Label lbPrice;
+    @FXML
+    private Label lbDiscount;
     
     private Item item;
     private CartController cartController;
+    private PromoItem discountInfo;
+    @FXML
+    private Label lbDiscountTag;
+    
     /**
      * Initializes the controller class.
      */
@@ -59,6 +70,16 @@ public class ProductPaneElementController implements Initializable {
         item = anItem;
         imageView.setImage(new Image("data/not-bug-feature.jpg"));
         lbName.setText(item.getTitle());
+        lbPrice.setText(Integer.toString(item.getPrice()));
+        lbDiscount.setVisible(false);
+        lbDiscountTag.setVisible(false);
+    }
+    
+    public void setPromo(PromoItem promoItem) {
+        discountInfo = promoItem;
+        lbDiscount.setText(Integer.toString(discountInfo.getRate()) + "%");
+        lbDiscount.setVisible(true);
+        lbDiscountTag.setVisible(true);
     }
     
     public void setCartController(CartController controller) {
@@ -67,7 +88,10 @@ public class ProductPaneElementController implements Initializable {
 
     @FXML
     private void addToCart(ActionEvent event) {
-        cartController.addCartElement(item);
+        if(discountInfo != null)
+            cartController.addCartElement(item, discountInfo.getRate());
+        else
+            cartController.addCartElement(item, 0);
     }
 
     @FXML
@@ -91,6 +115,7 @@ public class ProductPaneElementController implements Initializable {
         
         if(file_name != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/dashboard/products/"+file_name+".fxml"));
+            Add_Update_Picker.setMode(0); // exclude from 1 because 1 mean edit
             Add_Update_Picker.setItem(item);
             Parent node = loader.load();
             Stage stage = new Stage();

@@ -23,7 +23,7 @@
             <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ComboBox fx:id="cbSort" prefWidth="150.0">
+            <ComboBox fx:id="cbSort" onAction="#toSort" prefWidth="150.0">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>

@@ -6,6 +6,7 @@
 package controllers.dashboard.products;
 
 import connectors.EbookDbUtil;
+import data.UserInfo;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -59,8 +61,11 @@ public class EbookController implements Initializable {
     private TextField tfPublisher;
     @FXML
     private DatePicker datePicker;
+    @FXML
+    private Label windowTitle;
     
     private Ebook tempEbook = null;
+    
     /**
      * Initializes the controller class.
      */
@@ -81,10 +86,17 @@ public class EbookController implements Initializable {
         cbGenre.getItems().add("Horror");
         cbGenre.getItems().add("Detective");
         
-        if(Add_Update_Picker.getMode() == 1) {
-            tempEbook = (Ebook) Add_Update_Picker.getItem();
-            loadInfo();
-        }
+        if(Add_Update_Picker.getMode() == 0)
+            seeDetail((Ebook) Add_Update_Picker.getItem());
+        
+        if(UserInfo.isAdmin()) {
+            if(Add_Update_Picker.getMode() == 1) {
+                windowTitle.setText("Edit Ebook");
+                btCreate.setText("Update");
+                tempEbook = (Ebook) Add_Update_Picker.getItem();
+                loadInfo();
+            }
+        }   
     }    
 
     @FXML
@@ -229,14 +241,33 @@ public class EbookController implements Initializable {
     public void loadInfo() throws NullPointerException {
         tfTitle.setText(tempEbook.getTitle());
         tfAuthor.setText(tempEbook.getAuthor());
+        cbCover.setValue(tempEbook.getCover());
         tfPublisher.setText(tempEbook.getPublisher());
         datePicker.setValue(LocalDate.parse(tempEbook.getPublication_date()));
         cbGenre.setValue(tempEbook.getGenre());
-        tfValue.setText(String.valueOf(tempEbook.getValue()));
-        tfPrice.setText(String.valueOf(tempEbook.getPrice()));
         cbLang.setValue(tempEbook.getLanguage());
         tfPage.setText(String.valueOf(tempEbook.getPage()));
-        cbCover.setValue(tempEbook.getCover());
+        tfValue.setText(String.valueOf(tempEbook.getValue()));
+        tfPrice.setText(String.valueOf(tempEbook.getPrice()));      
+        tfContent.setText(tempEbook.getContent());
     }
     
+    public void seeDetail(Ebook ebook) {
+        tempEbook = ebook;
+        loadInfo();
+        
+        tfTitle.setEditable(false);
+        tfAuthor.setEditable(false);
+        cbCover.setEditable(false);
+        tfPublisher.setEditable(false);
+        datePicker.setEditable(false);
+        cbGenre.setEditable(false);
+        cbLang.setEditable(false);
+        tfPage.setEditable(false);
+        tfValue.setEditable(false);
+        tfPrice.setEditable(false);
+        tfContent.setEditable(false);
+        
+        btCreate.setVisible(false);
+    }
 }

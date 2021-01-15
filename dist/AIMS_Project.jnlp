@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="AIMS_Project.jar" size="272702" download="eager" />
+    <jar href="AIMS_Project.jar" size="289482" download="eager" />
     <jar href="lib/mysql-connector-java-8.0.22.jar" size="2389216" download="eager" />
   </resources>
   <jfx:javafx-desc  width="800" height="600" main-class="aims_project.Aims"  name="AIMS_Project" />
