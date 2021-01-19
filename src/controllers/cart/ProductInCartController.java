@@ -24,6 +24,7 @@ import controllers.cart.CartController;
 import models.Album;
 import models.Ebook;
 import models.Movie;
+import models.PromoItem;
 
 /**
  * FXML Controller class
@@ -54,7 +55,7 @@ public class ProductInCartController implements Initializable {
     
     private Item item;
     private CartController parentController;
-    
+    int total;
     /**
      * Initializes the controller class.
      */
@@ -63,20 +64,23 @@ public class ProductInCartController implements Initializable {
         // TODO
     }    
     
-    public void setItem(Item anItem, int rate) {
-        imageView.setImage(new Image("data/not-bug-feature.jpg"));
+    public void setItem(Item anItem, PromoItem promoItem) {
+        imageView.setImage(new Image("data/images/"+Integer.toString(item.getId())+".jpg", 200, 200, false, false));
         name.setText(anItem.getTitle());
         category.setText(anItem.getCategory());
         price.setText(String.valueOf(anItem.getPrice()));
-        lbRate.setText(Integer.toString(rate));
+        if(promoItem != null) 
+            lbRate.setText(Integer.toString(promoItem.getRate())+"%");
+        else 
+            lbRate.setText("0%");
         quantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1));
         quantity.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
             if(oldValue != newValue) {
                 parentController.updateItemQuantity(anItem, Integer.parseInt(newValue));
-                totalPrice.setText(calTotal(anItem.getPrice(), quantity.getValue()));
+                totalPrice.setText(calTotal(anItem.getPrice(), quantity.getValue(), promoItem));
             }
         });
-        totalPrice.setText(calTotal(anItem.getPrice(), quantity.getValue()));
+        totalPrice.setText(calTotal(anItem.getPrice(), quantity.getValue(), promoItem));
         
         if(anItem instanceof Ebook || anItem instanceof Movie || anItem instanceof Album) {
             lbQuantity.setVisible(false);
@@ -97,8 +101,17 @@ public class ProductInCartController implements Initializable {
         parentController.removeItemFromCart(item);
     }
     
-    public String calTotal(Integer price, Integer quantity) {
-        Integer total = price*quantity;
+    public String calTotal(Integer price, Integer quantity, PromoItem promo) {
+        if(promo != null) {
+            int quantitySaleItem = promo.getLimit_quantity() - promo.getSold();
+            if(quantity < quantitySaleItem)
+                total = price*quantity*(100-promo.getRate())/100;
+            else 
+                total = price*quantitySaleItem*(100-promo.getRate())/100 + price*(quantity - quantitySaleItem);
+        }
+        else 
+            total = price*quantity;
+
         return String.valueOf(total);
     }
     

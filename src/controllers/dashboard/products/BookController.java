@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Book;
 import utils.CheckValidFieldUtils;
@@ -67,6 +68,8 @@ public class BookController implements Initializable {
     private Label windowTitle;
     
     private Book tempBook = null;
+    @FXML
+    private AnchorPane mainView;
     
     /**
      * Initializes the controller class.
@@ -88,10 +91,7 @@ public class BookController implements Initializable {
         cbGenre.getItems().add("Horror");
         cbGenre.getItems().add("Detective");
 
-        stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
-        
-        if(Add_Update_Picker.getMode() == 0)
-            seeDetail((Book) Add_Update_Picker.getItem());     
+        stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));   
         
         if(UserInfo.isAdmin()) {
             if(Add_Update_Picker.getMode() == 1) {

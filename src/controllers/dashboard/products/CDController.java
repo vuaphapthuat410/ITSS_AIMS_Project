@@ -116,9 +116,6 @@ public class CDController implements Initializable {
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
         
-        if(Add_Update_Picker.getMode() == 0)
-            seeDetail((CD) Add_Update_Picker.getItem());
-        
         if(UserInfo.isAdmin()) {
             if(Add_Update_Picker.getMode() == 1) {
                 windowTitle.setText("Edit CD");

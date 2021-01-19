@@ -88,9 +88,6 @@ public class MovieController implements Initializable {
         cbGenre.getItems().add("Horror");
         cbGenre.getItems().add("Detective");
         
-        if(Add_Update_Picker.getMode() == 0)
-            seeDetail((Movie) Add_Update_Picker.getItem());
-        
         if(UserInfo.isAdmin()) {
             if(Add_Update_Picker.getMode() == 1) {
                 windowTitle.setText("Edit Movie");

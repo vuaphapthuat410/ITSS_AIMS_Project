@@ -28,6 +28,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Item;
+import models.PromoItem;
 
 /**
  * FXML Controller class
@@ -51,13 +52,13 @@ public class CartController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }    
     
-    public void addCartElement(Item item, int rate) {
+    public void addCartElement(Item item, PromoItem promoItem) {
         Integer index = productList.getChildren().size();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/cart/productInCart.fxml"));
             AnchorPane cartElement = loader.load();
             ProductInCartController cartElementController= loader.getController();
-            cartElementController.setItem(item, rate);
+            cartElementController.setItem(item, promoItem);
             cartElementController.setParentControl(this);   // to have privilege to invoke remove item from cart
             productList.addRow(index, cartElement);
             items.put(item, 1);

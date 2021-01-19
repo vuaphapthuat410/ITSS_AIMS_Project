@@ -146,8 +146,7 @@ public class AdminProductPaneElementController implements Initializable {
             file_name = "Album";
         
         if(file_name != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/dashboard/products/"+file_name+".fxml"));
-            Add_Update_Picker.setMode(0); // exclude from 1 because 1 mean edit
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/products/"+file_name+"_detail.fxml"));
             Add_Update_Picker.setItem(item);
             Parent node = loader.load();
             Stage stage = new Stage();

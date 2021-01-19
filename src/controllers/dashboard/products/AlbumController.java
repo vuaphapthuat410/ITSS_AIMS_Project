@@ -113,9 +113,6 @@ public class AlbumController implements Initializable {
         cbGenre.getItems().add("R&B");
         cbGenre.getItems().add("Rap");
         
-        if(Add_Update_Picker.getMode() == 0)
-            seeDetail((Album) Add_Update_Picker.getItem());
-        
         if(UserInfo.isAdmin()) {
             if(Add_Update_Picker.getMode() == 1) {
                 windowTitle.setText("Edit Album");

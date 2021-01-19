@@ -85,9 +85,6 @@ public class DVDController implements Initializable {
         cbGenre.getItems().add("Detective");
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
-        
-        if(Add_Update_Picker.getMode() == 0)
-            seeDetail((DVD) Add_Update_Picker.getItem());
             
         if(UserInfo.isAdmin()) {
             if(Add_Update_Picker.getMode() == 1) {

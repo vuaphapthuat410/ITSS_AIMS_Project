@@ -68,7 +68,7 @@ public class ProductPaneElementController implements Initializable {
     
     public void setItem(Item anItem) {
         item = anItem;
-        imageView.setImage(new Image("data/not-bug-feature.jpg"));
+        imageView.setImage(new Image("data/images/"+Integer.toString(item.getId())+".jpg", 200, 200, false, false));
         lbName.setText(item.getTitle());
         lbPrice.setText(Integer.toString(item.getPrice()));
         lbDiscount.setVisible(false);
@@ -89,9 +89,9 @@ public class ProductPaneElementController implements Initializable {
     @FXML
     private void addToCart(ActionEvent event) {
         if(discountInfo != null)
-            cartController.addCartElement(item, discountInfo.getRate());
+            cartController.addCartElement(item, discountInfo);
         else
-            cartController.addCartElement(item, 0);
+            cartController.addCartElement(item, null);
     }
 
     @FXML
@@ -114,8 +114,7 @@ public class ProductPaneElementController implements Initializable {
             file_name = "Album";
         
         if(file_name != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/dashboard/products/"+file_name+".fxml"));
-            Add_Update_Picker.setMode(0); // exclude from 1 because 1 mean edit
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/products/"+file_name+"_detail.fxml"));
             Add_Update_Picker.setItem(item);
             Parent node = loader.load();
             Stage stage = new Stage();

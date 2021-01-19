@@ -115,9 +115,7 @@ public class LPController implements Initializable {
         cbGenre.getItems().add("Detective");
         
         stock.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9999, 1, 1));
-        
-        if(Add_Update_Picker.getMode() == 0)
-            seeDetail((LP) Add_Update_Picker.getItem());
+
         if(UserInfo.isAdmin()) {
             if(Add_Update_Picker.getMode() == 1) {
                 windowTitle.setText("Edit LP");
