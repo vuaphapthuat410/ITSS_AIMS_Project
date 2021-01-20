@@ -6,6 +6,7 @@
 package models;
 
 import connectors.*;
+import controllers.order.CreditCardAPI;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +18,10 @@ import java.util.List;
  */
 public class test {
     public static void doTest() throws SQLException, ClassNotFoundException {
+        CreditCardAPI creditcard = new CreditCardAPI();
+        System.out.print("Charge test 100$: " + creditcard.charge("123456abc", "123456", 500) + "\n");
+        creditcard.refund(10000);
+        System.out.print("Amount after refund: " + creditcard.getAmount() + "\n");
 //        ArrayList<Promo> promoList = PromoDbUtil.getAllPromo();
 //        System.out.print("First promo name: " + promoList.get(0).getName() + "\n");
 //        ArrayList<PromoItem> promoItemList = PromoDbUtil.getAllPromoItemById(1);
