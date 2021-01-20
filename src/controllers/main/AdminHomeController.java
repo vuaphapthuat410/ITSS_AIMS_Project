@@ -79,8 +79,11 @@ public class AdminHomeController implements Initializable {
         
     private ScrollPane productPane = null;
     private AdminProductsManageController productController;
+    
     private ScrollPane accsManagePane = null;
+    
     private ScrollPane promosManagePane = null;
+    private AdminPromoManageController promoController;
     
     
     /**
@@ -103,7 +106,7 @@ public class AdminHomeController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        productController.getMixed();
+        //productController.getMixed();
     }    
     
     @FXML
@@ -174,12 +177,7 @@ public class AdminHomeController implements Initializable {
 
     @FXML
     private void toProductsManage(MouseEvent event) throws IOException {
-        if(productPane != null)
             productPane.toFront();
-        else {
-            productPane = FXMLLoader.load(getClass().getClassLoader().getResource("views/dashboard/adminProductsManage.fxml"));
-            mainview.getChildren().add(productPane);
-        }
     }
 
     @FXML
@@ -197,7 +195,17 @@ public class AdminHomeController implements Initializable {
         if(promosManagePane != null)
             promosManagePane.toFront();
         else {
-            promosManagePane = FXMLLoader.load(getClass().getClassLoader().getResource("views/dashboard/promosManage.fxml"));
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/adminPromoManage.fxml"));
+                promosManagePane = loader.load();
+                promoController = loader.getController();
+                mainview.getChildren().add(productPane);
+
+                ControllerUtils.setControllers(productController); //save for convenient
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            
             mainview.getChildren().add(promosManagePane);
         }
     }

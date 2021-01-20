@@ -34,6 +34,7 @@ import models.Ebook;
 import models.Item;
 import models.LP;
 import models.Movie;
+import models.PromoItem;
 import utils.Add_Update_Picker;
 
 /**
@@ -53,8 +54,13 @@ public class AdminProductPaneElementController implements Initializable {
     private Button btRemove;
     @FXML
     private Label lbPrice;
+    @FXML
+    private Label lbDiscountTag;
+    @FXML
+    private Label lbDiscount;
     
     private Item item;
+    private PromoItem discountInfo;
     
     /**
      * Initializes the controller class.
@@ -122,10 +128,20 @@ public class AdminProductPaneElementController implements Initializable {
     
     public void setItem(Item anItem) {
         item = anItem;
-        imageView.setImage(new Image("data/not-bug-feature.jpg"));
+        imageView.setImage(new Image("data/images/"+Integer.toString(item.getId())+".jpg", 200, 200, false, false));
         lbName.setText(item.getTitle());
+        lbPrice.setText(Integer.toString(item.getPrice()));
+        lbDiscount.setVisible(false);
+        lbDiscountTag.setVisible(false);
     }
-
+    
+    public void setPromo(PromoItem promoItem) {
+        discountInfo = promoItem;
+        lbDiscount.setText(Integer.toString(discountInfo.getRate()) + "%");
+        lbDiscount.setVisible(true);
+        lbDiscountTag.setVisible(true);
+    }
+    
     @FXML
     private void toDetail(MouseEvent event) throws IOException {
         String file_name = null;

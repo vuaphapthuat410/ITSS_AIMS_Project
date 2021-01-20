@@ -12,6 +12,7 @@ import connectors.DVDDbUtil;
 import connectors.EbookDbUtil;
 import connectors.LPDbUtil;
 import connectors.MovieDbUtil;
+import connectors.PromoDbUtil;
 import controllers.cart.CartController;
 import controllers.dashboard.products.ProductController;
 import controllers.main.ProductPaneElementController;
@@ -22,6 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -47,6 +49,7 @@ import models.Ebook;
 import models.Item;
 import models.LP;
 import models.Movie;
+import models.PromoItem;
 
 /**
  * FXML Controller class
@@ -71,6 +74,7 @@ public class AdminProductsManageController implements Initializable {
     Integer page = 0;
     ArrayList<? extends Item> itemsList; //this for viewing as page
     ArrayList<? extends Item> savedItems; // this for searching and many things else
+    HashMap<Integer, PromoItem> promoItems = new HashMap<>();
     
     /**
      * Initializes the controller class.
@@ -128,11 +132,16 @@ public class AdminProductsManageController implements Initializable {
                     anItem = loader.load();
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    
                     continue;
                 }
                 AdminProductPaneElementController itemControl = loader.getController();
                 itemControl.setItem(items.get(j));
+                if(!promoItems.isEmpty()) { //if there are any promo
+                    if(promoItems.containsKey(items.get(j).getId())) {
+                        itemControl.setPromo(promoItems.get(items.get(j).getId())); // we use id of item as key for promo item value
+                    }
+                }
+                
                 products.add(anItem);
             }
         } 
@@ -181,6 +190,17 @@ public class AdminProductsManageController implements Initializable {
         }
         items.removeAll(removedList);   // remove all element have null title
         Collections.sort(items);    // sort by title
+        
+        // get all promo items
+        try {
+            ArrayList<PromoItem> promoItemList = PromoDbUtil.getAllPromoItem();
+            
+            for(PromoItem item : promoItemList) {
+                promoItems.put(item.getItem_id(), item); // use item id as key for item value
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
         page = 0;
         itemsList = items; //for viewing

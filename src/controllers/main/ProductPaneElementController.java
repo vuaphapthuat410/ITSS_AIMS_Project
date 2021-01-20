@@ -51,12 +51,13 @@ public class ProductPaneElementController implements Initializable {
     private Label lbPrice;
     @FXML
     private Label lbDiscount;
+    @FXML
+    private Label lbDiscountTag;
     
     private Item item;
     private CartController cartController;
     private PromoItem discountInfo;
-    @FXML
-    private Label lbDiscountTag;
+    
     
     /**
      * Initializes the controller class.
