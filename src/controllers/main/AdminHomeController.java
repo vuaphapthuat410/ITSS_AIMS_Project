@@ -5,6 +5,7 @@
  */
 package controllers.main;
 
+import controllers.dashboard.promos.AdminPromoManageController;
 import data.ControllerUtils;
 import data.UserInfo;
 import java.io.IOException;
@@ -196,17 +197,13 @@ public class AdminHomeController implements Initializable {
             promosManagePane.toFront();
         else {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/mainview/adminPromoManage.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/dashboard/promos/adminPromoManage.fxml"));
                 promosManagePane = loader.load();
                 promoController = loader.getController();
-                mainview.getChildren().add(productPane);
-
-                ControllerUtils.setControllers(productController); //save for convenient
+                mainview.getChildren().add(promosManagePane);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            
-            mainview.getChildren().add(promosManagePane);
         }
     }
 

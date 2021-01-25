@@ -50,6 +50,7 @@ import models.Item;
 import models.LP;
 import models.Movie;
 import models.PromoItem;
+import utils.AdminUtils;
 
 /**
  * FXML Controller class
@@ -205,6 +206,8 @@ public class AdminProductsManageController implements Initializable {
         page = 0;
         itemsList = items; //for viewing
         savedItems = items; // for searching and many thing, only refresh if getMixed()
+        AdminUtils.setItems(items); // for promo, trick
+        
         reloadProducts(items, 0);
     }
     

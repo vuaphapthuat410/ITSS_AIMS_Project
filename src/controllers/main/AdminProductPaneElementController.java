@@ -5,11 +5,13 @@
  */
 package controllers.main;
 
+import connectors.LogDbUtil;
 import connectors.helper.DeleteItemHelper;
 import data.ControllerUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -33,6 +35,7 @@ import models.DVD;
 import models.Ebook;
 import models.Item;
 import models.LP;
+import models.Log;
 import models.Movie;
 import models.PromoItem;
 import utils.Add_Update_Picker;
@@ -75,6 +78,11 @@ public class AdminProductPaneElementController implements Initializable {
         // TO DO: 
         String file_name = null;
         
+        ArrayList<Log> logs = LogDbUtil.getAllLogByItemId(item.getId());
+        for(Log log : logs) {
+            // Vinh cause error in logs because he didn't generate all "add" log for all items
+        }
+            
         if(item instanceof Book) 
             file_name = "Book";
         else if(item instanceof CD)

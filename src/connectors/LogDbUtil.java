@@ -8,6 +8,7 @@ import models.Log;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import models.Item;
 
 public class LogDbUtil {
     public static List<Log> getAllLog() throws ClassNotFoundException, SQLException {
@@ -70,5 +71,72 @@ public class LogDbUtil {
         }
 
         return false;
+    }
+    
+    public static ArrayList<Log> getAllLogByItemId(Integer Id) {
+
+        String query = "SELECT `id`, `operation`, `time` FROM `log` WHERE `log`.`item_id` = ?";
+        ArrayList<Log> log = new ArrayList<>();
+
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            statement.setInt(1, Id);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                int id = rs.getInt(1);
+                int item_id = Id;
+                String operation = rs.getString(2);
+                String time = rs.getString(3);
+
+                Log b = new Log(
+                        id,
+                        item_id,
+                        operation,
+                        time
+                );
+
+                log.add(b);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
+
+        return log;
+    }
+    
+    public static Log getLogInitItemByItemId(Integer Id) {
+
+        String query = "SELECT `id`, `operation`, `time` FROM `log` WHERE `log`.`item_id` = ? AND `operation` = 'add'";
+        Log newLog = null;
+        try{
+            Connection connection = ConnDB.getMySQLConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            statement.setInt(1, Id);
+            ResultSet rs = statement.executeQuery();
+
+            while(rs.next()){
+                int id = rs.getInt(1);
+                int item_id = Id;
+                String operation = rs.getString(2);
+                String time = rs.getString(3);
+
+                newLog = new Log(
+                        id,
+                        item_id,
+                        operation,
+                        time
+                );
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.print("Cant connect");
+            e.printStackTrace();
+        }
+
+        return newLog;
     }
 }

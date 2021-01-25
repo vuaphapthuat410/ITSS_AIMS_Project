@@ -65,7 +65,7 @@ public class ProductInCartController implements Initializable {
     }    
     
     public void setItem(Item anItem, PromoItem promoItem) {
-        imageView.setImage(new Image("data/images/"+Integer.toString(item.getId())+".jpg", 200, 200, false, false));
+        imageView.setImage(new Image("data/images/"+Integer.toString(anItem.getId())+".jpg", 200, 200, false, false));
         name.setText(anItem.getTitle());
         category.setText(anItem.getCategory());
         price.setText(String.valueOf(anItem.getPrice()));
@@ -78,9 +78,11 @@ public class ProductInCartController implements Initializable {
             if(oldValue != newValue) {
                 parentController.updateItemQuantity(anItem, Integer.parseInt(newValue));
                 totalPrice.setText(calTotal(anItem.getPrice(), quantity.getValue(), promoItem));
+                parentController.addTotalPrice(anItem, Float.parseFloat(totalPrice.getText()));
             }
         });
         totalPrice.setText(calTotal(anItem.getPrice(), quantity.getValue(), promoItem));
+        parentController.addTotalPrice(anItem, Float.parseFloat(totalPrice.getText()));
         
         if(anItem instanceof Ebook || anItem instanceof Movie || anItem instanceof Album) {
             lbQuantity.setVisible(false);

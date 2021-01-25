@@ -6,6 +6,7 @@
 package controllers.checkout;
 
 import connectors.OrderDB;
+import controllers.order.CreditCardAPI;
 import data.ControllerUtils;
 import java.net.URL;
 import java.sql.SQLException;
@@ -23,8 +24,11 @@ import models.Order;
 import data.UserInfo;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import utils.checkOutUtils;
 
 /**
  * FXML Controller class
@@ -52,7 +56,14 @@ public class ConfirmOrderController implements Initializable {
     private String name;
     private String phone;
     private String address;
-    private Integer total = 0;
+    private String city;
+    private Float total = 0f;
+    @FXML
+    private TextField tfCardID;
+    @FXML
+    private TextField tfPass;
+    @FXML
+    private Label lbtotalCost;
     
     /**
      * Initializes the controller class.
@@ -60,7 +71,6 @@ public class ConfirmOrderController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
     }    
 
     @FXML
@@ -71,10 +81,24 @@ public class ConfirmOrderController implements Initializable {
 
     @FXML
     private void submit(ActionEvent event) throws ClassNotFoundException, SQLException {
-        Order order = new Order(0, UserInfo.getId(), name, address, phone, total.floatValue(), generateUUID(total), 1, getDate());
+        if(tfCardID.getText().isEmpty() || !tfCardID.getText().equals("123456abc") || tfPass.getText().isEmpty() || !tfPass.getText().equals("123456")) {
+            Alert statusAlert = new Alert(Alert.AlertType.ERROR);
+            statusAlert.setTitle("Error");
+
+            statusAlert.setHeaderText("Checkout status");
+            statusAlert.setContentText("Invalid card id/pass.");
+
+            statusAlert.showAndWait();
+            
+            return;
+        }
+        
+        Order order = new Order(0, UserInfo.getId(), name, address, phone, total, generateUUID(total.intValue()), 1, getDate());
         boolean status = OrderDB.createOrder(order, items);
         if(status == true) {
             System.out.println("Create order sucessfully");
+            CreditCardAPI card = new CreditCardAPI();
+            card.charge("123456abc", "123456", total.intValue());
         }
         else 
             System.out.println("Can't create order.");
@@ -88,10 +112,12 @@ public class ConfirmOrderController implements Initializable {
         items = itemList;
     }
     
-    public void setInfo(String aName, String aPhoneNum, String anAdress) {
+    public void setInfo(String aName, String aPhoneNum, String anAdress, String aCity) {
         name = aName;
         phone = aPhoneNum;
         address = anAdress;
+        city = aCity;
+        
     }
     
     public Integer generateUUID(Integer key) {
@@ -105,13 +131,35 @@ public class ConfirmOrderController implements Initializable {
     }
     
     public void refresh() {
-        for(Map.Entry<Item,Integer> item : items.entrySet()) {
-            total = total + (item.getKey().getPrice())*(item.getValue());
+        HashMap<Item,Float> totalPrice = checkOutUtils.getTotalPrice();
+        if(totalPrice.isEmpty())
+            System.out.println("No total price");
+        
+        for(Map.Entry<Item, Float> item : totalPrice.entrySet()) {
+            total = total + item.getValue();
         }
+        
+        total = total + calShipFee();
+        
         lbName.setText(name);
         lbPhone.setText(phone);
         lbAddress.setText(address);
         lbTotal.setText(total.toString());
+        lbShipFee.setText(String.valueOf(calShipFee()));
     }
+    
+    public Integer calShipFee() {
+        if(city.equals("HaNoi"))
+            return 10;
+        else if(city.equals("TPHCM"))
+            return 20;
+        else if(city.equals("ThaiBinh"))
+            return 15;
+        else if(city.equals("HaiPhong"))
+            return 12;
+        
+        return 30;
+    }
+        
     
 }

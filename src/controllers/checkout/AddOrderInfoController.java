@@ -20,12 +20,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Item;
 import utils.CheckValidFieldUtils;
+import utils.checkOutUtils;
 
 /**
  * FXML Controller class
@@ -48,14 +50,19 @@ public class AddOrderInfoController implements Initializable {
     private CheckBox ckbDefault;
     @FXML
     private AnchorPane orderInfo;
+    @FXML
+    private ComboBox<String> cbCity;
     
     private HashMap<Item,Integer> items;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        checkOutUtils.generateCity();
+        cbCity.getItems().addAll(checkOutUtils.getCities()); //get all city
     }    
 
     @FXML
@@ -95,6 +102,15 @@ public class AddOrderInfoController implements Initializable {
 
             statusAlert.showAndWait();
         }
+        else if(cbCity.getValue() == null) {
+            Alert statusAlert = new Alert(Alert.AlertType.ERROR);
+            statusAlert.setTitle("Error");
+
+            statusAlert.setHeaderText("Checkout status");
+            statusAlert.setContentText("Invalid city.");
+
+            statusAlert.showAndWait();
+        }
         
         else {
             // create invoice here then forward to confirmOrder
@@ -103,7 +119,7 @@ public class AddOrderInfoController implements Initializable {
             ConfirmOrderController orderController = loader.getController();
             // call setter for passing argument
             orderController.setItems(items);
-            orderController.setInfo(tfName.getText(), tfPhone.getText(), tfAddress.getText());
+            orderController.setInfo(tfName.getText(), tfPhone.getText(), tfAddress.getText(), cbCity.getValue());
             orderController.refresh();
             Stage orderStage = new Stage();
             orderStage.setTitle("Confirm order");

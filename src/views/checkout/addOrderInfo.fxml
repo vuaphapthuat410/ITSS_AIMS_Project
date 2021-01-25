@@ -2,12 +2,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-
 
 <StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.checkout.AddOrderInfoController">
    <children>
@@ -23,7 +23,7 @@
                   <Font size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="87.0" layoutY="102.0" text="name" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="100.0">
+            <Label layoutX="87.0" layoutY="102.0" text="Name:" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="100.0">
                <font>
                   <Font size="18.0" />
                </font>
@@ -38,31 +38,37 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="tfPhone" layoutX="190.0" layoutY="177.0" prefHeight="31.0" prefWidth="360.0" promptText="phone" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="180.0">
+            <TextField fx:id="tfPhone" layoutX="190.0" layoutY="155.0" prefHeight="31.0" prefWidth="360.0" promptText="phone" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="155.0">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="83.0" layoutY="179.0" text="phone" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="180.0">
+            <Label layoutX="90.0" layoutY="155.0" text="Phone:" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="155.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="tfAddress" layoutX="190.0" layoutY="258.0" prefHeight="31.0" prefWidth="360.0" promptText="address" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="260.0">
+            <TextField fx:id="tfAddress" layoutX="191.0" layoutY="206.0" prefHeight="31.0" prefWidth="360.0" promptText="address" AnchorPane.leftAnchor="191.0" AnchorPane.topAnchor="206.0">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <Label layoutX="78.0" layoutY="260.0" text="address" AnchorPane.leftAnchor="80.0">
+            <Label layoutX="81.0" layoutY="206.0" text="Address:" AnchorPane.leftAnchor="81.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <CheckBox fx:id="ckbDefault" layoutX="190.0" layoutY="299.0" mnemonicParsing="false" text="use default address">
+            <CheckBox fx:id="ckbDefault" layoutX="190.0" layoutY="308.0" mnemonicParsing="false" text="use default address">
                <font>
                   <Font size="15.0" />
                </font>
             </CheckBox>
+            <Label layoutX="84.0" layoutY="254.0" text="City:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbCity" layoutX="190.0" layoutY="252.0" prefWidth="150.0" />
          </children>
       </AnchorPane>
    </children>

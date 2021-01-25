@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="100.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashboard.promos.PromoPaneElementController">
+   <children>
+      <Label fx:id="price" layoutX="402.0" layoutY="22.0" prefHeight="19.0" prefWidth="75.0" AnchorPane.topAnchor="22.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="btRemove" layoutX="910.0" layoutY="13.0" mnemonicParsing="false" onAction="#remove" text="Remove">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="lbRate" layoutX="402.0" layoutY="53.0" prefHeight="26.0" prefWidth="45.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btEdit" layoutX="774.0" layoutY="14.0" mnemonicParsing="false" onAction="#edit" text="Edit promo" />
+      <Label layoutX="24.0" layoutY="17.0" text="Promo:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="327.0" layoutY="17.0" text="Start:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="550.0" layoutY="17.0" text="End:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbStart" layoutX="374.0" layoutY="17.0" prefHeight="20.0" prefWidth="167.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbEnd" layoutX="596.0" layoutY="17.0" prefHeight="20.0" prefWidth="167.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbName" layoutX="82.0" layoutY="17.0" prefHeight="20.0" prefWidth="214.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="56.0" prefHeight="20.0" prefWidth="94.0" text="Description:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbDescription" layoutX="125.0" layoutY="56.0" prefHeight="20.0" prefWidth="639.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
